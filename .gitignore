@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,android,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,android,react
 
+## More ##
+pgdata
+
 ### Android ###
 # Built application files
 *.apk
