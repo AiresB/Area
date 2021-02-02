@@ -1,0 +1,6 @@
+Tests Policy:
+
+API: Postman
+tiers API: Postman
+mobile_client: tests manuels (sur émulateur)
+web_client: tests manuels + ...
