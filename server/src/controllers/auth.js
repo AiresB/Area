@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const User = require("../models/user");
+const {userRegister} = require("../models/user");
 
 exports.login = async (req, res) => {
     User.find({ email: req.body.email })
@@ -24,19 +24,22 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-    delete req.body._id;
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            const newUser = new User({
-                username: req.body.username,
-                password: hash,
-                email: req.body.email
-            });
-            newUser.register()
-                .then(() => res.status(201).json({ message: 'User registered !'}))
-                .catch(error => res.status(400).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
+    const { username, password, email } = req.body;
+
+    if (!username || !password || !email) {
+        res.status(300).json({ error: "arguments missing" });
+        return;
+    }
+
+    hash = await bcrypt.hash(req.body.password, 10)
+    let newUser = {id:-1,
+                    username: username,
+                    password: hash,
+                    email: email,
+                    google: null};
+    await userRegister(newUser)
+        .then(() => res.status(201).json({ message: 'User registered !'}))
+        .catch(error => res.status(400).json({ error }));
 };
 
 exports.update = async (req, res) => {
@@ -55,5 +58,5 @@ exports.update = async (req, res) => {
 
 exports.logout = (req, res) => {
     if (req.session) req.session = null;
-    res.redirect("/");
+    res.status(200).redirect("/");
 }

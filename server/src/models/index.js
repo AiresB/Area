@@ -5,6 +5,7 @@ const { Client } = require('pg');
 /*  Modules Import  */
 const config = require("../config");
 
+
 /*  Init    */
 
 const client = new Client({
@@ -16,12 +17,15 @@ const client = new Client({
 });
 
 const initDb = async () => {
-    console.log("aya")
-    try {
-        await client.connect();
-    } catch (e) {
-        console.error(e);
-    }
+    console.log("db init")
+    console.log(config.database.databaseUser)
+    client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          console.log('connected')
+        }
+      })
 };
 
 /* Code */
