@@ -1,16 +1,29 @@
-# area
+# area part mobile
 
-A new Flutter project.
+## Computer language used
 
-## Getting Started
+Dart (Flutter)
 
-This project is a starting point for a Flutter application.
+## How I programmed
 
-A few resources to get you started if this is your first Flutter project:
+I developed with visual studio code using my phone to test the code.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## How can you run it ?
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* You need to install the SDK android (I give you the link, I'm gentle : https://developer.android.com/studio)
+
+* You have to create a phone simulator on your computer (I'll give you another link back, look how nice I am : https://developer.android.com/studio/run/managing-avds)
+
+* If you prefer to launch it on your phone, you must activate the developer mode of your device. 
+
+* You must install Flutter to be able to launch the application (Oh look, another link, I'm definitely too nice : https://flutter.dev/docs/get-started/install)
+
+* Launch your simulator (or plug in your mobile device with PTP protocol)
+
+* Go to your favorite terminal, and do the following command : *flutter doctor*
+
+* If you see that something is wrong (device not recognized, SDK not found, or other), I'll let you look on the internet (sorry I can't send you another link ...)
+
+* After all that, you can go to the root of the folder, and type the following command to launch the application : *flutter run*
+
+* And enjoy !
