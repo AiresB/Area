@@ -1,9 +1,11 @@
 const bcrypt = require('bcrypt');
+const { stringify } = require('uuid');
 
-const {userRegister} = require("../models/user");
+const { userCreate, userFind } = require("../models/user");
 
 exports.login = async (req, res) => {
-    User.find({ email: req.body.email })
+    const body = JSON.stringify(user)
+    userFind({ email: JSON.stringify(req.body.email) })
         .then(user => {
             if (!user) {
                 return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -27,19 +29,14 @@ exports.register = async (req, res) => {
     const { username, password, email } = req.body;
 
     if (!username || !password || !email) {
-        res.status(300).json({ error: "arguments missing" });
+        res.json({});
         return;
     }
-
-    hash = await bcrypt.hash(req.body.password, 10)
-    let newUser = {id:-1,
-                    username: username,
-                    password: hash,
-                    email: email,
-                    google: null};
-    await userRegister(newUser)
-        .then(() => res.status(201).json({ message: 'User registered !'}))
-        .catch(error => res.status(400).json({ error }));
+    const userData = await userCreate({ username, password, email});
+    res.json({
+        error: false,
+        data: userData
+    });
 };
 
 exports.update = async (req, res) => {

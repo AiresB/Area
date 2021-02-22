@@ -1,1 +1,1 @@
-docker-compose up db adminer serveur
+docker-compose up

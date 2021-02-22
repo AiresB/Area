@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 
 /*  Modules Import  */
 const routes = require("./routes/index");
-const { port } = require('./config');
 const { initDb } = require("./models/index");
 
 /*  Code    */
@@ -16,4 +15,4 @@ app.use("/", routes);
 
 initDb().then();
 
-app.listen(port, () => console.log(`server start http://localhost:${port}`));
+app.listen(process.env.PORT, () => console.log(`server start http://localhost:${process.env.PORT}`));
