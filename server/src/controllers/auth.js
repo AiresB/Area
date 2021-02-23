@@ -8,22 +8,23 @@ exports.login = async (req, res) => {
     user = await userFind( email )
     if (!user) {
         console.log("in error")
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+        return res.status(401).json({ error: true, message: 'User not find' });
     }
     bcrypt.compare(password, user.password, function(err, match) {
         if (err) {
             return res.status(500).json({
-                success: false,
+                error: true,
                 message: 'Serveur Error'
             })
         } else
         if (match == false) {
             return res.status(401).json({
-                success: false,
+                error: true,
                 message: 'Wrong Password'
             })
         } else {
             res.status(200).json({
+                error: false,
                 user: user
             });
             return
@@ -38,15 +39,23 @@ exports.register = async (req, res) => {
         res.json({});
         return;
     }
+
+    user = await userFind( email )
+    if (user) {
+        res.status(401).json({
+            error: true,
+            message: "Email already used"
+        });
+        return
+    }
     const userData = await userCreate({ username, password, email});
-    res.json({
+    res.status(201).json({
         error: false,
         data: userData
     });
 };
 
 exports.update = async (req, res) => {
-    delete req.body._id;
     const newUser = new User({
         id:req.body.id,
         username:req.body.username,
