@@ -33,18 +33,15 @@ const userUpdate = async function(user) {
 
 const userFind = async function(email) {
     try {
-        p = `SELECT * FROM "users" WHERE "email" = '${email}'`
-        console.log(p)
         res = await client.query(`SELECT * FROM "users" WHERE "email" = '${email}'`);
-        console.log(res)
         if (res.rowCount != 1) {
             throw 'Email invalid';
         }
         user = res.rows.filter(user => {return user});
-        return user;
+        return user[0];
     } catch (e) {
         console.error(e);
-        return e;
+        return ;
     }
 }
 

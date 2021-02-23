@@ -4,26 +4,32 @@ const { stringify } = require('uuid');
 const { userCreate, userFind } = require("../models/user");
 
 exports.login = async (req, res) => {
-    const body = JSON.stringify(user)
-    userFind({ email: JSON.stringify(req.body.email) })
-        .then(user => {
-            if (!user) {
-                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-            }
-            bcrypt.compare(req.body.password, user.password)
-                .then(valid => {
-            if (!valid) {
-                return res.status(401).json({ error: 'Mot de passe incorrect !' });
-            }
-            res.status(200).json({
-                userId: user._id,
-                token: 'TOKEN'
-              });
+    const { email, password } = req.body;
+    user = await userFind( email )
+    if (!user) {
+        console.log("in error")
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+    }
+    bcrypt.compare(password, user.password, function(err, match) {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: 'Serveur Error'
             })
-        .catch(error => res.status(500).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
-};
+        } else
+        if (match == false) {
+            return res.status(401).json({
+                success: false,
+                message: 'Wrong Password'
+            })
+        } else {
+            res.status(200).json({
+                user: user
+            });
+            return
+        }
+    });
+}
 
 exports.register = async (req, res) => {
     const { username, password, email } = req.body;
