@@ -5,10 +5,16 @@ const { userRegister, userFind, userUpdate } = require("../models/user");
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
+
+    if (!password || !email) {
+        res.status(400).json({error: true, message: "arguments missing"});
+        return;
+    }
+
     user = await userFind( email )
     if (!user) {
         console.log("in error")
-        return res.status(401).json({ error: true, message: 'User not find' });
+        return res.status(404).json({ error: true, message: 'User not find' });
     }
     bcrypt.compare(password, user.password, function(err, match) {
         if (err) {
@@ -18,7 +24,7 @@ exports.login = async (req, res) => {
             })
         } else
         if (match == false) {
-            return res.status(401).json({
+            return res.status(403).json({
                 error: true,
                 message: 'Wrong Password'
             })
@@ -36,11 +42,12 @@ exports.register = async (req, res) => {
     const { username, password, email } = req.body;
 
     if (!username || !password || !email) {
-        res.json({});
+        res.status(400).json({error: true, message: "arguments missing"});
         return;
     }
+
     const hash = await bcrypt.hash(password, 10)
-    const google = ""
+    const google = "0"
     user = await userFind( email )
     if (user) {
         res.status(401).json({
@@ -52,16 +59,32 @@ exports.register = async (req, res) => {
     const userData = await userRegister({ username, hash, email, google});
     res.status(201).json({
         error: false,
-        data: userData
+        user: userData
     });
 };
 
 exports.update = async (req, res) => {
-    const { id, username, password, email, google } = req.body;
+    const { id, username, email, google } = req.body;
 
-    usersUpdate()
-      .then(() => res.status(201).json({ message: 'User updated !'}))
-      .catch(error => res.status(400).json({ error }));
+    console.log(id, username, email, google)
+    if (!id || !username || !email || !google) {
+        res.status(400).json({error: true, message: "arguments missing"});
+        return;
+    }
+
+    user = await userUpdate({id, username, email, google})
+    if (!user) {
+        res.status(500).json({
+            error: true,
+            message: "Error during update"
+        });
+        return
+    } else {
+        res.status(200).json({
+            error: false,
+            user: user
+        });
+    }
 }
 
 exports.logout = (req, res) => {
