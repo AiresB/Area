@@ -1,0 +1,673 @@
+{
+	"info": {
+		"_postman_id": "4e4c8c03-bdcd-445e-9ce8-906a37494dd4",
+		"name": "Area",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Home",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"    pm.response.to.not.be.error;",
+									"    pm.response.to.have.body(\"Hello world!\");",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080"
+						},
+						"description": "Tests Home routes"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"error false\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"response should send user\", function () {",
+									"    pm.response.to.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check user\", function () {",
+									"   var jsonData = pm.response.json();",
+									"   pm.expect(jsonData.user).have.property('username', 'usertest');",
+									"   pm.expect(jsonData.user).have.property('email', 'user@gmail.fr');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"test\",\n    \"username\": \"usertest\",\n    \"email\": \"user@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"register"
+							]
+						},
+						"description": "Register route"
+					},
+					"response": []
+				},
+				{
+					"name": "Register already register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"error true\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"response should not send user\", function () {",
+									"    pm.response.to.not.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check message\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.message).to.eql(\"Email already used\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"test\",\n    \"username\": \"usertest\",\n    \"email\": \"user@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"register"
+							]
+						},
+						"description": "Register route"
+					},
+					"response": []
+				},
+				{
+					"name": "Register argument missing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"error true\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"response should not send user\", function () {",
+									"    pm.response.to.not.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check message\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.message).to.eql(\"arguments missing\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"test\",\n    \"username\": \"usertest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"register"
+							]
+						},
+						"description": "Register route"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"error false\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"response should send user\", function () {",
+									"    pm.response.to.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check user\", function () {",
+									"   var jsonData = pm.response.json();",
+									"   pm.expect(jsonData.user).have.property('username', 'usertest');",
+									"   pm.expect(jsonData.user).have.property('email', 'user@gmail.fr');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"test\",\n    \"email\": \"user@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "login route"
+					},
+					"response": []
+				},
+				{
+					"name": "login wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"error true\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"response should send data\", function () {",
+									"    pm.response.to.not.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check message\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.message).to.eql(\"Wrong Password\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"wrong\",\n    \"email\": \"user@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "login route"
+					},
+					"response": []
+				},
+				{
+					"name": "login wrong mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"error true\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"response should send data\", function () {",
+									"    pm.response.to.not.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check message\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.message).to.eql(\"User not find\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"test\",\n    \"email\": \"wrong@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "login route"
+					},
+					"response": []
+				},
+				{
+					"name": "login argument missing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"error true\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"response should send data\", function () {",
+									"    pm.response.to.not.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check message\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.message).to.eql(\"arguments missing\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"wrong@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "login route"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"error false\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"response should send user\", function () {",
+									"    pm.response.to.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check user\", function () {",
+									"   var jsonData = pm.response.json();",
+									"   pm.expect(jsonData.user).have.property('username', 'userupdate');",
+									"   pm.expect(jsonData.user).have.property('email', 'user@gmail.fr');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"8d22f91b-7557-4ce5-9281-2149346807bc\",\n    \"username\": \"userupdate\",\n    \"email\": \"user@gmail.fr\",\n    \"google\": \"0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/update",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"update"
+							]
+						},
+						"description": "update route"
+					},
+					"response": []
+				},
+				{
+					"name": "update argument missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"error true\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"response should send data\", function () {",
+									"    pm.response.to.not.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check message\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.message).to.eql(\"arguments missing\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"userupdate\",\n    \"email\": \"user@gmail.fr\",\n    \"google\": \"0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/update",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"update"
+							]
+						},
+						"description": "update route"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"    pm.response.to.not.be.error;",
+									"    pm.response.to.have.body(\"Hello world!\");",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/logout",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Logout route"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Others",
+			"item": [
+				{
+					"name": "Weather Paris",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=3ca7ac710975ca6f256d01eabc07f6b0",
+							"protocol": "https",
+							"host": [
+								"api",
+								"openweathermap",
+								"org"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Paris"
+								},
+								{
+									"key": "appid",
+									"value": "3ca7ac710975ca6f256d01eabc07f6b0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

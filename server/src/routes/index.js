@@ -14,11 +14,6 @@ router.get("/about.json", async (req, res) => {
     res.send("Coming soon")
 });
 
-router.post("/about.json", async (req, res) => {
-    //ToDo
-    res.send("Coming soon")
-});
-
 router.use("/", auth);
 
 module.exports = router;
