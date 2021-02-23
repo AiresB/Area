@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { stringify } = require('uuid');
 
-const { userCreate, userFind } = require("../models/user");
+const { userRegister, userFind, userUpdate } = require("../models/user");
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
@@ -39,7 +39,8 @@ exports.register = async (req, res) => {
         res.json({});
         return;
     }
-
+    const hash = await bcrypt.hash(password, 10)
+    const google = ""
     user = await userFind( email )
     if (user) {
         res.status(401).json({
@@ -48,7 +49,7 @@ exports.register = async (req, res) => {
         });
         return
     }
-    const userData = await userCreate({ username, password, email});
+    const userData = await userRegister({ username, hash, email, google});
     res.status(201).json({
         error: false,
         data: userData
@@ -56,14 +57,9 @@ exports.register = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    const newUser = new User({
-        id:req.body.id,
-        username:req.body.username,
-        password:req.body.password,
-        email:req.body.email,
-        google:req.body.google
-    })
-    newUser.update()
+    const { id, username, password, email, google } = req.body;
+
+    usersUpdate()
       .then(() => res.status(201).json({ message: 'User updated !'}))
       .catch(error => res.status(400).json({ error }));
 }
