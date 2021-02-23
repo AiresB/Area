@@ -255,7 +255,7 @@ class _WidgetRaisedButton extends State<WidgetRaisedButton> {
   Widget build(BuildContext context) {
     return new Container(
       padding: const EdgeInsets.only(
-        top: 20.0,
+        top: 5.0,
       ),
       child: ButtonTheme(
         minWidth: minWidthButton,
@@ -319,7 +319,7 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
   Widget build(BuildContext context) {
     return new Container(
       padding: const EdgeInsets.only(
-        top: 15.0,
+        top: 5.0,
       ),
       width: 200,
       height: 40,
