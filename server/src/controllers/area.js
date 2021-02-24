@@ -3,7 +3,7 @@ const { stringify } = require('uuid');
 
 const { areaRegister, areaFind, areaUpdate, areaDelete } = require("../models/area");
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     const { userId, actionId, actionDesc, reactionId, reactionDesc} = req.body;
 
     if (!userId || !actionId || !actionDesc || !reactionId|| !reactionDesc) {
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
     }
 }
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
     const {id} = req.body;
 
     if (!id) {
@@ -46,7 +46,7 @@ exports.delete = (req, res) => {
     }
 }
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
     const { id, userId, actionId, actionDesc, reactionId, reactionDesc} = req.body;
 
     if (!id || !userId || !actionId || !actionDesc || !reactionId|| !reactionDesc) {
@@ -67,7 +67,7 @@ exports.update = (req, res) => {
     }
 }
 
-exports.getbyid = (req, res) => {
+exports.getbyid = async (req, res) => {
     const {userId} = req.body;
     if ( !userId ) {
         res.status(400).json({error: true, message: "arguments missing"});
