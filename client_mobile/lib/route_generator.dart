@@ -13,7 +13,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => LoginView()
         );
-      case '/create_account':
+      case '/register':
         return MaterialPageRoute(
           builder: (_) => RegistrationView()
         );

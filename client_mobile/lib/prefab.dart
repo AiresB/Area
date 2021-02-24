@@ -1,3 +1,4 @@
+import 'package:area/authService.dart';
 import 'package:flutter/material.dart';
 
 const background = const Color(0xFF34314C);
@@ -84,14 +85,16 @@ class _WidgetText extends State<WidgetText> {
 
 class WidgetTextField extends StatefulWidget {
   String sentence;
+  String buffer;
 
-  WidgetTextField(String _sentence) {
+  WidgetTextField(String _sentence, String _buffer) {
     this.sentence = _sentence;
+    this.buffer = _buffer;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return new _WidgetTextField(sentence);
+    return new _WidgetTextField(sentence, buffer);
   }
 }
 
@@ -99,9 +102,11 @@ class _WidgetTextField extends State<WidgetTextField> {
   TextEditingController _controller;
   FocusNode myFocusNode = new FocusNode();
   String sentence;
+  String buffer;
 
-  _WidgetTextField(String _sentence) {
+  _WidgetTextField(String _sentence, String _buffer) {
     this.sentence = _sentence;
+    this.buffer = _buffer;
   }
 
   void initState() {
@@ -141,7 +146,7 @@ class _WidgetTextField extends State<WidgetTextField> {
             ),
           ),
           onSubmitted: (value) async {
-              print("Submitted");
+              buffer = value;
           },
         ),
     );
@@ -150,14 +155,16 @@ class _WidgetTextField extends State<WidgetTextField> {
 
 class WidgetTextFieldPassword extends StatefulWidget {
   String sentence;
+  String buffer;
 
-  WidgetTextFieldPassword(String _sentence) {
+  WidgetTextFieldPassword(String _sentence, String _buffer) {
     this.sentence = _sentence;
+    this.buffer = _buffer;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return new _WidgetTextFieldPassword(sentence);
+    return new _WidgetTextFieldPassword(sentence, buffer);
   }
 }
 
@@ -165,9 +172,11 @@ class _WidgetTextFieldPassword extends State<WidgetTextFieldPassword> {
   TextEditingController _controller;
   FocusNode myFocusNode = new FocusNode();
   String sentence;
+  String buffer;
 
-  _WidgetTextFieldPassword(String _sentence) {
+  _WidgetTextFieldPassword(String _sentence, String _buffer) {
     this.sentence = _sentence;
+    this.buffer = _buffer;
   }
 
   void initState() {
@@ -208,7 +217,7 @@ class _WidgetTextFieldPassword extends State<WidgetTextFieldPassword> {
             ),
           ),
           onSubmitted: (value) async {
-              print("Submitted");
+              buffer = value;
           },
         ),
       );

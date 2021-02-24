@@ -9,6 +9,11 @@ class PasswordForgetView extends StatefulWidget {
 }
 
 class _PasswordForgetView extends State<PasswordForgetView> {
+  var email;
+  var password;
+  var confirmPassword;
+  bool isClicked;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +33,9 @@ class _PasswordForgetView extends State<PasswordForgetView> {
                 bottom: 20,
               )),
               WidgetText("Mot de passe oublié ?", 24, Colors.white),
-              WidgetTextField("Adresse mail"),
-              WidgetTextFieldPassword("Nouveau mot de passe"),
-              WidgetTextFieldPassword("Confirmer mot de passe"),
+              WidgetTextField("Adresse mail", email),
+              WidgetTextFieldPassword("Nouveau mot de passe", password),
+              WidgetTextFieldPassword("Confirmer mot de passe", confirmPassword),
               WidgetRaisedButton("Réinitialiser mot de passe", "/", 200.0, 40.0, 20.0),
               WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15),
               ],
