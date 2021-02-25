@@ -3,6 +3,7 @@ import 'package:area/prefab.dart';
 import 'package:area/loginView.dart';
 import 'package:area/PasswordForgetView.dart';
 import 'package:area/RegistrationView.dart';
+import 'package:area/HomeView.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,6 +22,10 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => PasswordForgetView()
         );
+      case '/home':
+        return MaterialPageRoute(
+          builder: (_) => HomeView()
+      );
       case '/second':
         if (args is String) {
           return MaterialPageRoute(

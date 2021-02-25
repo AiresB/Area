@@ -102,10 +102,10 @@ class _WidgetRegistrationAccount extends State<WidgetRegistrationAccount> {
         height: 40.0,
         child: RaisedButton(
           onPressed: () {
-            AuthService().register(user, password, email).then((val) {
-              if (val.error == false)
+            //AuthService().register(user, password, email).then((val) {
+              //if (val.error == false)
                 Navigator.of(context).pushNamed("/");
-            });
+            //});
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
           child: Text(

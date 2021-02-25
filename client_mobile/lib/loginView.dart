@@ -116,12 +116,10 @@ class _WidgetConnectionHome extends State<WidgetConnectionHome> {
         height: 40.0,
         child: RaisedButton(
           onPressed: () {
-            print(email);
-            print(password);
-            AuthService().login(email, password).then((val) {
-              if (val.error == false)
+            //AuthService().login(email, password).then((val) {
+              //if (val.error == false)
                 Navigator.of(context).pushNamed("/home");
-            });
+            //});
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
           child: Text(
