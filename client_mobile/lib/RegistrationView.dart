@@ -103,7 +103,7 @@ class _WidgetRegistrationAccount extends State<WidgetRegistrationAccount> {
         child: RaisedButton(
           onPressed: () {
             AuthService().register(user, password, email).then((val) {
-              if (val.data["error"] == false)
+              if (val.error == false)
                 Navigator.of(context).pushNamed("/");
             });
           },

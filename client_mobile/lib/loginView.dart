@@ -119,7 +119,7 @@ class _WidgetConnectionHome extends State<WidgetConnectionHome> {
             print(email);
             print(password);
             AuthService().login(email, password).then((val) {
-              if (val.data["error"] == false)
+              if (val.error == false)
                 Navigator.of(context).pushNamed("/home");
             });
           },

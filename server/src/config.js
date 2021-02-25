@@ -9,6 +9,7 @@ module.exports = {
         databaseHost: process.env.PGHOST,
         databasePassword: process.env.PGPASSWORD
     }
+
     //'mailauth': {
     //    adress: process.env.MAIL_ADRESS,
     //    password: process.env.MAIL_PASSWORD

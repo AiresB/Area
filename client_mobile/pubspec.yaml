@@ -22,7 +22,6 @@ environment:
 
 dependencies:
   flutter_auth_buttons: ^0.10.0
-  dio: ^3.0.10
   fluttertoast: ^7.1.8
   http: 0.12.1
   flutter:
