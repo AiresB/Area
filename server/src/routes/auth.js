@@ -8,13 +8,15 @@ const auth = require("../controllers/auth")
 const { json } = require('body-parser');
 
 /*  Routes  */
-router.post("/login", auth.login);
+router.get("/login", auth.login);
 
 router.post("/register", auth.register);
 
-router.post("/update", auth.update);
+router.put("/update", auth.update);
 
 router.get("/logout", auth.logout);
+
+router.get("/delete", auth.logout);
 
 router.use("/", Goauth);
 
