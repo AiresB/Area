@@ -1,0 +1,533 @@
+{
+	"id": "f4677603-86c6-4054-9418-0c7085c9d5ef",
+	"name": "Area",
+	"timestamp": "2021-02-23T18:30:03.976Z",
+	"collection_id": "4e4c8c03-bdcd-445e-9ce8-906a37494dd4",
+	"folder_id": "ecbd1857-5630-47bc-bc8f-d91be2cf055a",
+	"environment_id": "0",
+	"totalPass": 40,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "6af6edb6-61a2-4140-ad8c-958b35946676",
+			"name": "Home",
+			"url": "http://127.0.0.1:8080/",
+			"time": 112,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"response should be okay to process": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should be okay to process": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				112
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"response should be okay to process": true
+				}
+			]
+		},
+		{
+			"id": "ca3ec344-c05d-482d-8564-47d68ff769ae",
+			"name": "Register",
+			"url": "http://127.0.0.1:8080/register",
+			"time": 92,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status test": true,
+				"error false": true,
+				"response should send user": true,
+				"check user": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error false": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check user": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				92
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error false": true,
+					"response should send user": true,
+					"check user": true
+				}
+			]
+		},
+		{
+			"id": "ac1f1f75-0e99-4916-918d-d30c3e679442",
+			"name": "Register already register",
+			"url": "http://127.0.0.1:8080/register",
+			"time": 65,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status test": true,
+				"error true": true,
+				"response should not send user": true,
+				"check message": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should not send user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				65
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error true": true,
+					"response should not send user": true,
+					"check message": true
+				}
+			]
+		},
+		{
+			"id": "14cee3db-62b6-4537-bcf4-40635238a451",
+			"name": "Register argument missing",
+			"url": "http://127.0.0.1:8080/register",
+			"time": 3,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true,
+				"error true": true,
+				"response should not send user": true,
+				"check message": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should not send user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error true": true,
+					"response should not send user": true,
+					"check message": true
+				}
+			]
+		},
+		{
+			"id": "6016abc0-716a-4d6f-b607-6be5de23cc0f",
+			"name": "login",
+			"url": "http://127.0.0.1:8080/login",
+			"time": 69,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"error false": true,
+				"response should send user": true,
+				"check user": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error false": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check user": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				69
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error false": true,
+					"response should send user": true,
+					"check user": true
+				}
+			]
+		},
+		{
+			"id": "02dd03ed-3a6f-4688-b647-19f62c23e6ae",
+			"name": "login wrong password",
+			"url": "http://127.0.0.1:8080/login",
+			"time": 72,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status test": true,
+				"error true": true,
+				"response should send data": true,
+				"check message": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				72
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error true": true,
+					"response should send data": true,
+					"check message": true
+				}
+			]
+		},
+		{
+			"id": "a2ab48e6-abb1-41a2-879f-e60cf3c13df1",
+			"name": "login wrong mail",
+			"url": "http://127.0.0.1:8080/login",
+			"time": 4,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true,
+				"error true": true,
+				"response should send data": true,
+				"check message": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error true": true,
+					"response should send data": true,
+					"check message": true
+				}
+			]
+		},
+		{
+			"id": "826a35ab-ca38-4671-98f0-89d4273147e4",
+			"name": "login argument missing",
+			"url": "http://127.0.0.1:8080/login",
+			"time": 3,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true,
+				"error true": true,
+				"response should send data": true,
+				"check message": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error true": true,
+					"response should send data": true,
+					"check message": true
+				}
+			]
+		},
+		{
+			"id": "03e1c0ec-e8b2-424b-beaf-51b4d90332a6",
+			"name": "update",
+			"url": "http://127.0.0.1:8080/update",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"error false": true,
+				"response should send user": true,
+				"check user": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error false": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check user": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error false": true,
+					"response should send user": true,
+					"check user": true
+				}
+			]
+		},
+		{
+			"id": "bb190a89-08b1-4be5-9e26-15ff1e270c5d",
+			"name": "update argument missing",
+			"url": "http://127.0.0.1:8080/update",
+			"time": 10,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true,
+				"error true": true,
+				"response should send data": true,
+				"check message": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should send data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"check message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"error true": true,
+					"response should send data": true,
+					"check message": true
+				}
+			]
+		},
+		{
+			"id": "aa00e0b0-df03-443d-a17a-5b62371a6c91",
+			"name": "logout",
+			"url": "http://127.0.0.1:8080/logout",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"response should be okay to process": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should be okay to process": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"response should be okay to process": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 439,
+	"collection": {
+		"requests": [
+			{
+				"id": "6af6edb6-61a2-4140-ad8c-958b35946676",
+				"method": "GET"
+			},
+			{
+				"id": "ca3ec344-c05d-482d-8564-47d68ff769ae",
+				"method": "POST"
+			},
+			{
+				"id": "ac1f1f75-0e99-4916-918d-d30c3e679442",
+				"method": "POST"
+			},
+			{
+				"id": "14cee3db-62b6-4537-bcf4-40635238a451",
+				"method": "POST"
+			},
+			{
+				"id": "6016abc0-716a-4d6f-b607-6be5de23cc0f",
+				"method": "POST"
+			},
+			{
+				"id": "02dd03ed-3a6f-4688-b647-19f62c23e6ae",
+				"method": "POST"
+			},
+			{
+				"id": "a2ab48e6-abb1-41a2-879f-e60cf3c13df1",
+				"method": "POST"
+			},
+			{
+				"id": "826a35ab-ca38-4671-98f0-89d4273147e4",
+				"method": "POST"
+			},
+			{
+				"id": "03e1c0ec-e8b2-424b-beaf-51b4d90332a6",
+				"method": "POST"
+			},
+			{
+				"id": "bb190a89-08b1-4be5-9e26-15ff1e270c5d",
+				"method": "POST"
+			},
+			{
+				"id": "aa00e0b0-df03-443d-a17a-5b62371a6c91",
+				"method": "GET"
+			}
+		]
+	}
+}

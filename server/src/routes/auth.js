@@ -3,23 +3,20 @@ const router = require('express').Router();
 
 
 /*  Modules Import  */
-const Goauth = require("./Goauth")
+const Goauth = require("./Goauth");
+const auth = require("../controllers/auth")
+const { json } = require('body-parser');
 
 /*  Routes  */
-router.post("/login", async (req, res) => {
-    //Todo
-    res.send("Login coming soon")
-});
+router.get("/login", auth.login);
 
-router.post("/register", async (req, res) => {
-    //Todo
-    res.send("Login coming soon")
-});
+router.post("/register", auth.register);
 
-router.get("/logout", (req, res) => {
-    if (req.session) req.session = null;
-    res.redirect("/");
-});
+router.put("/update", auth.update);
+
+router.get("/logout", auth.logout);
+
+router.get("/delete", auth.logout);
 
 router.use("/", Goauth);
 
