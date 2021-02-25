@@ -13,7 +13,6 @@ exports.login = async (req, res) => {
 
     user = await userFind( email )
     if (!user) {
-        console.log("in error")
         return res.status(404).json({ error: true, message: 'User not find' });
     }
     bcrypt.compare(password, user.password, function(err, match) {
@@ -66,7 +65,6 @@ exports.register = async (req, res) => {
 exports.update = async (req, res) => {
     const { id, username, email, google } = req.body;
 
-    console.log(id, username, email, google)
     if (!id || !username || !email || !google) {
         res.status(400).json({error: true, message: "arguments missing"});
         return;

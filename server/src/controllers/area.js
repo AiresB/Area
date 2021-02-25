@@ -32,8 +32,7 @@ exports.delete = async (req, res) => {
         return;
     }
     const deleted = await areaDelete(id)
-    if (!deleted) {
-    //if (!deleted) { replace by id is the same
+    if (deleted.rowCount == 0) {
         res.status(500).json({
             error: true,
             message: "Error serveur, couldnt delete item"
@@ -74,7 +73,7 @@ exports.getbyid = async (req, res) => {
         return;
     }
     const areas = await areaFind("user_id", userId)
-    if (!areas) {
+    if (!areas[0]) {
         res.status(500).json({
             error: true,
             message: "No area find"

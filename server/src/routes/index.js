@@ -15,8 +15,7 @@ router.get("/about.json", async (req, res) => {
     res.send("Coming soon")
 });
 
-router.use("/", auth);
-//router.use("/user/", auth);
+router.use("/user/", auth);
 
 router.use("/area/", area);
 
