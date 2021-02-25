@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Preferences from '../Preferences/Preferences';
+import Register from '../Register/Register'
 
 
 function setToken(userToken) {
@@ -20,7 +21,14 @@ function App() {
   const token = getToken();
 
   if(!token) {
-    return <Login setToken={setToken} />
+    return (
+      <BrowserRouter>
+      <Switch>
+        <Route exact path = "/"><Login setToken={setToken}/></Route>
+        <Route path = "/register"><Register/></Route>
+      </Switch>
+      </BrowserRouter>
+    );
   }
 
   return (
