@@ -1,3 +1,7 @@
+
+import 'package:area/HomeActionReactionView.dart';
+import 'package:area/loginView.dart';
+import 'package:area/HomeActionView.dart';
 import 'package:flutter/material.dart';
 import 'package:area/prefab.dart';
 
@@ -9,82 +13,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeView extends State<HomeView> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: background,
-      body: new Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 40),
-        child: new Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              HeaderWidget(),
-              Padding(padding: EdgeInsets.only(
-                top: 20,
-              )),
-              WidgetText("Vos widgets personnalisés :", 20, Colors.white),
-              Padding(padding: EdgeInsets.only(
-                bottom: 20,
-              )),
-              ActionReactionCard(),
-              ActionReactionCard(),
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomNavBar(),
-      );
-  }
-}
-class HeaderWidget extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return new _HeaderWidget();
-  }
-}
-
-class _HeaderWidget extends State<HeaderWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        WidgetImg("img/logo.png", 70, 70),
-        Padding(padding: EdgeInsets.only(
-          left: 50,
-        )),
-        WidgetText("Bonjour Alain !", 24, Colors.white),
-      ]
-    );
-  }
-}
-
-class BottomNavBar extends StatefulWidget {
-  BottomNavBar({Key key}) : super(key: key);
-
-  @override
-  _BottomNavBar createState() => _BottomNavBar();
-}
-
-class _BottomNavBar extends State<BottomNavBar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Service',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Quit',
-      style: optionStyle,
-    ),
+  static List<Widget> _widgetView = <Widget>[
+    HomeActionReactionView(),
+    HomeActionView(),
+    LoginView(),
   ];
 
   void _onItemTapped(int index) {
@@ -95,7 +28,13 @@ class _BottomNavBar extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: background,
+      body: Center(
+        child: _widgetView.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: button,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -114,7 +53,8 @@ class _BottomNavBar extends State<BottomNavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
-    );
+    ),
+  );
   }
 }
 

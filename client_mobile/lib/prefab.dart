@@ -366,6 +366,8 @@ class ActionReactionCard extends StatefulWidget {
 }
 
 class _ActionReactionCard extends State<ActionReactionCard> {
+  bool deleteIsPressed = false;
+
   @override
   Widget build(BuildContext context) {
     return new Card(
@@ -386,7 +388,9 @@ class _ActionReactionCard extends State<ActionReactionCard> {
                 IconButton(
                   icon: Image.asset('img/remove.png'),
                   iconSize: 30,
-                  onPressed: () {},
+                  onPressed: () {
+                    deleteIsPressed = true;
+                  },
                 ),
               ],
             ),
@@ -454,6 +458,113 @@ class _ReactionCard extends State<ReactionCard> {
             ),
           ],
       ),
+    );
+  }
+}
+
+class ScrollingWidget extends StatefulWidget {
+  List<Widget> itemsData = [];
+
+  @override
+  ScrollingWidget(List<Widget> _itemsData) {
+    this.itemsData = _itemsData;
+  }
+
+  State<StatefulWidget> createState() {
+    return new _ScrollingWidget(itemsData);
+  }
+}
+
+class _ScrollingWidget extends State<ScrollingWidget> {
+  List<Widget> itemsData = [];
+  ScrollController controller = ScrollController();
+
+  _ScrollingWidget(List<Widget> _itemsData) {
+    this.itemsData = _itemsData;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: ListView.builder(
+        controller: controller,
+        itemCount: itemsData.length,
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return itemsData[index];
+        },
+      ),
+    );
+  }
+}
+
+class HeaderWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _HeaderWidget();
+  }
+}
+
+class _HeaderWidget extends State<HeaderWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        WidgetImg("img/logo.png", 70, 70),
+        Padding(padding: EdgeInsets.only(
+          left: 50,
+        )),
+        WidgetText("Bonjour Alain !", 24, Colors.white),
+      ]
+    );
+  }
+}
+
+class BottomNavBar extends StatefulWidget {
+  int selectedIndex = 0;
+
+  BottomNavBar(int _selectedIndex) {
+    selectedIndex = _selectedIndex;
+  }
+  @override
+  _BottomNavBar createState() => _BottomNavBar(selectedIndex);
+}
+
+class _BottomNavBar extends State<BottomNavBar> {
+  int selectedIndex = 0;
+
+  _BottomNavBar(int _selectedIndex) {
+    selectedIndex = _selectedIndex;
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+        backgroundColor: button,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.app_registration),
+            label: 'Services',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_forward_ios_sharp),
+            label: 'Quit',
+          ),
+        ],
+        currentIndex: selectedIndex,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
     );
   }
 }
