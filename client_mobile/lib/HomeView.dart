@@ -1,6 +1,5 @@
 
 import 'package:area/HomeActionReactionView.dart';
-import 'package:area/loginView.dart';
 import 'package:area/HomeActionView.dart';
 import 'package:flutter/material.dart';
 import 'package:area/prefab.dart';
@@ -17,7 +16,6 @@ class _HomeView extends State<HomeView> {
   static List<Widget> _widgetView = <Widget>[
     HomeActionReactionView(),
     HomeActionView(),
-    LoginView(),
   ];
 
   void _onItemTapped(int index) {

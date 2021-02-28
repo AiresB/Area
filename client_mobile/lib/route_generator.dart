@@ -6,6 +6,7 @@ import 'package:area/RegistrationView.dart';
 import 'package:area/HomeView.dart';
 
 class RouteGenerator {
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 

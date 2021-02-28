@@ -1,16 +1,17 @@
 import 'package:area/authService.dart';
+import 'package:area/Data.dart';
 import 'package:flutter/material.dart';
 import 'package:area/prefab.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _LoginView();
-  }
+  _LoginView createState() => _LoginView();
 }
 
 class _LoginView extends State<LoginView> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,17 +38,10 @@ class _LoginView extends State<LoginView> {
 
 class WidgetFormLogin extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _WidgetFormLogin();
-  }
+  _WidgetFormLogin createState() => _WidgetFormLogin();
 }
 
 class _WidgetFormLogin extends State<WidgetFormLogin> {
-  var user;
-  var password;
-  bool isClickedAccount;
-  bool isClickedPassword;
-
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -69,9 +63,9 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
                         ),
                       ),
               ),
-              WidgetTextField("Adresse mail", user),
-              WidgetTextFieldPassword("Mot de passe", password),
-              WidgetConnectionHome(user, password),
+              WidgetTextField(sentence: "Adresse mail", function: context.read<Data>().ChangeEmail),
+              WidgetTextFieldPassword(sentence: "Mot de passe", function: context.read<Data>().ChangePassword),
+              WidgetConnectionHome(),
               WidgetFlatButton("Se créer un compte", "/register", 50, 20, 15),
               WidgetFlatButton("Mot de passe oublié ?", "/reset_password", 50, 20, 15),
               ],
@@ -82,28 +76,12 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
 }
 
 class WidgetConnectionHome extends StatefulWidget {
-  String email;
-  String password;
-
-  WidgetConnectionHome(String _email, String _password) {
-    this.email = _email;
-    this.password = _password;
-  }
 
   @override
-  State<StatefulWidget> createState() {
-    return new _WidgetConnectionHome(email, password);
-  }
+  _WidgetConnectionHome createState() => _WidgetConnectionHome();
 }
 
 class _WidgetConnectionHome extends State<WidgetConnectionHome> {
-  String email;
-  String password;
-
-  _WidgetConnectionHome(String _email, String _password) {
-    this.email = _email;
-    this.password = _password;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +94,12 @@ class _WidgetConnectionHome extends State<WidgetConnectionHome> {
         height: 40.0,
         child: RaisedButton(
           onPressed: () {
+            if (context.read<Data>().GetEmail() != null && context.read<Data>().GetPassword() != null) {
             //AuthService().login(email, password).then((val) {
               //if (val.error == false)
                 Navigator.of(context).pushNamed("/home");
             //});
+            }
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
           child: Text(

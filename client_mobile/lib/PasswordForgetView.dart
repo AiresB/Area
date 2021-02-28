@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:area/prefab.dart';
+import 'package:provider/provider.dart';
+import 'package:area/Data.dart';
 
 class PasswordForgetView extends StatefulWidget {
   @override
@@ -9,10 +11,6 @@ class PasswordForgetView extends StatefulWidget {
 }
 
 class _PasswordForgetView extends State<PasswordForgetView> {
-  var email;
-  var password;
-  var confirmPassword;
-  bool isClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +31,9 @@ class _PasswordForgetView extends State<PasswordForgetView> {
                 bottom: 20,
               )),
               WidgetText("Mot de passe oublié ?", 24, Colors.white),
-              WidgetTextField("Adresse mail", email),
-              WidgetTextFieldPassword("Nouveau mot de passe", password),
-              WidgetTextFieldPassword("Confirmer mot de passe", confirmPassword),
+              WidgetTextField(sentence: "Adresse mail", function: context.read<Data>().ChangeEmail),
+              WidgetTextFieldPassword(sentence: "Nouveau mot de passe", function: context.read<Data>().ChangePassword),
+              WidgetTextFieldPassword(sentence: "Confirmer mot de passe", function: context.read<Data>().ChangeConfirmPassword),
               WidgetRaisedButton("Réinitialiser mot de passe", "/", 200.0, 40.0, 20.0),
               WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15),
               ],

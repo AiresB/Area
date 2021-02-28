@@ -1,21 +1,16 @@
 import 'package:area/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:area/prefab.dart';
+import 'package:provider/provider.dart';
+import 'package:area/Data.dart';
 
 class RegistrationView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _RegistrationView();
-  }
+  _RegistrationView createState() => _RegistrationView();
 }
 
 class _RegistrationView extends State<RegistrationView> {
   String conditionUtil = "En cliquant sur le bouton d'inscription, vous acceptez les Conditions générales d'utilisation de AREA";
-  var user;
-  var email;
-  var password;
-  var confirmPassword;
-  bool isClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +31,10 @@ class _RegistrationView extends State<RegistrationView> {
                 bottom: 20,
               )),
               WidgetText("Se créer un compte", 24, Colors.white),
-              WidgetTextField("Nom d'utilisateur", user),
-              WidgetTextField("Adresse mail", email),
-              WidgetTextFieldPassword("Mot de passe", password),
-              WidgetTextFieldPassword("Confirmer mot de passe", confirmPassword),
+              WidgetTextField(sentence: "Nom d'utilisateur", function: context.read<Data>().ChangeUser),
+              WidgetTextField(sentence: "Adresse mail", function: context.read<Data>().ChangeEmail),
+              WidgetTextFieldPassword(sentence: "Mot de passe", function: context.read<Data>().ChangePassword),
+              WidgetTextFieldPassword(sentence: "Confirmer mot de passe", function: context.read<Data>().ChangeConfirmPassword),
               Container(
                 width: 200,
                 height: 60,
@@ -49,7 +44,7 @@ class _RegistrationView extends State<RegistrationView> {
                   Colors.white
                 ),
               ),
-              WidgetRegistrationAccount(user, email, password, confirmPassword),
+              WidgetRegistrationAccount(),
               WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15),
               ],
             ),
@@ -60,36 +55,14 @@ class _RegistrationView extends State<RegistrationView> {
 }
 
 class WidgetRegistrationAccount extends StatefulWidget {
-  String user;
-  String email;
-  String password;
-  String confirmPassword;
-
-  WidgetRegistrationAccount(String _user, String _email, String _password, String _confirmPassword) {
-    this.user = _user;
-    this.email = _email;
-    this.password = _password;
-    this.confirmPassword = _confirmPassword;
-  }
 
   @override
   State<StatefulWidget> createState() {
-    return new _WidgetRegistrationAccount(user, email, password, confirmPassword);
+    return new _WidgetRegistrationAccount();
   }
 }
 
 class _WidgetRegistrationAccount extends State<WidgetRegistrationAccount> {
-  String user;
-  String email;
-  String password;
-  String confirmPassword;
-
-  _WidgetRegistrationAccount(String _user, String _email, String _password, String _confirmPassword) {
-    this.user = _user;
-    this.email = _email;
-    this.password = _password;
-    this.confirmPassword = _confirmPassword;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +75,18 @@ class _WidgetRegistrationAccount extends State<WidgetRegistrationAccount> {
         height: 40.0,
         child: RaisedButton(
           onPressed: () {
-            //AuthService().register(user, password, email).then((val) {
-              //if (val.error == false)
+            if (context.read<Data>().GetUser() != null &&
+                context.read<Data>().GetEmail() != null &&
+                context.read<Data>().GetPassword() != null &&
+                context.read<Data>().GetConfirmPassword() != null) {
+                AuthService().register(
+                  context.read<Data>().GetUser(),
+                  context.read<Data>().GetPassword(),
+                  context.read<Data>().GetEmail()).then((val) {
+              if (val.error == false)
                 Navigator.of(context).pushNamed("/");
-            //});
+            });
+            }
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
           child: Text(

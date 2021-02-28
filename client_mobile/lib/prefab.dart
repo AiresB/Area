@@ -1,5 +1,7 @@
 import 'package:area/authService.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:area/Data.dart';
 
 const background = const Color(0xFF34314C);
 const button = const Color(0xFF47B8E0);
@@ -88,34 +90,17 @@ class _WidgetText extends State<WidgetText> {
 
 class WidgetTextField extends StatefulWidget {
   String sentence;
-  String buffer;
+  Function function;
 
-  WidgetTextField(String _sentence, String _buffer) {
-    this.sentence = _sentence;
-    this.buffer = _buffer;
-  }
+  WidgetTextField({Key key, this.sentence, this.function}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return new _WidgetTextField(sentence, buffer);
-  }
+  _WidgetTextField createState() => _WidgetTextField();
 }
 
 class _WidgetTextField extends State<WidgetTextField> {
-  TextEditingController _controller;
+  TextEditingController _controller = TextEditingController();
   FocusNode myFocusNode = new FocusNode();
-  String sentence;
-  String buffer;
-
-  _WidgetTextField(String _sentence, String _buffer) {
-    this.sentence = _sentence;
-    this.buffer = _buffer;
-  }
-
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
 
   void dispose() {
     _controller.dispose();
@@ -134,7 +119,7 @@ class _WidgetTextField extends State<WidgetTextField> {
             color: Colors.white
           ),
           decoration: InputDecoration(
-            labelText: sentence,
+            labelText: widget.sentence,
             enabledBorder: UnderlineInputBorder(      
               borderSide: BorderSide(color: button),   
             ),  
@@ -149,7 +134,7 @@ class _WidgetTextField extends State<WidgetTextField> {
             ),
           ),
           onSubmitted: (value) async {
-              buffer = value;
+              widget.function(_controller.text.toString());
           },
         ),
     );
@@ -158,29 +143,17 @@ class _WidgetTextField extends State<WidgetTextField> {
 
 class WidgetTextFieldPassword extends StatefulWidget {
   String sentence;
-  String buffer;
+  Function function;
 
-  WidgetTextFieldPassword(String _sentence, String _buffer) {
-    this.sentence = _sentence;
-    this.buffer = _buffer;
-  }
+  WidgetTextFieldPassword({Key key, this.sentence, this.function}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return new _WidgetTextFieldPassword(sentence, buffer);
-  }
+  _WidgetTextFieldPassword createState() => _WidgetTextFieldPassword();
 }
 
 class _WidgetTextFieldPassword extends State<WidgetTextFieldPassword> {
   TextEditingController _controller;
   FocusNode myFocusNode = new FocusNode();
-  String sentence;
-  String buffer;
-
-  _WidgetTextFieldPassword(String _sentence, String _buffer) {
-    this.sentence = _sentence;
-    this.buffer = _buffer;
-  }
 
   void initState() {
     super.initState();
@@ -205,7 +178,7 @@ class _WidgetTextFieldPassword extends State<WidgetTextFieldPassword> {
             color: Colors.white
           ),
           decoration: InputDecoration(
-            labelText: sentence,
+            labelText: widget.sentence,
             enabledBorder: UnderlineInputBorder(      
               borderSide: BorderSide(color: button),   
             ),  
@@ -220,7 +193,7 @@ class _WidgetTextFieldPassword extends State<WidgetTextFieldPassword> {
             ),
           ),
           onSubmitted: (value) async {
-              buffer = value;
+              widget.function(_controller.text.toString());
           },
         ),
       );
