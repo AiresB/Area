@@ -42,7 +42,6 @@ const areaFind = async function(type, search) {
 const getAreaList = async function() {
     res = await client.query(`SELECT * FROM "area"`);
     areas = res.rows.filter(area => {return area});
-    console.log("areas")
     return areas
 }
 

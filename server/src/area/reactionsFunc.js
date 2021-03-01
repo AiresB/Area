@@ -16,13 +16,13 @@ const reaction2func = (element) => {
 }
 
 /*  list functions */
-exports.reactFuncList = {
+const reactFuncList = {
     1: reaction1func,
     2: reaction2func
 }
 
 const reactionAct = (element) => {
-    reactFuncList[element.reactId](element)
+    reactFuncList.element.reactId(element)
 }
 
-module.exports = {reactionAct}
+module.exports = {reactionAct, reactFuncList}

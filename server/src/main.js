@@ -23,7 +23,7 @@ const main = async () => {
 
     await new Promise(r => setTimeout(r, 4000));
 
-    //hoock();
+    hoock();
 }
 
 main()
