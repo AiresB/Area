@@ -23,9 +23,9 @@ const userUpdate = async function(user) {
     }
 };
 
-const userFind = async function(email) {
+const userFind = async function(type, search) {
     try {
-        res = await client.query(`SELECT * FROM "users" WHERE "email" = '${email}'`);
+        res = await client.query(`SELECT * FROM "users" WHERE "${type}" = '${search}'`);
         if (res.rowCount != 1) {
             throw 'Email invalid';
         }
