@@ -17,7 +17,7 @@ const gcalendar_reaction = (element) => {
 gcalendar_reaction();
 
 /*  list functions */
-exports.reactFuncList = {
+const reactFuncList = {
     1: gmail_reaction,
     2: gcalendar_reaction
 }

@@ -14,7 +14,7 @@ const app = express();
 const main = async () => {
     app.use(bodyParser.json());
 
-    app.use(cors);
+    app.use(cors());
 
     app.use("/", routes);
 
