@@ -45,7 +45,7 @@ class _RegistrationView extends State<RegistrationView> {
                 ),
               ),
               WidgetRegistrationAccount(),
-              WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15),
+              WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15, 200),
               ],
             ),
           ),
@@ -63,6 +63,29 @@ class WidgetRegistrationAccount extends StatefulWidget {
 }
 
 class _WidgetRegistrationAccount extends State<WidgetRegistrationAccount> {
+
+  Future<void> _showMyDialog(String sentence) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Error'),
+        content: SingleChildScrollView(
+          child: Text(sentence),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Back'),
+            onPressed: () {
+              Navigator.of(context).pushNamed("/");
+            },
+          ),
+        ],
+      );
+    },
+  );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +108,12 @@ class _WidgetRegistrationAccount extends State<WidgetRegistrationAccount> {
                   context.read<Data>().GetEmail()).then((val) {
               if (val.error == false)
                 Navigator.of(context).pushNamed("/");
+              else {
+                _showMyDialog(val.message);
+              }
             });
             }
+            context.read<Data>().ResetVar();
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
           child: Text(

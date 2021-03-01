@@ -35,7 +35,7 @@ class _PasswordForgetView extends State<PasswordForgetView> {
               WidgetTextFieldPassword(sentence: "Nouveau mot de passe", function: context.read<Data>().ChangePassword),
               WidgetTextFieldPassword(sentence: "Confirmer mot de passe", function: context.read<Data>().ChangeConfirmPassword),
               WidgetRaisedButton("Réinitialiser mot de passe", "/", 200.0, 40.0, 20.0),
-              WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15),
+              WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15, 200),
               ],
             ),
           ),

@@ -5,6 +5,7 @@ class Data extends ChangeNotifier {
   String email;
   String password;
   String confirmPassword;
+  String google;
 
   void PrintTest() {
     print("Hello World !");
@@ -16,6 +17,10 @@ class Data extends ChangeNotifier {
     password = null;
     confirmPassword = null;
     notifyListeners();
+  }
+
+  String GetGoogle() {
+    return google;
   }
 
   String GetUser() {
@@ -36,6 +41,11 @@ class Data extends ChangeNotifier {
 
   List <String> GetInformation() {
     return [user, email, password, confirmPassword];
+  }
+
+  void ChangeGoogle(String val) {
+    google = val;
+    notifyListeners();
   }
 
   void ChangeUser(String val) {

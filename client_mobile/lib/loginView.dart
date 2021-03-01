@@ -66,8 +66,8 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
               WidgetTextField(sentence: "Adresse mail", function: context.read<Data>().ChangeEmail),
               WidgetTextFieldPassword(sentence: "Mot de passe", function: context.read<Data>().ChangePassword),
               WidgetConnectionHome(),
-              WidgetFlatButton("Se créer un compte", "/register", 50, 20, 15),
-              WidgetFlatButton("Mot de passe oublié ?", "/reset_password", 50, 20, 15),
+              WidgetFlatButton("Se créer un compte", "/register", 50, 20, 15, 200),
+              WidgetFlatButton("Mot de passe oublié ?", "/reset_password", 50, 20, 15, 200),
               ],
           ),
       ),
@@ -83,6 +83,29 @@ class WidgetConnectionHome extends StatefulWidget {
 
 class _WidgetConnectionHome extends State<WidgetConnectionHome> {
 
+  Future<void> _showMyDialog(String sentence) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Error'),
+        content: SingleChildScrollView(
+          child: Text(sentence),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Back'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -95,10 +118,18 @@ class _WidgetConnectionHome extends State<WidgetConnectionHome> {
         child: RaisedButton(
           onPressed: () {
             if (context.read<Data>().GetEmail() != null && context.read<Data>().GetPassword() != null) {
-            //AuthService().login(email, password).then((val) {
-              //if (val.error == false)
+            AuthService().login(context.read<Data>().GetEmail(),
+                                context.read<Data>().GetPassword()).then((val) {
+              if (val.error == false) {
+                context.read<Data>().ChangeEmail(val.email);
+                context.read<Data>().ChangeUser(val.username);
+                context.read<Data>().ChangeEmail(val.email);
+                context.read<Data>().ChangeGoogle(val.google);
                 Navigator.of(context).pushNamed("/home");
-            //});
+              }
+              else
+                _showMyDialog(val.message);
+            });
             }
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),

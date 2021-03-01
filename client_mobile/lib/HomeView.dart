@@ -43,10 +43,6 @@ class _HomeView extends State<HomeView> {
             icon: Icon(Icons.app_registration),
             label: 'Services',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_forward_ios_sharp),
-            label: 'Quit',
-          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
