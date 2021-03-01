@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const dotenv = require('dotenv');
 dotenv.config();
-const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const CLIENT_ID = '926573912321-i5tvvg7pcqo89ejhfko6glt4hicp4kti.apps.googleusercontent.com';
 
 
 class GoogleBtn extends Component {

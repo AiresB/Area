@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,7 +11,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,14 +41,22 @@ const theme = createMuiTheme({
 });
 
 async function registerUser(credentials) {
-    return fetch('http://127.0.0.1:8080/register', {
+    return fetch('http://127.0.0.1:8080/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(credentials)
     })
-      .then(data => data.json())
+      .then(function(response) {
+        if (response.status === 401)
+          console.log("Email already used");
+        if (response.status === 201)
+          console.log("User successfully registered");
+      })
+      .catch((err) => {
+        console.error(err);
+      })
    }
 
 export default function Register() {
@@ -55,6 +64,8 @@ export default function Register() {
   const [password, setPassword] = useState();
   const [username, setUserName] = useState();
   const classes = useStyles();
+  var history = useHistory();
+
   const handleSubmit = async e => {
     e.preventDefault();
     await registerUser({
@@ -62,8 +73,8 @@ export default function Register() {
       username,
       email
     });
+    history.push(0);
   }
-
   return(
     <Container component="main" maxWidth="xs">
       <MuiThemeProvider theme={theme}>
@@ -127,7 +138,7 @@ export default function Register() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="http://localhost:3000/login" variant="body2">
+              <Link href="http://localhost:3000/" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

@@ -13,39 +13,38 @@ function setToken(userToken) {
 
 function getToken() {
   const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  return userToken?.token
+  return tokenString
+}
+
+function setUser(user) {
+  sessionStorage.setItem('username', JSON.stringify(user))
 }
 
 function App() {
   const token = getToken();
-
   if(!token) {
     return (
       <BrowserRouter>
       <Switch>
-        <Route exact path = "/"><Login setToken={setToken}/></Route>
+        <Route exact path = "/"><Login setToken={setToken} setUser={setUser}/></Route>
         <Route path = "/register"><Register/></Route>
       </Switch>
       </BrowserRouter>
     );
+  } else {
+    return (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path="/preferences">
+              <Preferences />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+    );
   }
-
-  return (
-    <div className="wrapper">
-      <h1>AREA</h1>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/preferences">
-            <Preferences />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
 }
 
 export default App;

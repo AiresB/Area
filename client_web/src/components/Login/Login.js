@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
 import GoogleBtn from '../Google/Google'
 
 const useStyles = makeStyles((theme) => ({
@@ -44,20 +47,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(data => data.json())
-   }
+  if (credentials) {
+    try {
+      return fetch('http://127.0.0.1:8080/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      })
+        .then(data => data.json())
+        .then(data => { 
+          console.log(data.user.id)
+          return (data.user)
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    } catch(e) {
+      console.error(e)
+    }
+  }
+}
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUser }) {
   const classes = useStyles();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  let history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -65,7 +82,11 @@ export default function Login({ setToken }) {
       email,
       password
     });
-    setToken(token);
+    setToken(token.id);
+    setUser(token.username);
+    console.log(token.username);
+    history.push("/dashboard");
+    history.go(0);
   }
 
   return(

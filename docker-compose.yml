@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
 
   client_web:
-    build: ./client_web/Dockerfile
+    build: ./client_web/
     ports:
       - 3000:3000
     restart: unless-stopped
