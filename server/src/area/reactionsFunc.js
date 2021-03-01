@@ -1,7 +1,7 @@
 /*  Lib Import   */
 
 /*  Modules Import  */
-const {reactions} = require("reactions")
+const {reactions} = require("./reactions")
 
 /*  Code    */
 

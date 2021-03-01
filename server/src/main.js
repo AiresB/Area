@@ -21,7 +21,9 @@ const main = async () => {
 
     app.listen(process.env.PORT, () => console.log(`server start http://localhost:${process.env.PORT}`));
 
-    hoock();
+    await new Promise(r => setTimeout(r, 4000));
+
+    //hoock();
 }
 
 main()

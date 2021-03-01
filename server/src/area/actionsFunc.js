@@ -3,7 +3,7 @@
 /*  Modules Import  */
 
 /*  Code    */
-const {reactionAct} = require("reactionsFunc")
+const {reactionAct} = require("./reactionsFunc")
 const {actions} = require("./actions")
 
 const action1func = (element) => {

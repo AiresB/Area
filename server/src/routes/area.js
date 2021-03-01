@@ -13,6 +13,6 @@ router.delete("/delete", area.delete);
 
 router.put("/update", area.update);
 
-router.get("/getbyid", area.getbyid);
+router.post("/getbyid", area.getbyid);
 
 module.exports = router;

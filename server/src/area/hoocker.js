@@ -1,7 +1,7 @@
 /*  Lib Import   */
 
 /*  Modules Import  */
-const {actionChecker} = require("./area/actionsFunc")
+const {actionChecker} = require("./actionsFunc")
 
 /*  Code    */
 
@@ -11,7 +11,7 @@ const hoock = () => {
     while (run) {
         var areaList = [];//get area list
         areaList.forEach( element => actionChecker(element))
-        //sleep(1min)
+        //await new Promise(r => setTimeout(r, 60000));
     }
 }
 
