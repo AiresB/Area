@@ -12,7 +12,7 @@ CREATE TABLE "public"."area" (
     "id" VARCHAR(50) NOT NULL PRIMARY KEY,
     "user_id" VARCHAR(50) NOT NULL,
     "action_id" VARCHAR(50),
-    "actions_desc" VARCHAR(500),
+    "action_desc" VARCHAR(500),
     "reaction_id" VARCHAR(50),
     "reaction_desc" VARCHAR(500)
 ) WITH (oids = false);

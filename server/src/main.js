@@ -9,10 +9,16 @@ const { initDb } = require("./models/index");
 /*  Code    */
 const app = express();
 
-app.use(bodyParser.json());
+const main = async () => {
+    app.use(bodyParser.json());
 
-app.use("/", routes);
+    app.use("/", routes);
 
-initDb().then();
+    await new Promise(r => setTimeout(r, 2000));
 
-app.listen(process.env.PORT, () => console.log(`server start http://localhost:${process.env.PORT}`));
+    await initDb().then();
+
+    app.listen(process.env.PORT, () => console.log(`server start http://localhost:${process.env.PORT}`));
+}
+
+main()
