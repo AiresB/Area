@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/layout_toast_custom.xml.flat",
+        "source": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/fluttertoast/intermediates/packaged_res/debug/layout/toast_custom.xml"
+    },
+    {
         "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
         "source": "/Users/lucasguyader/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
     },
@@ -16,6 +20,10 @@
         "source": "/Users/lucasguyader/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
+        "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/drawable_corner.xml.flat",
+        "source": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/fluttertoast/intermediates/packaged_res/debug/drawable/corner.xml"
+    },
+    {
         "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/layout_notification_template_part_chronometer.xml.flat",
         "source": "/Users/lucasguyader/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/layout/notification_template_part_chronometer.xml"
     },
@@ -30,6 +38,10 @@
     {
         "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/layout_notification_action.xml.flat",
         "source": "/Users/lucasguyader/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/drawable_toast_bg.xml.flat",
+        "source": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/fluttertoast/intermediates/packaged_res/debug/drawable/toast_bg.xml"
     },
     {
         "merged": "/Users/lucasguyader/Delivery/B-YEP-500-PAR-5-1-area-adrien.mollat/client_mobile/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",

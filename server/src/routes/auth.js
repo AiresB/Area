@@ -1,11 +1,12 @@
 /*  Lib Import   */
 const router = require('express').Router();
-
+const bodyParser = require('body-parser');
 
 /*  Modules Import  */
 const Goauth = require("./Goauth");
 const auth = require("../controllers/auth")
 const { json } = require('body-parser');
+router.use(bodyParser.urlencoded({ extended: true }))
 
 /*  Routes  */
 router.get("/login", auth.login);
