@@ -8,13 +8,14 @@ const {getAreaList} = require("../models/area")
 
 const hoock = async () => {
     var run = true
+    var delay = 60000
 
     while (run) {
         var areaList = await getAreaList()
         for (var i = 0; i < areaList.length ; i++) {
             actionChecker(areaList[i])
         }
-        await new Promise(r => setTimeout(r, 60000));
+        await new Promise(r => setTimeout(r, delay));
     }
 }
 
