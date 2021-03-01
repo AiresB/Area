@@ -17,4 +17,8 @@ router.put("/update", area.update);
 
 router.post("/getbyid", area.getbyid);
 
+router.get("/actionlist", area.actionlist);
+
+router.get("/reactionlist", area.reactionlist);
+
 module.exports = router;

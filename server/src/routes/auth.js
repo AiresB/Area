@@ -17,8 +17,6 @@ router.put("/update", auth.update);
 
 router.post("/logout", auth.logout);
 
-router.post("/delete", auth.logout);
-
 router.use("/", Goauth);
 
 module.exports = router;

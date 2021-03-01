@@ -2,27 +2,28 @@
 
 /*  Modules Import  */
 const {reactions} = require("./reactions")
+const {manageGoogleReaction} = require("./../Google/google_api")
 
 /*  Code    */
 
-const reaction1func = (element) => {
-    //todo action 1
-
+const gmail_reaction = (element) => {
+    manageGoogleReaction(1);
 }
 
-const reaction2func = (element) => {
-    //todo action 2
-
+const gcalendar_reaction = (element) => {
+    manageGoogleReaction(2);
 }
+
+gcalendar_reaction();
 
 /*  list functions */
-exports.reactFuncList = {
-    1: reaction1func,
-    2: reaction2func
+const reactFuncList = {
+    1: gmail_reaction,
+    2: gcalendar_reaction
 }
 
 const reactionAct = (element) => {
-    reactFuncList[element.reactId](element)
+    reactFuncList.element.reactId(element)
 }
 
-module.exports = {reactionAct}
+module.exports = {reactionAct, reactFuncList}
