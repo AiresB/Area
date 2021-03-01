@@ -43,6 +43,7 @@ const getAreaList = async function() {
     res = await client.query(`SELECT * FROM "area"`);
     areas = res.rows.filter(area => {return area});
     console.log("areas")
+    return areas
 }
 
-module.exports =  { areaRegister, areaFind, areaUpdate, areaDelete}
+module.exports =  { areaRegister, areaFind, areaUpdate, areaDelete, getAreaList}

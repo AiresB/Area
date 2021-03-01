@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const { stringify } = require('uuid');
 
+const {actions} = require("../area/actions")
+const {reactions} = require("../area/reactions")
 const { areaRegister, areaFind, areaUpdate, areaDelete } = require("../models/area");
 
 exports.create = async (req, res) => {
@@ -84,4 +86,12 @@ exports.getbyid = async (req, res) => {
             areas: areas
         });
     }
+}
+
+exports.actionlist = async (req, res) => {
+    res.status(200).json({actions: actions})
+}
+
+exports.reactionlist = async (req, res) => {
+    res.status(200).json({reactions: reactions})
 }
