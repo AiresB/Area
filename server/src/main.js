@@ -1,6 +1,7 @@
 /*  Lib Import   */
 const express = require('express');
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 /*  Modules Import  */
 const routes = require("./routes/index");
@@ -13,6 +14,8 @@ const app = express();
 const main = async () => {
     app.use(bodyParser.json());
 
+    app.use(cors());
+
     app.use("/", routes);
 
     await new Promise(r => setTimeout(r, 2000));
@@ -23,7 +26,7 @@ const main = async () => {
 
     await new Promise(r => setTimeout(r, 4000));
 
-    //hoock();
+    hoock();
 }
 
 main()

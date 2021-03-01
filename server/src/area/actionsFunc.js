@@ -17,14 +17,14 @@ const action2func = (element) => {
 }
 
 /*  list functions */
-exports.actFuncList = {
+const actFuncList = {
     1: action1func,
     2: action2func
 }
 
 /* action checker */
 const actionChecker = async (element) => {
-    if (actFuncList[element.actionId](element)) {
+    if (actFuncList[element.action_id](element)) {
         reactionAct(element);
     } else {
         return
@@ -32,4 +32,4 @@ const actionChecker = async (element) => {
 
 }
 
-module.exports = {actionChecker}
+module.exports = {actionChecker, actFuncList}
