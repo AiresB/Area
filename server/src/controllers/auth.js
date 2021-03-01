@@ -40,6 +40,7 @@ exports.login = async (req, res) => {
 exports.register = async (req, res) => {
     const { username, password, email } = req.body;
 
+    console.log("username: ", username, " password: ", password, " email: ", email);
     if (!username || !password || !email) {
         res.status(400).json({error: true, message: "arguments missing"});
         return;

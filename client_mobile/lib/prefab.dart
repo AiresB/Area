@@ -270,35 +270,22 @@ class WidgetFlatButton extends StatefulWidget {
   double minWidthButton;
   double heightButton;
   double fontSizeText;
+  double width;
 
-  WidgetFlatButton(String _sentence, String _path, double _minWidthButton, double _heightButton, double _fontSizeText) {
+  WidgetFlatButton(String _sentence, String _path, double _minWidthButton, double _heightButton, double _fontSizeText, double _width) {
     this.sentence = _sentence;
     this.path = _path;
     this.minWidthButton = _minWidthButton;
     this.heightButton = _heightButton;
     this.fontSizeText = _fontSizeText;
+    this.width = _width;
   }
 
   @override
-  State<StatefulWidget> createState() {
-    return new _WidgetFlatButton(sentence, path, minWidthButton, heightButton, fontSizeText);
-  }
+  _WidgetFlatButton createState() => _WidgetFlatButton();
 }
 
 class _WidgetFlatButton extends State<WidgetFlatButton> {
-  String sentence;
-  String path;
-  double minWidthButton;
-  double heightButton;
-  double fontSizeText;
-
-  _WidgetFlatButton(String _sentence, String _path, double _minWidthButton, double _heightButton, double _fontSizeText) {
-    this.sentence = _sentence;
-    this.path = _path;
-    this.minWidthButton = _minWidthButton;
-    this.heightButton = _heightButton;
-    this.fontSizeText = _fontSizeText;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -306,21 +293,21 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
       padding: const EdgeInsets.only(
         top: 5.0,
       ),
-      width: 200,
+      width: widget.width,
       height: 40,
       color: Colors.transparent,
       child: ButtonTheme(
-        minWidth: minWidthButton,
-        height: heightButton,
+        minWidth: widget.minWidthButton,
+        height: widget.heightButton,
         child: FlatButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(path);
+            Navigator.of(context).pushNamed(widget.path);
           },
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
           child: Text(
-            sentence,
+            widget.sentence,
             style: new TextStyle(
-              fontSize: fontSizeText,
+              fontSize: widget.fontSizeText,
               color: button,
               decoration: TextDecoration.underline,
             ),
@@ -484,11 +471,20 @@ class _HeaderWidget extends State<HeaderWidget> {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        WidgetImg("img/logo.png", 70, 70),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            WidgetImg("img/logo.png", 70, 70),
+            WidgetFlatButton("Deconnexion", "/", 20, 10, 12, 120),
+            ]
+        ),
         Padding(padding: EdgeInsets.only(
-          left: 50,
+          left: 40,
         )),
-        WidgetText("Bonjour Alain !", 24, Colors.white),
+        WidgetText('Bonjour ' + context.read<Data>().GetUser() + " !", 24, Colors.white),
+        Padding(padding: EdgeInsets.only(
+          left: 0,
+        )),
       ]
     );
   }
@@ -541,5 +537,4 @@ class _BottomNavBar extends State<BottomNavBar> {
     );
   }
 }
-
 

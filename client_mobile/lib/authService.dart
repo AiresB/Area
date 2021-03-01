@@ -14,32 +14,28 @@ class AuthService {
 
   Future<BufferResponse> login(email, password) async {
     var url = _localhost() + '/user/login';
-    final response = await http.post(url, body: {'email': email, 'password': password});
-    if (response.statusCode == 201)
+    Map<String, dynamic> json = {
+      'email': email,
+      'password': password,
+    };
+    final response = await http.post(url, body: json);
+    if (response.statusCode == 200)
       return BufferResponse.fromJson(jsonDecode(response.body));
     else
-      throw Exception('Failed to login');
+      return BufferResponse.fromJsonError(jsonDecode(response.body));
   }
 
   Future<BufferResponse> register(username, password, email) async {
-    print("here");
     Map<String, dynamic> json = {
       'username': username,
       'password': password,
       'email': email,
     };
-    print(json);
     var url = _localhost() + '/user/register';
-    print(url);
     final response = await http.post(url, body: json);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201)
       return BufferResponse.fromJson(jsonDecode(response.body));
-    }
-    else {
-      print("here 3");
-      throw Exception('Failed to add register');
-    }
+    else
+      return BufferResponse.fromJsonError(jsonDecode(response.body));
   }
 }
