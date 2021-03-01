@@ -5,7 +5,7 @@ const {google} = require('googleapis');
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listMails(auth) {
+function gmail_listMails(auth) {
     const gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.list({
       userId: 'me',
@@ -26,7 +26,7 @@ function listMails(auth) {
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function getNbrOfMails(auth) {
+function gmail_getNbrOfMails(auth) {
   const gmail = google.gmail({version: 'v1', auth});
   gmail.users.history.list({
     userId: 'me',
@@ -56,7 +56,7 @@ function makeBody(to, from, subject, message) {
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function sendMessage(auth) {
+function gmail_sendMessage(auth) {
     var raw = makeBody('kheiji95800@gmail.com', 'kheiji95800@gmail.com', 'test subject', 'test message');
     gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.send({
@@ -68,4 +68,4 @@ function sendMessage(auth) {
     });
 }
 
-module.exports = {listMails, sendMessage}
+module.exports = {gmail_listMails, gmail_sendMessage}

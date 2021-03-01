@@ -6,22 +6,22 @@ const {google} = require('googleapis');
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function createEvent(auth) {
+function gcalendar_createEvent(auth) {
   calendar = google.calendar({version: 'v3', auth});
   var event_desc = {
     'summary': 'Réunion area',
     'location': 'At home',
     'description': 'An event to speak about the project',
     'start': {
-      'dateTime': '2021-02-27T17:00:00+01:00',
+      'dateTime': '2021-03-02T19:00:00+01:00',
       'timeZone': "Europe/Paris",
     },
     'end': {
-      'dateTime': '2021-02-27T18:00:00+01:00',
+      'dateTime': '2021-03-02T20:00:00+01:00',
       'timeZone': "Europe/Paris",
     },
     'recurrence': [
-      'RRULE:FREQ=DAILY;COUNT=2'
+      'RRULE:FREQ=DAILY;COUNT=1'
     ],
     'reminders': {
       'useDefault': false,
@@ -50,7 +50,7 @@ function createEvent(auth) {
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listEvents(auth) {
+function gcalendar_listEvents(auth) {
   const calendar = google.calendar({version: 'v3', auth});
   calendar.events.list({
     calendarId: 'primary',
@@ -73,4 +73,4 @@ function listEvents(auth) {
   });
 }
 
-module.exports = {createEvent, listEvents}
+module.exports = {gcalendar_createEvent, gcalendar_listEvents}

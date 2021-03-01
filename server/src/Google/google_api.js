@@ -4,17 +4,29 @@ const {google} = require('googleapis');
 
 
 
-const {listMails, sendMessage} = require("./gmail_api");
-const {listEvents, createEvent} = require("./gcalendar_api");
+const {gmail_listMails, gmail_sendMessage} = require("./gmail_api");
+const {gcalendar_listEvents, gcalendar_createEvent} = require("./gcalendar_api");
 
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
                 'https://www.googleapis.com/auth/gmail.send',
                 'https://www.googleapis.com/auth/calendar'];
 
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = './../Google/token.json';
 
 
-fs.readFile('credentials.json', (err, content) => {
+function manageGoogleReaction(rea_id)
+{
+  fs.readFile('./../Google/credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+
+    if (rea_id == 1)
+      authorize(JSON.parse(content), gmail_sendMessage);
+    if (rea_id == 2)
+      authorize(JSON.parse(content), gcalendar_createEvent);
+  });
+}
+
+/*fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
 
   authorize(JSON.parse(content), listEvents);
@@ -22,7 +34,7 @@ fs.readFile('credentials.json', (err, content) => {
   //authorize(JSON.parse(content), getNbrOfMails);
   //authorize(JSON.parse(content), listMails);
   //authorize(JSON.parse(content), sendMessage);
-});
+});*/
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -72,3 +84,5 @@ function getNewToken(oAuth2Client, callback) {
     });
   });
 }
+
+module.exports = {manageGoogleReaction}
