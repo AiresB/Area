@@ -121,11 +121,16 @@ class _WidgetConnectionHome extends State<WidgetConnectionHome> {
             AuthService().login(context.read<Data>().GetEmail(),
                                 context.read<Data>().GetPassword()).then((val) {
               if (val.error == false) {
-                context.read<Data>().ChangeEmail(val.email);
                 context.read<Data>().ChangeUser(val.username);
                 context.read<Data>().ChangeEmail(val.email);
                 context.read<Data>().ChangeGoogle(val.google);
-                Navigator.of(context).pushNamed("/home");
+                context.read<Data>().ChangeId(val.id);
+                AuthService().getArea(context.read<Data>().GetId()).then((val) {
+                  print("Area user : ");
+                  print(val.userArea);
+                  context.read<Data>().ChangeUserArea(val.userArea);
+                  Navigator.of(context).pushNamed("/home");
+                });
               }
               else
                 _showMyDialog(val.message);

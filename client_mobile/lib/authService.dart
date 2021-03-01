@@ -20,7 +20,7 @@ class AuthService {
     };
     final response = await http.post(url, body: json);
     if (response.statusCode == 200)
-      return BufferResponse.fromJson(jsonDecode(response.body));
+      return BufferResponse.fromJsonUser(jsonDecode(response.body));
     else
       return BufferResponse.fromJsonError(jsonDecode(response.body));
   }
@@ -34,7 +34,21 @@ class AuthService {
     var url = _localhost() + '/user/register';
     final response = await http.post(url, body: json);
     if (response.statusCode == 201)
-      return BufferResponse.fromJson(jsonDecode(response.body));
+      return BufferResponse.fromJsonUser(jsonDecode(response.body));
+    else
+      return BufferResponse.fromJsonError(jsonDecode(response.body));
+  }
+
+  Future<BufferResponse> getArea(userId) async {
+    Map<String, dynamic> json = {
+      'userId': userId,
+    };
+    var url = _localhost() + '/user/getbyid';
+    final response = await http.get(json);
+    print(json);
+    print(response.body);
+    if (response.statusCode == 201)
+      return BufferResponse.fromJsonArea(jsonDecode(response.body));
     else
       return BufferResponse.fromJsonError(jsonDecode(response.body));
   }

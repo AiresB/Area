@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
 
 class Data extends ChangeNotifier {
+  String id;
   String user;
   String email;
   String password;
   String confirmPassword;
   String google;
+  List <String> userArea;
 
   void PrintTest() {
     print("Hello World !");
   }
 
   void ResetVar() {
+    id = null;
     user = null;
     email = null;
     password = null;
     confirmPassword = null;
+    userArea = null;
     notifyListeners();
+  }
+
+  List<String> GetArea() {
+    return userArea;
+  }
+
+  String GetId() {
+    return id;
   }
 
   String GetGoogle() {
@@ -39,12 +51,18 @@ class Data extends ChangeNotifier {
     return confirmPassword;
   }
 
-  List <String> GetInformation() {
-    return [user, email, password, confirmPassword];
-  }
-
   void ChangeGoogle(String val) {
     google = val;
+    notifyListeners();
+  }
+
+  void ChangeUserArea(List<String> val) {
+    userArea = val;
+    notifyListeners();
+  }
+
+  void ChangeId(String val) {
+    id = val;
     notifyListeners();
   }
 

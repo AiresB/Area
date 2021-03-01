@@ -1,10 +1,12 @@
 /*  Lib Import   */
 const router = require('express').Router();
-
+const bodyParser = require('body-parser');
 
 /*  Modules Import  */
 const area = require("../controllers/area")
 const { json } = require('body-parser');
+
+router.use(bodyParser.urlencoded({ extended: true }))
 
 /*  Routes  */
 router.post("/create", area.create);
