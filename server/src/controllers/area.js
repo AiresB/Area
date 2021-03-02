@@ -75,17 +75,10 @@ exports.getbyid = async (req, res) => {
         return;
     }
     const areas = await areaFind("user_id", userId)
-    if (!areas[0]) {
-        res.status(500).json({
-            error: true,
-            message: "No area find"
-        });
-    } else {
-        res.status(200).json({
-            error: false,
-            areas: areas
-        });
-    }
+    res.status(200).json({
+        error: false,
+        areas: areas
+    });
 }
 
 exports.actionlist = async (req, res) => {
