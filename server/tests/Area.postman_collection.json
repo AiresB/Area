@@ -107,6 +107,66 @@
 					"response": []
 				},
 				{
+					"name": "register with google",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"error false\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"response should send user\", function () {",
+									"    pm.response.to.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check user\", function () {",
+									"   var jsonData = pm.response.json();",
+									"   pm.expect(jsonData.user).have.property('username', 'usergoogle');",
+									"   pm.expect(jsonData.user).have.property('email', 'google@gmail.fr');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"google\": \"token\",\n    \"username\": \"usergoogle\",\n    \"email\": \"google@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/user/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register"
+							]
+						},
+						"description": "Register route"
+					},
+					"response": []
+				},
+				{
 					"name": "register already register",
 					"event": [
 						{
@@ -254,15 +314,72 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"password\": \"test\",\n    \"email\": \"user@gmail.fr\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/user/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login"
+							]
+						},
+						"description": "login route"
+					},
+					"response": []
+				},
+				{
+					"name": "login with google",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"error false\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.error).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"response should send user\", function () {",
+									"    pm.response.to.have.jsonBody(\"user\");",
+									"});",
+									"",
+									"pm.test(\"check user\", function () {",
+									"   var jsonData = pm.response.json();",
+									"   pm.expect(jsonData.user).have.property('username', 'usergoogle');",
+									"   pm.expect(jsonData.user).have.property('email', 'google@gmail.fr');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"google\": \"token\",\n    \"email\": \"google@gmail.fr\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -316,11 +433,8 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -378,11 +492,8 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -440,11 +551,8 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -632,7 +740,7 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "127.0.0.1:8080/user/logout",
@@ -831,11 +939,8 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -893,77 +998,12 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"email\": \"wrong@gmail.fr\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/area/getbyid",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"area",
-								"getbyid"
-							]
-						},
-						"description": "login route"
-					},
-					"response": []
-				},
-				{
-					"name": "getbyid id not good",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status test\", function () {",
-									"    pm.response.to.have.status(500);",
-									"});",
-									"",
-									"pm.test(\"error true\", function () {",
-									"  const responseJson = pm.response.json();",
-									"  pm.expect(responseJson.error).to.eql(true);",
-									"});",
-									"",
-									"pm.test(\"response should not send areas\", function () {",
-									"    pm.response.to.not.have.jsonBody(\"areas\");",
-									"});",
-									"",
-									"pm.test(\"check message\", function () {",
-									"  const responseJson = pm.response.json();",
-									"  pm.expect(responseJson.message).to.eql(\"No area find\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"userId\": \"error\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1297,6 +1337,126 @@
 							"path": [
 								"area",
 								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actionlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"response should send actions\", function () {",
+									"    pm.response.to.have.jsonBody(\"actions\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/area/actionlist",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"area",
+								"actionlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reactionlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"response should send reactions\", function () {",
+									"    pm.response.to.have.jsonBody(\"reactions\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/area/reactionlist",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"area",
+								"reactionlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "about.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"response should send client\", function () {",
+									"    pm.response.to.have.jsonBody(\"client\");",
+									"});",
+									"",
+									"pm.test(\"response should send serveur\", function () {",
+									"    pm.response.to.have.jsonBody(\"serveur\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/about.json",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"about.json"
 							]
 						}
 					},
