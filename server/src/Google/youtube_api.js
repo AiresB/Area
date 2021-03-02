@@ -18,13 +18,14 @@ function getTop1FRVidéo(auth) {
       console.log('The API returned an error: ' + err);
       return;
     }
-    var TOP1_video = response.data.items[0];
+    var TOP1_video = response.data.items;
     if (TOP1_video.length == 0) {
       console.log('No vidéo found.');
+      return;
     } else {
 
-      console.log('Name : ' + TOP1_video.snippet.title);
-      return TOP1_video.id;
+      console.log('Name : ' + TOP1_video[0].snippet.title);
+      return TOP1_video[0].id;
     }
   });
 }
@@ -47,4 +48,35 @@ function likeTop1FRVidéo(auth) {
   });
 }
 
-module.exports = {likeTop1FRVidéo}
+/**
+ * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ */
+function detectNewSub(auth, area) {
+  var youtube = google.youtube({version: 'v3', auth});
+  youtube.channels.list({
+    auth: auth,
+    part: 'statistics',
+    mine : true,
+  }, function(err, response) {
+    if (err) {
+      console.log('The API returned an error: ' + err);
+      return false;
+    }
+    var my_subs = response.data.items[0];
+    if (my_subs.length == 0) {
+      console.log('Nothing found.');
+      return false;
+    } else {
+      if (area.actionDesc == "")
+        area.actionDesc = my_subs[0].statistics.subscriberCount;
+      if (parseInt(my_subs[0].statistics.subscriberCount, 10) <= parseInt(area.actionDesc, 10))
+        return false;
+      else {
+        area.actionDesc = my_subs[0].statistics.subscriberCount;
+        return true;
+      }
+    }
+  });
+}
+
+module.exports = {likeTop1FRVidéo, detectNewSub}
