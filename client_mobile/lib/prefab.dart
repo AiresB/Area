@@ -59,8 +59,8 @@ class WidgetText extends StatefulWidget {
   }
 
   @override
-    State<StatefulWidget> createState() {
-      return new _WidgetText(sentence, fontSize, color);
+  State<StatefulWidget> createState() {
+    return new _WidgetText(sentence, fontSize, color);
   }
 }
 
@@ -110,33 +110,30 @@ class _WidgetTextField extends State<WidgetTextField> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        width: 200,
-        margin: EdgeInsets.only(bottom: 0, left: 0, right: 0, top: 0),
-        child: TextField(
-          controller: _controller,
-          focusNode: myFocusNode,
-          style: TextStyle(
-            color: Colors.white
+      width: 200,
+      margin: EdgeInsets.only(bottom: 0, left: 0, right: 0, top: 0),
+      child: TextField(
+        controller: _controller,
+        focusNode: myFocusNode,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          labelText: widget.sentence,
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: button),
           ),
-          decoration: InputDecoration(
-            labelText: widget.sentence,
-            enabledBorder: UnderlineInputBorder(      
-              borderSide: BorderSide(color: button),   
-            ),  
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: background),
-            ),
-            border: UnderlineInputBorder(
-              borderSide: BorderSide(color: button),
-            ),
-            labelStyle: TextStyle(
-              color: myFocusNode.hasFocus ? button : Colors.white
-            ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: background),
           ),
-          onSubmitted: (value) async {
-              widget.function(_controller.text.toString());
-          },
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: button),
+          ),
+          labelStyle:
+              TextStyle(color: myFocusNode.hasFocus ? button : Colors.white),
         ),
+        onSubmitted: (value) async {
+          widget.function(_controller.text.toString());
+        },
+      ),
     );
   }
 }
@@ -145,7 +142,8 @@ class WidgetTextFieldPassword extends StatefulWidget {
   String sentence;
   Function function;
 
-  WidgetTextFieldPassword({Key key, this.sentence, this.function}) : super(key: key);
+  WidgetTextFieldPassword({Key key, this.sentence, this.function})
+      : super(key: key);
 
   @override
   _WidgetTextFieldPassword createState() => _WidgetTextFieldPassword();
@@ -168,36 +166,33 @@ class _WidgetTextFieldPassword extends State<WidgetTextFieldPassword> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        width: 200,
-        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
-        child: TextField(
-          controller: _controller,
-          focusNode: myFocusNode,
-          obscureText: true,
-          style: TextStyle(
-            color: Colors.white
+      width: 200,
+      margin: EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
+      child: TextField(
+        controller: _controller,
+        focusNode: myFocusNode,
+        obscureText: true,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          labelText: widget.sentence,
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: button),
           ),
-          decoration: InputDecoration(
-            labelText: widget.sentence,
-            enabledBorder: UnderlineInputBorder(      
-              borderSide: BorderSide(color: button),   
-            ),  
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: background),
-            ),
-            border: UnderlineInputBorder(
-              borderSide: BorderSide(color: button),
-            ),
-            labelStyle: TextStyle(
-              color: myFocusNode.hasFocus ? button : Colors.white
-            ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: background),
           ),
-          onSubmitted: (value) async {
-              widget.function(_controller.text.toString());
-          },
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: button),
+          ),
+          labelStyle:
+              TextStyle(color: myFocusNode.hasFocus ? button : Colors.white),
         ),
-      );
-    }
+        onSubmitted: (value) async {
+          widget.function(_controller.text.toString());
+        },
+      ),
+    );
+  }
 }
 
 class WidgetRaisedButton extends StatefulWidget {
@@ -207,7 +202,8 @@ class WidgetRaisedButton extends StatefulWidget {
   double heightButton;
   double fontSizeText;
 
-  WidgetRaisedButton(String _sentence, String _path, double _minWidthButton, double _heightButton, double _fontSizeText) {
+  WidgetRaisedButton(String _sentence, String _path, double _minWidthButton,
+      double _heightButton, double _fontSizeText) {
     this.sentence = _sentence;
     this.path = _path;
     this.minWidthButton = _minWidthButton;
@@ -217,7 +213,8 @@ class WidgetRaisedButton extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new _WidgetRaisedButton(sentence, path, minWidthButton, heightButton, fontSizeText);
+    return new _WidgetRaisedButton(
+        sentence, path, minWidthButton, heightButton, fontSizeText);
   }
 }
 
@@ -228,7 +225,8 @@ class _WidgetRaisedButton extends State<WidgetRaisedButton> {
   double heightButton;
   double fontSizeText;
 
-  _WidgetRaisedButton(String _sentence, String _path, double _minWidthButton, double _heightButton, double _fontSizeText) {
+  _WidgetRaisedButton(String _sentence, String _path, double _minWidthButton,
+      double _heightButton, double _fontSizeText) {
     this.sentence = _sentence;
     this.path = _path;
     this.minWidthButton = _minWidthButton;
@@ -249,12 +247,13 @@ class _WidgetRaisedButton extends State<WidgetRaisedButton> {
           onPressed: () {
             Navigator.of(context).pushNamed(path);
           },
-          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
           child: Text(
             sentence,
             style: new TextStyle(
               fontSize: fontSizeText,
-                color: Colors.white,
+              color: Colors.white,
             ),
           ),
           color: button,
@@ -272,7 +271,8 @@ class WidgetFlatButton extends StatefulWidget {
   double fontSizeText;
   double width;
 
-  WidgetFlatButton(String _sentence, String _path, double _minWidthButton, double _heightButton, double _fontSizeText, double _width) {
+  WidgetFlatButton(String _sentence, String _path, double _minWidthButton,
+      double _heightButton, double _fontSizeText, double _width) {
     this.sentence = _sentence;
     this.path = _path;
     this.minWidthButton = _minWidthButton;
@@ -286,7 +286,6 @@ class WidgetFlatButton extends StatefulWidget {
 }
 
 class _WidgetFlatButton extends State<WidgetFlatButton> {
-
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -303,7 +302,8 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
           onPressed: () {
             Navigator.of(context).pushNamed(widget.path);
           },
-          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
           child: Text(
             widget.sentence,
             style: new TextStyle(
@@ -319,7 +319,12 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
 }
 
 class ActionReactionCard extends StatefulWidget {
+  dynamic card;
   @override
+  ActionReactionCard(dynamic _card) {
+    this.card = _card;
+  }
+
   State<StatefulWidget> createState() {
     return new _ActionReactionCard();
   }
@@ -331,34 +336,38 @@ class _ActionReactionCard extends State<ActionReactionCard> {
   @override
   Widget build(BuildContext context) {
     return new Card(
-        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
-        color: background_action_reaction_card,
-        child: Container(
-          width: 310,
-          height: 170,
-          child : Center(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                ActionCard(),
-                ReactionCard(),
-                IconButton(
-                  icon: Image.asset('img/remove.png'),
-                  iconSize: 30,
-                  onPressed: () {
-                    deleteIsPressed = true;
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_action_reaction_card,
+      child: Container(
+        width: 310,
+        height: 170,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  ActionCard(),
+                  ReactionCard(),
+                  IconButton(
+                    icon: Image.asset('img/remove.png'),
+                    iconSize: 30,
+                    onPressed: () {
+                      context
+                          .read<Data>()
+                          .delCardActionReaction(widget.card['id']);
+                      Navigator.of(context).pushNamed("/home");
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-      );
+    );
   }
 }
 
@@ -373,20 +382,21 @@ class _ActionCard extends State<ActionCard> {
   @override
   Widget build(BuildContext context) {
     return new Card(
-        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
-        color: background_action_card,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            WidgetText("Action", 25, Colors.white),
-            Container(
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_action_card,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          WidgetText("Action", 25, Colors.white),
+          Container(
             width: 120,
             height: 120,
             child: Center(
               child: WidgetText("Si il fait 30 degrès", 18, Colors.white),
             ),
-            ),
-          ],
+          ),
+        ],
       ),
     );
   }
@@ -403,20 +413,21 @@ class _ReactionCard extends State<ReactionCard> {
   @override
   Widget build(BuildContext context) {
     return new Card(
-        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
-        color: background_reaction_card,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            WidgetText("Reaction", 25, Colors.white),
-            Container(
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_reaction_card,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          WidgetText("Reaction", 25, Colors.white),
+          Container(
             width: 120,
             height: 120,
             child: Center(
               child: WidgetText("Envoie moi un mail", 18, Colors.white),
             ),
-            ),
-          ],
+          ),
+        ],
       ),
     );
   }
@@ -446,7 +457,7 @@ class _ScrollingWidget extends State<ScrollingWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: ListView.builder(
+      child: ListView.builder(
         controller: controller,
         itemCount: itemsData.length,
         physics: BouncingScrollPhysics(),
@@ -468,25 +479,22 @@ class HeaderWidget extends StatefulWidget {
 class _HeaderWidget extends State<HeaderWidget> {
   @override
   Widget build(BuildContext context) {
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            WidgetImg("img/logo.png", 70, 70),
-            WidgetFlatButton("Deconnexion", "/", 20, 10, 12, 120),
-            ]
-        ),
-        Padding(padding: EdgeInsets.only(
-          left: 40,
-        )),
-        WidgetText('Bonjour ' + context.read<Data>().GetUser() + " !", 24, Colors.white),
-        Padding(padding: EdgeInsets.only(
-          left: 0,
-        )),
-      ]
-    );
+    return new Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        WidgetImg("img/logo.png", 70, 70),
+        WidgetFlatButton("Deconnexion", "/", 20, 10, 12, 120),
+      ]),
+      Padding(
+          padding: EdgeInsets.only(
+        left: 40,
+      )),
+      WidgetText(
+          'Bonjour ' + context.read<Data>().getUser() + " !", 24, Colors.white),
+      Padding(
+          padding: EdgeInsets.only(
+        left: 0,
+      )),
+    ]);
   }
 }
 
@@ -516,25 +524,24 @@ class _BottomNavBar extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        backgroundColor: button,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.app_registration),
-            label: 'Services',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_forward_ios_sharp),
-            label: 'Quit',
-          ),
-        ],
-        currentIndex: selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
+      backgroundColor: button,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.app_registration),
+          label: 'Services',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.arrow_forward_ios_sharp),
+          label: 'Quit',
+        ),
+      ],
+      currentIndex: selectedIndex,
+      selectedItemColor: Colors.white,
+      onTap: _onItemTapped,
     );
   }
 }
-

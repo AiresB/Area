@@ -7,13 +7,16 @@ class Data extends ChangeNotifier {
   String password;
   String confirmPassword;
   String google;
-  List <String> userArea;
+  List<dynamic> userArea;
+  List<Widget> widgetArea;
+  dynamic cardAction;
+  List<dynamic> cardReaction;
 
   void PrintTest() {
     print("Hello World !");
   }
 
-  void ResetVar() {
+  void resetVar() {
     id = null;
     user = null;
     email = null;
@@ -23,65 +26,91 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> GetArea() {
+  dynamic getCardAction() {
+    return cardAction;
+  }
+
+  List<Widget> getWidgetArea() {
+    return widgetArea;
+  }
+
+  List<dynamic> getCardReaction() {
+    return cardReaction;
+  }
+
+  List<dynamic> getArea() {
     return userArea;
   }
 
-  String GetId() {
+  dynamic delCardActionReaction(String val) {
+    userArea.removeWhere((item) => item['id'] == val);
+  }
+
+  String getId() {
     return id;
   }
 
-  String GetGoogle() {
+  String getGoogle() {
     return google;
   }
 
-  String GetUser() {
+  String getUser() {
     return user;
   }
 
-  String GetEmail() {
+  String getEmail() {
     return email;
   }
 
-  String GetPassword() {
+  String getPassword() {
     return password;
   }
 
-  String GetConfirmPassword() {
+  String getConfirmPassword() {
     return confirmPassword;
   }
 
-  void ChangeGoogle(String val) {
+  void changeGoogle(String val) {
     google = val;
     notifyListeners();
   }
 
-  void ChangeUserArea(List<String> val) {
+  void changeCardAction(dynamic val) {
+    cardAction = val;
+    notifyListeners();
+  }
+
+  void changeCardReaction(List<dynamic> val) {
+    cardReaction = val;
+    notifyListeners();
+  }
+
+  void changeUserArea(List<dynamic> val) {
     userArea = val;
     notifyListeners();
   }
 
-  void ChangeId(String val) {
+  void changeId(String val) {
     id = val;
     notifyListeners();
   }
 
-  void ChangeUser(String val) {
+  void changeUser(String val) {
     user = val;
     notifyListeners();
   }
 
-  void ChangeEmail(String val) {
+  void changeEmail(String val) {
     email = val;
     notifyListeners();
   }
 
-  void ChangePassword(String val) {
+  void changePassword(String val) {
     password = val;
     notifyListeners();
   }
 
-  void ChangeConfirmPassword(String val) {
+  void changeConfirmPassword(String val) {
     confirmPassword = val;
     notifyListeners();
   }

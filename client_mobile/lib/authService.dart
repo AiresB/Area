@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-
   String _localhost() {
     if (Platform.isAndroid)
       return 'http://10.0.2.2:8080';
@@ -43,12 +42,23 @@ class AuthService {
     Map<String, dynamic> json = {
       'userId': userId,
     };
-    var url = _localhost() + '/user/getbyid';
-    final response = await http.get(json);
+    var url = _localhost() + '/area/getbyid';
+    final response = await http.post(url, body: json);
     print(json);
     print(response.body);
-    if (response.statusCode == 201)
+    if (response.statusCode == 200)
       return BufferResponse.fromJsonArea(jsonDecode(response.body));
+    else
+      return BufferResponse.fromJsonError(jsonDecode(response.body));
+  }
+
+  Future<BufferResponse> getCardAction() async {
+    var url = _localhost() + '/area/actionlist';
+    final response = await http.get(url);
+    print(json);
+    print(response.body);
+    if (response.statusCode == 200)
+      return BufferResponse.fromJsonCardAction(jsonDecode(response.body));
     else
       return BufferResponse.fromJsonError(jsonDecode(response.body));
   }

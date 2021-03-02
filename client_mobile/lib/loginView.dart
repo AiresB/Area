@@ -11,7 +11,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginView extends State<LoginView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +27,11 @@ class _LoginView extends State<LoginView> {
               WidgetImg("img/logo.png", 100, 100),
               WidgetText("Area", 24, Colors.white),
               WidgetFormLogin(),
-              ],
-            ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -50,60 +49,65 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
       color: background,
       margin: EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 60),
       child: new Center(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: GoogleSignInButton(onPressed: () {},
-                        borderRadius: 20.0,
-                        textStyle: TextStyle(
-                          fontSize: 15,
-                          fontFamily: "Roboto",
-                        ),
-                      ),
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: GoogleSignInButton(
+                onPressed: () {},
+                borderRadius: 20.0,
+                textStyle: TextStyle(
+                  fontSize: 15,
+                  fontFamily: "Roboto",
+                ),
               ),
-              WidgetTextField(sentence: "Adresse mail", function: context.read<Data>().ChangeEmail),
-              WidgetTextFieldPassword(sentence: "Mot de passe", function: context.read<Data>().ChangePassword),
-              WidgetConnectionHome(),
-              WidgetFlatButton("Se créer un compte", "/register", 50, 20, 15, 200),
-              WidgetFlatButton("Mot de passe oublié ?", "/reset_password", 50, 20, 15, 200),
-              ],
-          ),
+            ),
+            WidgetTextField(
+                sentence: "Adresse mail",
+                function: context.read<Data>().changeEmail),
+            WidgetTextFieldPassword(
+                sentence: "Mot de passe",
+                function: context.read<Data>().changePassword),
+            WidgetConnectionHome(),
+            WidgetFlatButton(
+                "Se créer un compte", "/register", 50, 20, 15, 200),
+            WidgetFlatButton(
+                "Mot de passe oublié ?", "/reset_password", 50, 20, 15, 200),
+          ],
+        ),
       ),
     );
   }
 }
 
 class WidgetConnectionHome extends StatefulWidget {
-
   @override
   _WidgetConnectionHome createState() => _WidgetConnectionHome();
 }
 
 class _WidgetConnectionHome extends State<WidgetConnectionHome> {
-
   Future<void> _showMyDialog(String sentence) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Error'),
-        content: SingleChildScrollView(
-          child: Text(sentence),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Back'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: SingleChildScrollView(
+            child: Text(sentence),
           ),
-        ],
-      );
-    },
-  );
+          actions: <Widget>[
+            TextButton(
+              child: Text('Back'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -117,32 +121,35 @@ class _WidgetConnectionHome extends State<WidgetConnectionHome> {
         height: 40.0,
         child: RaisedButton(
           onPressed: () {
-            if (context.read<Data>().GetEmail() != null && context.read<Data>().GetPassword() != null) {
-            AuthService().login(context.read<Data>().GetEmail(),
-                                context.read<Data>().GetPassword()).then((val) {
-              if (val.error == false) {
-                context.read<Data>().ChangeUser(val.username);
-                context.read<Data>().ChangeEmail(val.email);
-                context.read<Data>().ChangeGoogle(val.google);
-                context.read<Data>().ChangeId(val.id);
-                AuthService().getArea(context.read<Data>().GetId()).then((val) {
-                  print("Area user : ");
-                  print(val.userArea);
-                  context.read<Data>().ChangeUserArea(val.userArea);
-                  Navigator.of(context).pushNamed("/home");
-                });
-              }
-              else
-                _showMyDialog(val.message);
-            });
+            if (context.read<Data>().getEmail() != null &&
+                context.read<Data>().getPassword() != null) {
+              AuthService()
+                  .login(context.read<Data>().getEmail(),
+                      context.read<Data>().getPassword())
+                  .then((val) {
+                if (val.error == false) {
+                  context.read<Data>().changeUser(val.username);
+                  context.read<Data>().changeEmail(val.email);
+                  context.read<Data>().changeGoogle(val.google);
+                  context.read<Data>().changeId(val.id);
+                  AuthService()
+                      .getArea(context.read<Data>().getId())
+                      .then((val) {
+                    context.read<Data>().changeUserArea(val.userArea);
+                    Navigator.of(context).pushNamed("/home");
+                  });
+                } else
+                  _showMyDialog(val.message);
+              });
             }
           },
-          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
           child: Text(
             "Se connecter",
             style: new TextStyle(
               fontSize: 20.0,
-                color: Colors.white,
+              color: Colors.white,
             ),
           ),
           color: button,

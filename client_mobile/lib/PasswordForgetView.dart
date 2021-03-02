@@ -11,7 +11,6 @@ class PasswordForgetView extends StatefulWidget {
 }
 
 class _PasswordForgetView extends State<PasswordForgetView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,19 +26,27 @@ class _PasswordForgetView extends State<PasswordForgetView> {
             children: [
               WidgetImg("img/logo.png", 100, 100),
               WidgetText("Area", 24, Colors.white),
-              Padding(padding: EdgeInsets.only(
+              Padding(
+                  padding: EdgeInsets.only(
                 bottom: 20,
               )),
               WidgetText("Mot de passe oublié ?", 24, Colors.white),
-              WidgetTextField(sentence: "Adresse mail", function: context.read<Data>().ChangeEmail),
-              WidgetTextFieldPassword(sentence: "Nouveau mot de passe", function: context.read<Data>().ChangePassword),
-              WidgetTextFieldPassword(sentence: "Confirmer mot de passe", function: context.read<Data>().ChangeConfirmPassword),
-              WidgetRaisedButton("Réinitialiser mot de passe", "/", 200.0, 40.0, 20.0),
+              WidgetTextField(
+                  sentence: "Adresse mail",
+                  function: context.read<Data>().changeEmail),
+              WidgetTextFieldPassword(
+                  sentence: "Nouveau mot de passe",
+                  function: context.read<Data>().changePassword),
+              WidgetTextFieldPassword(
+                  sentence: "Confirmer mot de passe",
+                  function: context.read<Data>().changeConfirmPassword),
+              WidgetRaisedButton(
+                  "Réinitialiser mot de passe", "/", 200.0, 40.0, 20.0),
               WidgetFlatButton("Connectez-vous !", "/", 50, 20, 15, 200),
-              ],
-            ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
