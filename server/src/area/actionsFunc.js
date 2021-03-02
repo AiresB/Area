@@ -8,13 +8,13 @@ const {actions} = require("./actions")
 const {manageGoogleAction} = require("./../Google/google_api")
 
 const its_8_action = (element) => {
-    return true
-    /*const now = Date.now();
-    if (now.getHours() == 22 && now.getMinutes() == 51) {
+    var today = new Date()
+    console.log(today.getHours(),today.getMinutes())
+    if (today.getHours() == 7 && today.getMinutes() == 00) {
         console.log("yeah")
         return true
     }
-    return false*/
+    return false
 }
 
 const gmail_action = (element) => {
@@ -26,26 +26,21 @@ const gcalendar_action = (element) => {
 }
 
 /*  list functions */
-const actFuncList = [its_8_action,
-    its_8_action,
-    gmail_action,
-    gcalendar_action
-]
+const actFuncList = {
+    1: its_8_action,
+    2: gmail_action,
+    3: gcalendar_action
+}
 
 /* action checker */
 const actionChecker = async (element) => {
-    console.log("action")
-    if (its_8_action(element)) {
-        reactionAct(element);
-    } else {
-        console.log("not activated")
-    }
+    console.log("in action checker")
 
-    /*if (actFuncList[element.actionId](element)) {
+    if (actFuncList[element.action_id](element)) {
         reactionAct(element);
     } else {
         return;
-    }*/
+    }
 
 }
 
