@@ -1,8 +1,17 @@
+import 'package:area/route_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:area/loginView.dart';
+import 'package:provider/provider.dart';
+import 'package:area/Data.dart';
 
 void main() {
-  runApp(new Area());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Data()),
+      ],
+      child: Area(),
+    ),
+  );
 }
 
 class Area extends StatelessWidget {
@@ -15,7 +24,8 @@ class Area extends StatelessWidget {
         fontFamily: 'QuickSand'
       ),
       debugShowCheckedModeBanner: false,
-      home: new LoginView(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
         return;
     }
 
-    user = await userFind( email )
+    user = await userFind( "email", email )
     if (!user) {
         return res.status(404).json({ error: true, message: 'User not find' });
     }
@@ -40,6 +40,7 @@ exports.login = async (req, res) => {
 exports.register = async (req, res) => {
     const { username, password, email } = req.body;
 
+    console.log("username: ", username, " password: ", password, " email: ", email);
     if (!username || !password || !email) {
         res.status(400).json({error: true, message: "arguments missing"});
         return;
@@ -47,7 +48,7 @@ exports.register = async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10)
     const google = "0"
-    user = await userFind( email )
+    user = await userFind( "email", email )
     if (user) {
         res.status(401).json({
             error: true,
