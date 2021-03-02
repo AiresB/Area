@@ -70,7 +70,7 @@ async function loginUser(credentials) {
   }
 }
 
-export default function Login({ setToken, setUser }) {
+export default function Login({ setUserID, setUserName }) {
   const classes = useStyles();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -78,13 +78,13 @@ export default function Login({ setToken, setUser }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
+    const user = await loginUser({
       email,
       password
     });
-    setToken(token.id);
-    setUser(token.username);
-    console.log(token.username);
+    setUserID(user.id);
+    setUserName(user.username);
+    console.log(user.username);
     history.push("/dashboard");
     history.go(0);
   }
@@ -135,7 +135,7 @@ export default function Login({ setToken, setUser }) {
             >
               Sign In
             </Button>
-            <GoogleBtn/>
+            <GoogleBtn history={history}/>
             <Grid container>
               <Grid item>
                 <Link href="/register" variant="body2">
@@ -151,5 +151,5 @@ export default function Login({ setToken, setUser }) {
 }
 
 Login.propTypes = {
-    setToken: PropTypes.func.isRequired
+    setUserID: PropTypes.func.isRequired
 }

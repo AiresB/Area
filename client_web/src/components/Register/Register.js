@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import GoogleBtn from "../Google/Google"
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -50,9 +52,9 @@ async function registerUser(credentials) {
     })
       .then(function(response) {
         if (response.status === 401)
-          console.log("Email already used");
+          alert("Email already used");
         if (response.status === 201)
-          console.log("User successfully registered");
+          alert("User successfully registered");
       })
       .catch((err) => {
         console.error(err);
@@ -136,6 +138,7 @@ export default function Register() {
           >
             Sign Up
           </Button>
+          <GoogleBtn message="Sign in"/>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="http://localhost:3000/" variant="body2">
