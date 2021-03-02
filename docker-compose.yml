@@ -17,7 +17,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8081:8080
+      - 8082:8080
 
   serveur:
     depends_on:
@@ -28,13 +28,21 @@ services:
     restart: unless-stopped
 
   client_web:
+    depends_on:
+      - serveur
+      - client_mobile
     build: ./client_web/
     ports:
-      - 3000:3000
+      - 8081:3000
     restart: unless-stopped
+    volumes:
+      - client:/var/client
 
   client_mobile:
     build: ./client_mobile/Dockerfile
+    volumes:
+      - client:/var/client
 
 volumes:
   pgdata:
+  client:
