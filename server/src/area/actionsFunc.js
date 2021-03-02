@@ -5,31 +5,30 @@
 /*  Code    */
 const {reactionAct} = require("./reactionsFunc")
 const {actions} = require("./actions")
+const {manageGoogleAction} = require("./../Google/google_api")
 
-const action1func = (element) => {
-    //todo action 1
-
+const gmail_action = (element) => {
+    return manageGoogleAction(1, element);
 }
 
-const action2func = (element) => {
-    //todo action 2
-
+const gcalendar_action = (element) => {
+    return manageGoogleAction(2, element);
 }
 
 /*  list functions */
-const actFuncList = {
-    1: action1func,
-    2: action2func
+exports.actFuncList = {
+    1: gmail_action,
+    2: gcalendar_action
 }
 
 /* action checker */
 const actionChecker = async (element) => {
-    if (actFuncList[element.action_id](element)) {
+    if (actFuncList[element.actionId](element)) {
         reactionAct(element);
     } else {
-        return
+        return;
     }
 
 }
 
-module.exports = {actionChecker, actFuncList}
+module.exports = {actionChecker}
