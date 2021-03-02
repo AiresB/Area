@@ -355,10 +355,13 @@ class _ActionReactionCard extends State<ActionReactionCard> {
                     icon: Image.asset('img/remove.png'),
                     iconSize: 30,
                     onPressed: () {
-                      context
-                          .read<Data>()
-                          .delCardActionReaction(widget.card['id']);
-                      Navigator.of(context).pushNamed("/home");
+                      AuthService()
+                          .updateArea(
+                              widget.card['id'], context.read<Data>().getId())
+                          .then((val) {
+                        context.read<Data>().changeUserArea(val.userArea);
+                        Navigator.of(context).pushNamed("/home");
+                      });
                     },
                   ),
                 ],

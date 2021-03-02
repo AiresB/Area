@@ -62,4 +62,19 @@ class AuthService {
     else
       return BufferResponse.fromJsonError(jsonDecode(response.body));
   }
+
+  Future<BufferResponse> updateArea(idArea, userId) async {
+    Map<String, dynamic> json = {
+      'id': idArea,
+    };
+    var url = _localhost() + '/area/delete/';
+    http.Request rq = http.Request('DELETE', Uri.parse(url));
+    rq.bodyFields = {
+      'id': idArea,
+    };
+    http.StreamedResponse response = await http.Client().send(rq);
+    print(json);
+    print(response);
+    return getArea(userId);
+  }
 }

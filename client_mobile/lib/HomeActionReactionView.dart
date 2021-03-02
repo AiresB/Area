@@ -17,7 +17,7 @@ class _HomeActionReactionView extends State<HomeActionReactionView> {
     List<dynamic> responseList = context.read<Data>().getArea();
     List<Widget> listItems = [];
 
-    if (responseList != null) {
+    if (responseList != null && responseList != []) {
       responseList.forEach((post) {
         listItems.add(ActionReactionCard(post));
       });
