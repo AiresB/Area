@@ -7,23 +7,21 @@ const {manageGoogleReaction} = require("./../Google/google_api")
 /*  Code    */
 
 const gmail_reaction = (element) => {
-    manageGoogleReaction(1);
+    manageGoogleReaction(1, element);
 }
 
 const gcalendar_reaction = (element) => {
-    manageGoogleReaction(2);
+    manageGoogleReaction(2, element);
 }
 
-gcalendar_reaction();
-
 /*  list functions */
-const reactFuncList = {
+exports.reactFuncList = {
     1: gmail_reaction,
     2: gcalendar_reaction
 }
 
 const reactionAct = (element) => {
-    reactFuncList.element.reactId(element)
+    reactFuncList[element.reactionId](element)
 }
 
-module.exports = {reactionAct, reactFuncList}
+module.exports = {reactionAct}

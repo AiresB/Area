@@ -5,20 +5,35 @@ const {google} = require('googleapis');
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gmail_listMails(auth) {
+function gmail_haveNewMail(auth, area) {
     const gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.list({
       userId: 'me',
+      maxResults: 2,
     }, (err, res) => {
-      if (err) return console.log('The API returned an error: ' + err);
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return false;
+      }
       const mess = res.data.messages;
+      var saved_id = "";
       if (mess.length) {
-        console.log('Mails:');
         mess.forEach((mail) => {
-          console.log(`- ${mail}`);
+          saved_id = saved_id + mail.id;
         });
+        if (area.actionDesc === "") {
+          area.actionDesc = saved_id;
+          return false;
+        }
+        if (area.actionDesc === saved_id)
+          return false;
+        else {
+          area.actionDesc = saved_id;
+          return true;
+        }
       } else {
-        console.log('No mail found.');
+        area.actionDesc = "0";
+        return false;
       }
     });
   }
@@ -68,4 +83,4 @@ function gmail_sendMessage(auth) {
     });
 }
 
-module.exports = {gmail_listMails, gmail_sendMessage}
+module.exports = {gmail_haveNewMail, gmail_sendMessage}

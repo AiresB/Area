@@ -2,22 +2,22 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 
-
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function gcalendar_createEvent(auth) {
   calendar = google.calendar({version: 'v3', auth});
+  actual_date = (new Date()).toISOString().substring(0, 19);
   var event_desc = {
     'summary': 'Réunion area',
     'location': 'At home',
     'description': 'An event to speak about the project',
     'start': {
-      'dateTime': '2021-03-02T19:00:00+01:00',
+      'dateTime': actual_date + '-01:00',
       'timeZone': "Europe/Paris",
     },
     'end': {
-      'dateTime': '2021-03-02T20:00:00+01:00',
+      'dateTime': actual_date + '-02:00',
       'timeZone': "Europe/Paris",
     },
     'recurrence': [
@@ -46,31 +46,71 @@ function gcalendar_createEvent(auth) {
   
 }
 
+function addHoursToDate(date, add_hours)
+{
+  hours = parseInt(date.substring(11,13), 10);
+  hours = hours + add_hours;
+  add_day = 0;
+  day = parseInt(date.substring(8,10), 10);
+  while (hours > 23) {
+    hours = hours-24;
+    add_day = add_day + 1;
+  }
+  day = day + add_day;
+  day = day.toString();
+  hours = hours.toString();
+  if (hours.length == 1)
+    hours = '0' + hours;
+  if (day.length == 1)
+    day = '0' + day;
+  return (date.substring(0,8) + day + "T" + hours + date.substring(13, 19))
+}
+
+function calcul_date(date, add_hours)
+{
+  if (date[19] == '.')
+    date = date.substring(0,19);
+  if (date[19] == '+') {
+    add_hours = add_hours - parseInt(date.substring(20,22), 10);
+    date = addHoursToDate(date.substring(0,19), add_hours);
+  }
+  if (date[19] == '-') {
+    add_hours = add_hours + parseInt(date.substring(20,22), 10);
+    date = addHoursToDate(date.substring(0,19), add_hours);
+  }
+  return date;
+}
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gcalendar_listEvents(auth) {
+function gcalendar_oneHourToNext(auth, area) {
   const calendar = google.calendar({version: 'v3', auth});
   calendar.events.list({
     calendarId: 'primary',
     timeMin: (new Date()).toISOString(),
-    maxResults: 10,
+    maxResults: 3,
     singleEvents: true,
     orderBy: 'startTime',
   }, (err, res) => {
-    if (err) return console.log('The API returned an error: ' + err);
+    if (err) {
+      console.log('The API returned an error: ' + err);
+      return false;
+    }
     const events = res.data.items;
     if (events.length) {
       console.log('Upcoming 10 events:');
       events.map((event, i) => {
-        const start = event.start.dateTime || event.start.date;
-        console.log(`${start} - ${event.summary}`);
+        var start = event.start.dateTime || event.start.date;
+        if (calcul_date(start, -1).substring(0, 16) === calcul_date((new Date()).toISOString(), 0).substring(0, 16))
+          return true;
+        return false;
       });
     } else {
       console.log('No upcoming events found.');
+      return false;
     }
   });
 }
 
-module.exports = {gcalendar_createEvent, gcalendar_listEvents}
+module.exports = {gcalendar_createEvent, gcalendar_oneHourToNext}
