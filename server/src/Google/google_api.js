@@ -41,6 +41,8 @@ function manageGoogleReaction(rea_id, area)
   });
 }
 
+//manageGoogleReaction(2,0)
+
 function manageGoogleAction(a_id, area)
 {
   fs.readFile('./src/Google/credentials.json', (err, content) => {
@@ -61,14 +63,14 @@ function manageGoogleAction(a_id, area)
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize_act(credentials, callback, area) {
-  console.log(credentials)
-  const token = userFind("id", area.user_id).google;
-  const {client_secret, client_id, redirect_uris} = credentials.web;
+const authorize_act = async function(credentials, callback, area) {
+  const token = await userFind("id", area.user_id);
+  console.log("token =", token.google)
+  const {client_secret, client_id, redirect_uris} = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
       client_id, client_secret, redirect_uris[0]);
 
-    oAuth2Client.setCredentials(my_token);
+    oAuth2Client.setCredentials(token.google);
     return callback(oAuth2Client, area);
 }
 

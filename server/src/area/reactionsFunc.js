@@ -22,7 +22,7 @@ const reactFuncList = {
 
 const reactionAct = (element) => {
     console.log("in reaction Act")
-    //reactFuncList[element.reactionId](element)
+    reactFuncList[element.reaction_id](element)
 }
 
 module.exports = {reactionAct}

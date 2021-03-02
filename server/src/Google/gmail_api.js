@@ -73,9 +73,6 @@ function makeBody(to, from, subject, message) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function gmail_sendMessage(auth, area) {
-    console.log(area)
-    console.log(auth)
-    user = getbyid("id", area)
     var raw = makeBody(area.email, area.email, 'test subject', 'test message');
     gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.send({

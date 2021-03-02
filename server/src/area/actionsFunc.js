@@ -9,9 +9,7 @@ const {manageGoogleAction} = require("./../Google/google_api")
 
 const its_8_action = (element) => {
     var today = new Date()
-    console.log(today.getHours(),today.getMinutes())
     if (today.getHours() == 7 && today.getMinutes() == 00) {
-        console.log("yeah")
         return true
     }
     return false
