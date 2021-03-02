@@ -255,7 +255,13 @@ class AreaForm extends Component  {
       event.preventDefault();
     }
   render() {
-    return (<div>
+    return (
+    <div>
+      <Grid 
+      justify="space-between"
+      container 
+      spacing={24}
+      >
       <form onSubmit={this.handleSubmit}>
       <FormControl style={{minWidth: 300}}>
       <InputLabel htmlFor="grouped-select">Action</InputLabel>
@@ -279,10 +285,13 @@ class AreaForm extends Component  {
               variant="contained"
               color="primary"
             >
-              Add
+              Create
             </Button>
       </form>
-    </div>);
+      </Grid>
+    </div>
+
+    );
   }
 }
 
@@ -334,7 +343,7 @@ export default function Dashboard() {
           <h2>Welcome, {username}</h2>
         </CssBaseline>
       </MuiThemeProvider>
-      <AreaForm/>
+        <AreaForm/>      
       <AreaList areaList={areaList}/>
       </Grid>
   );

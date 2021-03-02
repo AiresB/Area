@@ -29,7 +29,7 @@ class GoogleBtn extends Component {
       body: JSON.stringify(data)
     })
     .then(data => data.json())
-    .then(data => { 
+    .then(data => {
       return (data)
     })
       .catch((err) => {
@@ -37,7 +37,6 @@ class GoogleBtn extends Component {
       })
    }
    async loginUser(credentials) {
-    if (credentials) {
       try {
         return fetch('http://127.0.0.1:8080/user/login', {
           method: 'POST',
@@ -47,7 +46,7 @@ class GoogleBtn extends Component {
           body: JSON.stringify(credentials)
         })
           .then(data => data.json())
-          .then(data => { 
+          .then(data => {
             return (data)
           })
           .catch((err) => {
@@ -56,7 +55,6 @@ class GoogleBtn extends Component {
       } catch(e) {
         console.error(e)
       }
-    }
   }
   async areaLogin(data) {
     var response = await this.loginUser({email: data.profileObj.email, google: data.tokenObj});
@@ -68,10 +66,10 @@ class GoogleBtn extends Component {
       sessionStorage.setItem('userId', responseRegister.user.id);
       sessionStorage.setItem('username', responseRegister.user.username);
     } 
-    // if (response.error === false) {
-    //   sessionStorage.setItem('userId', response.user.id);
-    //   sessionStorage.setItem('username', response.user.username);
-    // }
+    if (response.error === false) {
+      sessionStorage.setItem('userId', response.user.id);
+      sessionStorage.setItem('username', response.user.username);
+    }
   }
   login (response) {
     if(response.accessToken){
@@ -81,7 +79,7 @@ class GoogleBtn extends Component {
       }));
       this.areaLogin(response);
       this.props.history.push("/dashboard");
-      this.props.history.go(0);
+      //this.props.history.go(0);
     }
   }
 
