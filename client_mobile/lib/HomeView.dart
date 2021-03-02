@@ -1,8 +1,9 @@
-
 import 'package:area/HomeActionReactionView.dart';
-import 'package:area/HomeActionView.dart';
+import 'package:area/ChoiceActionReactionView.dart';
 import 'package:flutter/material.dart';
 import 'package:area/prefab.dart';
+import 'package:provider/provider.dart';
+import 'package:area/Data.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -13,14 +14,23 @@ class HomeView extends StatefulWidget {
 
 class _HomeView extends State<HomeView> {
   int _selectedIndex = 0;
+  int statut;
   static List<Widget> _widgetView = <Widget>[
     HomeActionReactionView(),
-    HomeActionView(),
+    WidgetChoiceAction(),
+    WidgetChoiceReaction(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  void initState() {
+    super.initState();
+    setState(() {
+      statut = context.read<Data>().getStatut();
     });
   }
 
@@ -41,15 +51,17 @@ class _HomeView extends State<HomeView> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.app_registration),
-            label: 'Services',
+            label: 'Actions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.app_registration),
+            label: 'Reactions',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
-    ),
-  );
+      ),
+    );
   }
 }
-
-

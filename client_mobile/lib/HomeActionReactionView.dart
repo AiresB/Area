@@ -53,7 +53,7 @@ class _HomeActionReactionView extends State<HomeActionReactionView> {
               padding: EdgeInsets.only(
             bottom: 20,
           )),
-          if (itemsData == null)
+          if (itemsData == null || itemsData == [])
             WidgetText("Vous n'avez pas encore d'area", 20, Colors.white)
           else
             ScrollingWidget(itemsData),

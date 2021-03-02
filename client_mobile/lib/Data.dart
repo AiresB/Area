@@ -10,7 +10,8 @@ class Data extends ChangeNotifier {
   List<dynamic> userArea;
   List<Widget> widgetArea;
   dynamic cardAction;
-  List<dynamic> cardReaction;
+  dynamic cardReaction;
+  int statut = 0;
 
   void PrintTest() {
     print("Hello World !");
@@ -26,6 +27,10 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
+  int getStatut() {
+    return statut;
+  }
+
   dynamic getCardAction() {
     return cardAction;
   }
@@ -34,7 +39,7 @@ class Data extends ChangeNotifier {
     return widgetArea;
   }
 
-  List<dynamic> getCardReaction() {
+  dynamic getCardReaction() {
     return cardReaction;
   }
 
@@ -70,6 +75,11 @@ class Data extends ChangeNotifier {
     return confirmPassword;
   }
 
+  void changeStatut(int val) {
+    statut = val;
+    notifyListeners();
+  }
+
   void changeGoogle(String val) {
     google = val;
     notifyListeners();
@@ -80,7 +90,7 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeCardReaction(List<dynamic> val) {
+  void changeCardReaction(dynamic val) {
     cardReaction = val;
     notifyListeners();
   }

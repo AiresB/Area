@@ -1,6 +1,7 @@
 import 'package:area/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
 
 const background = const Color(0xFF34314C);
@@ -368,6 +369,81 @@ class _ActionReactionCard extends State<ActionReactionCard> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ReactionCardButton extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _ReactionCardButton();
+  }
+}
+
+class _ReactionCardButton extends State<ReactionCardButton> {
+  @override
+  Widget build(BuildContext context) {
+    return new Card(
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_reaction_card,
+      child: InkWell(
+        splashColor: Colors.blue.withAlpha(30),
+        onTap: () {
+          print('Card tapped.');
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            WidgetText("Reaction", 25, Colors.white),
+            Container(
+              width: 120,
+              height: 120,
+              child: Center(
+                child: WidgetText("Envoie moi un mail", 18, Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ActionCardButton extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _ActionCardButton();
+  }
+}
+
+class _ActionCardButton extends State<ActionCardButton> {
+  @override
+  Widget build(BuildContext context) {
+    return new Card(
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_action_card,
+      child: InkWell(
+        splashColor: Colors.blue.withAlpha(30),
+        onTap: () {
+          context.read<Data>().changeStatut(1);
+          print('Card tapped.');
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            WidgetText("Action", 25, Colors.white),
+            Container(
+              width: 120,
+              height: 120,
+              child: Center(
+                child: WidgetText("Si il fait 30 degrès", 18, Colors.white),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -55,10 +55,19 @@ class AuthService {
   Future<BufferResponse> getCardAction() async {
     var url = _localhost() + '/area/actionlist';
     final response = await http.get(url);
+    if (response.statusCode == 200)
+      return BufferResponse.fromJsonCardAction(jsonDecode(response.body));
+    else
+      return BufferResponse.fromJsonError(jsonDecode(response.body));
+  }
+
+  Future<BufferResponse> getCardReaction() async {
+    var url = _localhost() + '/area/reactionlist';
+    final response = await http.get(url);
     print(json);
     print(response.body);
     if (response.statusCode == 200)
-      return BufferResponse.fromJsonCardAction(jsonDecode(response.body));
+      return BufferResponse.fromJsonCardReaction(jsonDecode(response.body));
     else
       return BufferResponse.fromJsonError(jsonDecode(response.body));
   }
