@@ -15,13 +15,14 @@ const gcalendar_reaction = (element) => {
 }
 
 /*  list functions */
-exports.reactFuncList = {
+const reactFuncList = {
     1: gmail_reaction,
     2: gcalendar_reaction
 }
 
 const reactionAct = (element) => {
-    reactFuncList[element.reactionId](element)
+    console.log("in reaction Act")
+    reactFuncList[element.reaction_id](element)
 }
 
 module.exports = {reactionAct}

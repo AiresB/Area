@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { getbyid } = require('../controllers/area');
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -37,7 +38,7 @@ function gmail_haveNewMail(auth, area) {
       }
     });
   }
-  
+
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
@@ -52,7 +53,7 @@ function gmail_getNbrOfMails(auth) {
     console.log(mess.length);
   });
 }
-  
+
 
 function makeBody(to, from, subject, message) {
     var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
@@ -63,7 +64,7 @@ function makeBody(to, from, subject, message) {
         "subject: ", subject, "\n\n",
         message
     ].join('');
-  
+
     var encodedMail = new Buffer.from(str).toString("base64").replace(/\+/g, '-').replace(/\//g, '_');
         return encodedMail;
 }
@@ -71,8 +72,8 @@ function makeBody(to, from, subject, message) {
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gmail_sendMessage(auth) {
-    var raw = makeBody('kheiji95800@gmail.com', 'kheiji95800@gmail.com', 'test subject', 'test message');
+function gmail_sendMessage(auth, area) {
+    var raw = makeBody(area.email, area.email, 'test subject', 'test message');
     gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.send({
         auth: auth,

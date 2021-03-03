@@ -5,7 +5,7 @@ const {google} = require('googleapis');
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gcalendar_createEvent(auth) {
+function gcalendar_createEvent(auth, area) {
   calendar = google.calendar({version: 'v3', auth});
   actual_date = (new Date()).toISOString().substring(0, 19);
   var event_desc = {
@@ -31,7 +31,7 @@ function gcalendar_createEvent(auth) {
       ],
     },
   };
-  
+
   calendar.events.insert({
     auth: auth,
     calendarId: 'primary',
@@ -43,7 +43,7 @@ function gcalendar_createEvent(auth) {
     }
     console.log('Event created: %s', event.htmlLink);
   });
-  
+
 }
 
 function addHoursToDate(date, add_hours)
