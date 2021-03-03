@@ -2,6 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 const { getbyid } = require('../controllers/area');
+const { userFind } = require('../models/user');
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -72,8 +73,10 @@ function makeBody(to, from, subject, message) {
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gmail_sendMessage(auth, area) {
-    var raw = makeBody(area.email, area.email, 'test subject', 'test message');
+const gmail_sendMessage = async function (auth, area) {
+  var user = await userFind("id", area.user_id);
+    console.log(user.email);
+    var raw = makeBody(user.email, user.email, 'test subject', 'test message');
     gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.send({
         auth: auth,
