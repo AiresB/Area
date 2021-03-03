@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 import Area from './Area'
 // import EditArea from './EditArea'
-
+const classes = {
+  Paper: {
+    margin: "auto",
+    padding: 10,
+    display: "flex",
+    alignItems: "left",
+    marginTop: 10,
+    width: 500
+  }
+}
 class AreaList extends Component {
     renderArea = key => {
-        if (this.props.areaList[key] == null) return null;
         // if (this.props.areaList[key]["status"] === "active") {
         //   return (
         //     <Area
@@ -60,11 +69,23 @@ class AreaList extends Component {
     //     this.fetchAreaList();
     // }
     render() {
+      console.log(this.props.areaList);
+      if (this.props.areaList.length === 0) {
         return (
-            <Grid container alignContent='flex-start'>
-            {this.props.areaList && Object.keys(this.props.areaList).map(key => this.renderArea(key))}
-          </Grid>
+          <Paper elevation={2} style={classes.Paper}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Paper className={classes.Paper}>No AREAs yet create some!</Paper>
+              </Grid>
+            </Grid>
+          </Paper>
         );
+      }
+      return (
+        <Grid container alignContent='flex-start'>
+          {this.props.areaList && Object.keys(this.props.areaList).map(key => this.renderArea(key))}
+        </Grid>
+      );
     }
 }
 

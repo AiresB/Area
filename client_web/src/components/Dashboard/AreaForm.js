@@ -40,40 +40,6 @@ class AreaForm extends Component {
     this.handleChangeReaction = this.handleChangeReaction.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  // fetchActionList() {
-  //   fetch('http://127.0.0.1:8080/area/actionlist', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //   })
-  //     .then(data => data.json())
-  //     .then(data => {
-  //       this.setState({ actionList: data.actions })
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     })
-  // }
-  // fetchReactionList() {
-  //   fetch('http://127.0.0.1:8080/area/reactionlist', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //   })
-  //     .then(data => data.json())
-  //     .then(data => {
-  //       this.setState({ reactionList: data.reactions })
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     })
-  // }
-  // componentDidMount() {
-  //   this.fetchActionList();
-  //   this.fetchReactionList();
-  // }
 
   async handleChangeAction(event) {
     await this.setState({ actionID: event.target.value });
@@ -108,19 +74,9 @@ class AreaForm extends Component {
             this.props.addArea(data.area);
           }
         })
-      // .then(response => {
-      //   response.json();
-      // })
-      // .then(data => {
-      //   console.log(data);
-      // })
-      // .catch((err) => {
-      //   console.error(err);
-      // });
     } catch (e) {
       console.error(e)
     }
-    //event.currentTarget.reset();
     event.preventDefault();
   }
   render() {
