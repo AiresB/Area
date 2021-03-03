@@ -41,6 +41,9 @@ class _HomeView extends State<HomeView> {
       context.read<Data>().changeCardReaction(val.cardReaction_1);
       context.read<Data>().changeCardReaction(val.cardReaction_2);
     });
+    AuthService().getArea(context.read<Data>().getId()).then((val) {
+      context.read<Data>().changeUserArea(val.userArea);
+    });
     setState(() {
       statut = context.read<Data>().getStatut();
     });

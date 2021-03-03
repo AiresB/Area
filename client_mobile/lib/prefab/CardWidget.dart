@@ -15,7 +15,6 @@ class ActionReactionCard extends StatefulWidget {
   @override
   ActionReactionCard(dynamic _card) {
     this.card = _card;
-    print(card);
   }
 
   State<StatefulWidget> createState() {
@@ -24,8 +23,6 @@ class ActionReactionCard extends StatefulWidget {
 }
 
 class _ActionReactionCard extends State<ActionReactionCard> {
-  bool deleteIsPressed = false;
-
   @override
   Widget build(BuildContext context) {
     return new Card(
@@ -42,8 +39,8 @@ class _ActionReactionCard extends State<ActionReactionCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  ActionCard(),
-                  ReactionCard(),
+                  ActionCard(widget.card),
+                  ReactionCard(widget.card),
                   IconButton(
                     icon: Image.asset('img/remove.png'),
                     iconSize: 30,
@@ -95,8 +92,8 @@ class _ActionReactionResultCard extends State<ActionReactionResultCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  ActionCard(),
-                  ReactionCard(),
+                  ActionCardResult(),
+                  ReactionCardResult(),
                 ],
               ),
             ],
@@ -108,6 +105,17 @@ class _ActionReactionResultCard extends State<ActionReactionResultCard> {
 }
 
 class ActionCard extends StatefulWidget {
+  dynamic card;
+  String sentence;
+
+  @override
+  ActionCard(dynamic _card) {
+    this.card = _card;
+    if (card["action_id"] == "1") {
+      sentence = "It's 8'";
+    }
+  }
+
   @override
   State<StatefulWidget> createState() {
     return new _ActionCard();
@@ -129,7 +137,7 @@ class _ActionCard extends State<ActionCard> {
             width: 120,
             height: 120,
             child: Center(
-              child: WidgetText("Si il fait 30 degrès", 18, Colors.white),
+              child: WidgetText(widget.sentence, 18, Colors.white),
             ),
           ),
         ],
@@ -139,6 +147,19 @@ class _ActionCard extends State<ActionCard> {
 }
 
 class ReactionCard extends StatefulWidget {
+  dynamic card;
+  String sentence;
+
+  @override
+  ReactionCard(dynamic _card) {
+    this.card = _card;
+    if (card["reaction_id"] == "1") {
+      sentence = "Gmail";
+    }
+    if (card["reaction_id"] == "2") {
+      sentence = "GCalendar";
+    }
+  }
   @override
   State<StatefulWidget> createState() {
     return new _ReactionCard();
@@ -160,7 +181,71 @@ class _ReactionCard extends State<ReactionCard> {
             width: 120,
             height: 120,
             child: Center(
-              child: WidgetText("Envoie moi un mail", 18, Colors.white),
+              child: WidgetText(widget.sentence, 18, Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ActionCardResult extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _ActionCardResult();
+  }
+}
+
+class _ActionCardResult extends State<ActionCardResult> {
+  @override
+  Widget build(BuildContext context) {
+    return new Card(
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_action_card,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          WidgetText("Action", 25, Colors.white),
+          Container(
+            width: 120,
+            height: 120,
+            child: Center(
+              child: WidgetText(
+                  context.read<Data>().getCardActionChoice(), 18, Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ReactionCardResult extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _ReactionCardResult();
+  }
+}
+
+class _ReactionCardResult extends State<ReactionCardResult> {
+  @override
+  Widget build(BuildContext context) {
+    return new Card(
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(15.0)),
+      color: background_reaction_card,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          WidgetText("Reaction", 25, Colors.white),
+          Container(
+            width: 120,
+            height: 120,
+            child: Center(
+              child: WidgetText(context.read<Data>().getCardReactionChoice(),
+                  18, Colors.white),
             ),
           ),
         ],

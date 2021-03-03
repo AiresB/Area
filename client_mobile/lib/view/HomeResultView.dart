@@ -4,6 +4,7 @@ import 'package:area/prefab/TextWidget.dart';
 import 'package:area/prefab/CardWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
+import 'package:area/auth/authService.dart';
 
 const button = const Color(0xFF47B8E0);
 
@@ -95,6 +96,8 @@ class WidgetRaisedButtonResult extends StatefulWidget {
   double minWidthButton;
   double heightButton;
   double fontSizeText;
+  List<String> idActReact = List<String>();
+  List<String> description = List<String>();
 
   WidgetRaisedButtonResult(String _sentence, String _path,
       double _minWidthButton, double _heightButton, double _fontSizeText) {
@@ -107,25 +110,28 @@ class WidgetRaisedButtonResult extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new _WidgetRaisedButtonResult(
-        sentence, path, minWidthButton, heightButton, fontSizeText);
+    return new _WidgetRaisedButtonResult();
   }
 }
 
 class _WidgetRaisedButtonResult extends State<WidgetRaisedButtonResult> {
-  String sentence;
-  String path;
-  double minWidthButton;
-  double heightButton;
-  double fontSizeText;
-
-  _WidgetRaisedButtonResult(String _sentence, String _path,
-      double _minWidthButton, double _heightButton, double _fontSizeText) {
-    this.sentence = _sentence;
-    this.path = _path;
-    this.minWidthButton = _minWidthButton;
-    this.heightButton = _heightButton;
-    this.fontSizeText = _fontSizeText;
+  void setIdAndDescription() {
+    print("card action choice :");
+    print(context.read<Data>().getCardActionChoice());
+    print("card reaction choice :");
+    print(context.read<Data>().getCardReactionChoice());
+    if (context.read<Data>().getCardActionChoice() == "It's 8'") {
+      widget.idActReact.add("1");
+      widget.description.add("Horaire description");
+    }
+    if (context.read<Data>().getCardReactionChoice() == "Gmail") {
+      widget.idActReact.add("1");
+      widget.description.add("Gmail description");
+    }
+    if (context.read<Data>().getCardReactionChoice() == "GCalendar") {
+      widget.idActReact.add("2");
+      widget.description.add("GCalendar description");
+    }
   }
 
   @override
@@ -135,24 +141,33 @@ class _WidgetRaisedButtonResult extends State<WidgetRaisedButtonResult> {
         top: 5.0,
       ),
       child: ButtonTheme(
-        minWidth: minWidthButton,
-        height: heightButton,
+        minWidth: widget.minWidthButton,
+        height: widget.heightButton,
         child: RaisedButton(
           onPressed: () {
-            if (path == '/home') {
-              context.read<Data>().resetCardAction();
-              context.read<Data>().resetCardReaction();
-              context.read<Data>().changeCardActionChoice(null);
-              context.read<Data>().changeCardReactionChoice(null);
+            if (widget.sentence == "Confirmer") {
+              setIdAndDescription();
+              AuthService()
+                  .createArea(
+                      context.read<Data>().getId(),
+                      widget.idActReact[0],
+                      widget.description[0],
+                      widget.idActReact[1],
+                      widget.description[1])
+                  .then((val) {});
             }
-            Navigator.of(context).pushNamed(path);
+            context.read<Data>().resetCardAction();
+            context.read<Data>().resetCardReaction();
+            context.read<Data>().changeCardActionChoice(null);
+            context.read<Data>().changeCardReactionChoice(null);
+            Navigator.of(context).pushNamed(widget.path);
           },
           shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(30.0)),
           child: Text(
-            sentence,
+            widget.sentence,
             style: new TextStyle(
-              fontSize: fontSizeText,
+              fontSize: widget.fontSizeText,
               color: Colors.white,
             ),
           ),

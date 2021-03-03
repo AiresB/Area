@@ -50,6 +50,25 @@ class AuthService {
       return BufferArea.fromJsonError(jsonDecode(response.body));
   }
 
+  Future<BufferArea> createArea(
+      userId, actionId, actionDesc, reactionId, reactionDesc) async {
+    Map<String, dynamic> json = {
+      'userId': userId,
+      'actionId': actionId,
+      'actionDesc': actionDesc,
+      'reactionId': reactionId,
+      'reactionDesc': reactionDesc,
+    };
+    print("json :");
+    print(json);
+    var url = _localhost() + '/area/create';
+    final response = await http.post(url, body: json);
+    if (response.statusCode == 200)
+      return BufferArea.fromJson(jsonDecode(response.body));
+    else
+      return BufferArea.fromJsonError(jsonDecode(response.body));
+  }
+
   Future<BufferArea> updateArea(idArea, userId) async {
     var url = _localhost() + '/area/delete/';
     http.Request rq = http.Request('DELETE', Uri.parse(url));

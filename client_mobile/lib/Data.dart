@@ -35,6 +35,11 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetUserdArea() {
+    userArea = List<dynamic>();
+    notifyListeners();
+  }
+
   void resetCardReaction() {
     cardReaction = List<dynamic>();
     notifyListeners();
