@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
-    const { username, password, email , google} = req.body;
+    var { username, password, email , google} = req.body;
 
     if (!username || (!password && !google) || !email) {
         res.status(400).json({error: true, message: "arguments missing"});
@@ -57,9 +57,7 @@ exports.register = async (req, res) => {
     }
     if (password) {
         const hash = await bcrypt.hash(password, 10)
-        if (!google) {
-            const google = 0;
-        }
+        const google = {null: true}
         user = await userFind( "email", email )
         if (user) {
             res.status(401).json({
@@ -68,13 +66,14 @@ exports.register = async (req, res) => {
             });
             return
         }
+        console.log("google:", google)
         const userData = await userRegister({ username, hash, email, google});
         res.status(201).json({
             error: false,
             user: userData
         });
     } else if (google) {
-        const hash = "";
+        const hash = null;
         user = await userFind( "email", email )
         if (user) {
             res.status(401).json({
