@@ -9,15 +9,15 @@ class Data extends ChangeNotifier {
   String google;
   List<dynamic> userArea;
   List<Widget> widgetArea;
-  dynamic cardAction;
-  dynamic cardReaction;
+  List<dynamic> cardAction = List<dynamic>();
+  List<dynamic> cardReaction = List<dynamic>();
   int statut = 0;
+  dynamic cardActionChoice;
+  dynamic cardReactionChoice;
 
   void PrintTest() {
     print("Hello World !");
   }
-
-  T cast<T>(x) => x is T ? x : null;
 
   void resetVar() {
     id = null;
@@ -30,19 +30,37 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetCardAction() {
+    cardAction = List<dynamic>();
+    notifyListeners();
+  }
+
+  void resetCardReaction() {
+    cardReaction = List<dynamic>();
+    notifyListeners();
+  }
+
   int getStatut() {
     return statut;
   }
 
-  dynamic getCardAction() {
+  List<dynamic> getCardAction() {
     return cardAction;
+  }
+
+  dynamic getCardActionChoice() {
+    return cardActionChoice;
+  }
+
+  dynamic getCardReactionChoice() {
+    return cardReactionChoice;
   }
 
   List<Widget> getWidgetArea() {
     return widgetArea;
   }
 
-  dynamic getCardReaction() {
+  List<dynamic> getCardReaction() {
     return cardReaction;
   }
 
@@ -83,18 +101,28 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeCardActionChoice(dynamic val) {
+    cardActionChoice = val;
+    notifyListeners();
+  }
+
+  void changeCardReactionChoice(dynamic val) {
+    cardReactionChoice = val;
+    notifyListeners();
+  }
+
   void changeGoogle(String val) {
     google = val;
     notifyListeners();
   }
 
   void changeCardAction(dynamic val) {
-    cardAction = val;
+    cardAction.add(val);
     notifyListeners();
   }
 
   void changeCardReaction(dynamic val) {
-    cardReaction = val;
+    cardReaction.add(val);
     notifyListeners();
   }
 

@@ -31,19 +31,24 @@ class _HomeResult extends State<HomeResult> {
               padding: EdgeInsets.only(
             top: 20,
           )),
-          if (context.read<Data>().getStatut() == 0)
+          if (context.read<Data>().getCardActionChoice() == null &&
+              context.read<Data>().getCardReactionChoice() == null)
             WidgetText("Vous n'avez pas selectionné d'action et de réaction",
                 20, Colors.white)
-          else if (context.read<Data>().getStatut() == 1)
+          else if (context.read<Data>().getCardActionChoice() == null)
+            WidgetText("Vous n'avez pas selectionné d'action", 20, Colors.white)
+          else if (context.read<Data>().getCardReactionChoice() == null)
             WidgetText(
-                "Vous n'avez pas selectionné de réaction", 20, Colors.white)
+                "Vous n'avez pas selectionné de reaction", 20, Colors.white)
           else
             WidgetText("Votre area personnalisé :", 20, Colors.white),
           Padding(
               padding: EdgeInsets.only(
             bottom: 20,
           )),
-          if (context.read<Data>().getStatut() == 2) HomeResultWithCard()
+          if (context.read<Data>().getCardActionChoice() != null &&
+              context.read<Data>().getCardReactionChoice() != null)
+            HomeResultWithCard()
         ],
       ),
     );
@@ -135,7 +140,10 @@ class _WidgetRaisedButtonResult extends State<WidgetRaisedButtonResult> {
         child: RaisedButton(
           onPressed: () {
             if (path == '/home') {
-              context.read<Data>().changeStatut(0);
+              context.read<Data>().resetCardAction();
+              context.read<Data>().resetCardReaction();
+              context.read<Data>().changeCardActionChoice(null);
+              context.read<Data>().changeCardReactionChoice(null);
             }
             Navigator.of(context).pushNamed(path);
           },

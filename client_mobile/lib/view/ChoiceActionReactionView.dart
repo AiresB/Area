@@ -14,12 +14,12 @@ class _WidgetChoiceAction extends State<WidgetChoiceAction> {
   List<Widget> itemsData = [];
 
   void getPostsData() {
-    dynamic responseList = context.read<Data>().getCardAction();
+    List<dynamic> responseList = context.read<Data>().getCardAction();
     List<Widget> listItems = [];
 
-    //print("reponselist Act: ");
-    //print(responseList);
-    listItems.add(ActionCardButton());
+    responseList.forEach((post) {
+      listItems.add(ActionCardButton(post));
+    });
     setState(() {
       itemsData = listItems;
     });
@@ -65,12 +65,12 @@ class _WidgetChoiceReaction extends State<WidgetChoiceReaction> {
   List<Widget> itemsData = [];
 
   void getPostsData() {
-    dynamic responseList = context.read<Data>().getCardReaction();
+    List<dynamic> responseList = context.read<Data>().getCardReaction();
     List<Widget> listItems = [];
 
-    //print("reponselist React: ");
-    //print(responseList);
-    listItems.add(ReactionCardButton());
+    responseList.forEach((post) {
+      listItems.add(ReactionCardButton(post));
+    });
     setState(() {
       itemsData = listItems;
     });

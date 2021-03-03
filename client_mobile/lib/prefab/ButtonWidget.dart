@@ -114,8 +114,12 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
         height: widget.heightButton,
         child: FlatButton(
           onPressed: () {
-            if (widget.sentence == "Deconnexion")
-              context.read<Data>().changeStatut(0);
+            if (widget.sentence == "Deconnexion") {
+              context.read<Data>().resetCardAction();
+              context.read<Data>().resetCardReaction();
+              context.read<Data>().changeCardActionChoice(null);
+              context.read<Data>().changeCardReactionChoice(null);
+            }
             Navigator.of(context).pushNamed(widget.path);
           },
           shape: new RoundedRectangleBorder(
@@ -135,6 +139,13 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
 }
 
 class ReactionCardButton extends StatefulWidget {
+  dynamic card;
+
+  @override
+  ReactionCardButton(dynamic _card) {
+    this.card = _card;
+  }
+
   @override
   State<StatefulWidget> createState() {
     return new _ReactionCardButton();
@@ -151,7 +162,7 @@ class _ReactionCardButton extends State<ReactionCardButton> {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          context.read<Data>().changeStatut(2);
+          context.read<Data>().changeCardReactionChoice(widget.card);
         },
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -161,7 +172,7 @@ class _ReactionCardButton extends State<ReactionCardButton> {
               width: 120,
               height: 120,
               child: Center(
-                child: WidgetText("Envoie moi un mail", 18, Colors.white),
+                child: WidgetText(widget.card, 18, Colors.white),
               ),
             ),
           ],
@@ -172,7 +183,13 @@ class _ReactionCardButton extends State<ReactionCardButton> {
 }
 
 class ActionCardButton extends StatefulWidget {
+  dynamic card;
+
   @override
+  ActionCardButton(dynamic _card) {
+    this.card = _card;
+  }
+
   State<StatefulWidget> createState() {
     return new _ActionCardButton();
   }
@@ -188,7 +205,7 @@ class _ActionCardButton extends State<ActionCardButton> {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          context.read<Data>().changeStatut(1);
+          context.read<Data>().changeCardActionChoice(widget.card);
         },
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -198,7 +215,7 @@ class _ActionCardButton extends State<ActionCardButton> {
               width: 120,
               height: 120,
               child: Center(
-                child: WidgetText("Si il fait 30 degrès", 18, Colors.white),
+                child: WidgetText(widget.card, 18, Colors.white),
               ),
             ),
           ],

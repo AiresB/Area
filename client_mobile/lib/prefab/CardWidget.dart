@@ -15,6 +15,7 @@ class ActionReactionCard extends StatefulWidget {
   @override
   ActionReactionCard(dynamic _card) {
     this.card = _card;
+    print(card);
   }
 
   State<StatefulWidget> createState() {
@@ -52,6 +53,8 @@ class _ActionReactionCard extends State<ActionReactionCard> {
                               widget.card['id'], context.read<Data>().getId())
                           .then((val) {
                         context.read<Data>().changeUserArea(val.userArea);
+                        context.read<Data>().resetCardReaction();
+                        context.read<Data>().resetCardAction();
                         Navigator.of(context).pushNamed("/home");
                       });
                     },

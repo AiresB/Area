@@ -54,7 +54,7 @@ class BufferAction {
       : error = json["error"],
         message = json["message"];
   BufferAction.fromJson(Map<String, dynamic> json)
-      : cardAction = json["actions"];
+      : cardAction = json["actions"]["1"];
 
   Map<String, dynamic> toJson() => {
         'error': error,
@@ -66,17 +66,20 @@ class BufferAction {
 class BufferReaction {
   var error;
   var message;
-  var cardReaction;
+  var cardReaction_1;
+  var cardReaction_2;
 
   BufferReaction.fromJsonError(Map<String, dynamic> json)
       : error = json["error"],
         message = json["message"];
   BufferReaction.fromJson(Map<String, dynamic> json)
-      : cardReaction = json["reactions"];
+      : cardReaction_1 = json["reactions"]["1"],
+        cardReaction_2 = json["reactions"]["2"];
 
   Map<String, dynamic> toJson() => {
         'error': error,
         'message': message,
-        'cardReaction': cardReaction as String,
+        'cardReaction_1': cardReaction_1 as String,
+        'cardReaction_2': cardReaction_2 as String,
       };
 }

@@ -63,6 +63,7 @@ class AuthService {
   Future<BufferAction> getCardAction() async {
     var url = _localhost() + '/area/actionlist';
     final response = await http.get(url);
+    print(response.body);
     if (response.statusCode == 200)
       return BufferAction.fromJson(jsonDecode(response.body));
     else
@@ -72,6 +73,7 @@ class AuthService {
   Future<BufferReaction> getCardReaction() async {
     var url = _localhost() + '/area/reactionlist';
     final response = await http.get(url);
+    print(response.body);
     if (response.statusCode == 200)
       return BufferReaction.fromJson(jsonDecode(response.body));
     else
