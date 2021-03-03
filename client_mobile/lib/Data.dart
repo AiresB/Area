@@ -17,6 +17,8 @@ class Data extends ChangeNotifier {
     print("Hello World !");
   }
 
+  T cast<T>(x) => x is T ? x : null;
+
   void resetVar() {
     id = null;
     user = null;
@@ -24,6 +26,7 @@ class Data extends ChangeNotifier {
     password = null;
     confirmPassword = null;
     userArea = null;
+    statut = 0;
     notifyListeners();
   }
 

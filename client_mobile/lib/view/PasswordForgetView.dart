@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:area/prefab.dart';
+import 'package:area/prefab/Prefab.dart';
+import 'package:area/prefab/TextWidget.dart';
+import 'package:area/prefab/ButtonWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
+
+const background = const Color(0xFF34314C);
 
 class PasswordForgetView extends StatefulWidget {
   @override

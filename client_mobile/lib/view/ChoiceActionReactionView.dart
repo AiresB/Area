@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:area/prefab.dart';
+import 'package:area/prefab/Prefab.dart';
+import 'package:area/prefab/ButtonWidget.dart';
+import 'package:area/prefab/TextWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
-import 'package:area/authService.dart';
 
 class WidgetChoiceAction extends StatefulWidget {
   @override
@@ -16,6 +17,8 @@ class _WidgetChoiceAction extends State<WidgetChoiceAction> {
     dynamic responseList = context.read<Data>().getCardAction();
     List<Widget> listItems = [];
 
+    //print("reponselist Act: ");
+    //print(responseList);
     listItems.add(ActionCardButton());
     setState(() {
       itemsData = listItems;
@@ -24,11 +27,6 @@ class _WidgetChoiceAction extends State<WidgetChoiceAction> {
 
   void initState() {
     super.initState();
-    AuthService().getCardAction().then((val) {
-      print("card Action: ");
-      print(val.cardAction);
-      context.read<Data>().changeCardAction(val.cardAction);
-    });
     getPostsData();
   }
 
@@ -70,6 +68,8 @@ class _WidgetChoiceReaction extends State<WidgetChoiceReaction> {
     dynamic responseList = context.read<Data>().getCardReaction();
     List<Widget> listItems = [];
 
+    //print("reponselist React: ");
+    //print(responseList);
     listItems.add(ReactionCardButton());
     setState(() {
       itemsData = listItems;
@@ -78,11 +78,6 @@ class _WidgetChoiceReaction extends State<WidgetChoiceReaction> {
 
   void initState() {
     super.initState();
-    AuthService().getCardReaction().then((val) {
-      print("card Reaction: ");
-      print(val.cardReaction);
-      context.read<Data>().changeCardAction(val.cardReaction);
-    });
     getPostsData();
   }
 

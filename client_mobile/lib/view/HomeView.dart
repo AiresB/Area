@@ -1,9 +1,13 @@
-import 'package:area/HomeActionReactionView.dart';
-import 'package:area/ChoiceActionReactionView.dart';
+import 'package:area/view/HomeActionReactionView.dart';
+import 'package:area/view/ChoiceActionReactionView.dart';
+import 'package:area/view/HomeResultView.dart';
 import 'package:flutter/material.dart';
-import 'package:area/prefab.dart';
+import 'package:area/prefab/Prefab.dart';
 import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
+import 'package:area/auth/authService.dart';
+
+const button = const Color(0xFF47B8E0);
 
 class HomeView extends StatefulWidget {
   @override
@@ -19,6 +23,7 @@ class _HomeView extends State<HomeView> {
     HomeActionReactionView(),
     WidgetChoiceAction(),
     WidgetChoiceReaction(),
+    HomeResult(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,6 +34,12 @@ class _HomeView extends State<HomeView> {
 
   void initState() {
     super.initState();
+    AuthService().getCardAction().then((val) {
+      context.read<Data>().changeCardAction(val.cardAction);
+    });
+    AuthService().getCardReaction().then((val) {
+      context.read<Data>().changeCardReaction(val.cardReaction);
+    });
     setState(() {
       statut = context.read<Data>().getStatut();
     });
@@ -43,6 +54,7 @@ class _HomeView extends State<HomeView> {
         child: _widgetView.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: button,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -56,6 +68,10 @@ class _HomeView extends State<HomeView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.app_registration),
             label: 'Reactions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star_outlined),
+            label: 'Your choice',
           ),
         ],
         currentIndex: _selectedIndex,
