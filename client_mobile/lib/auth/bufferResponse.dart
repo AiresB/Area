@@ -83,3 +83,13 @@ class BufferReaction {
         'cardReaction_2': cardReaction_2 as String,
       };
 }
+
+class BufferGoogle {
+  var authUrl;
+
+  BufferGoogle.fromJson(Map<String, dynamic> json) : authUrl = json["authUrl"];
+
+  Map<String, dynamic> toJson() => {
+        'authUrl': authUrl,
+      };
+}

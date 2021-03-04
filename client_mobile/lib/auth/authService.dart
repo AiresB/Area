@@ -98,4 +98,11 @@ class AuthService {
     else
       return BufferReaction.fromJsonError(jsonDecode(response.body));
   }
+
+  Future<BufferGoogle> getGoogleSignIn() async {
+    var url = _localhost() + '/user/login/google';
+    final response = await http.get(url);
+    print(response.body);
+    return BufferGoogle.fromJson(jsonDecode(response.body));
+  }
 }

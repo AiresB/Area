@@ -6,6 +6,7 @@ import 'package:area/prefab/TextWidget.dart';
 import 'package:area/prefab/ButtonWidget.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 const background = const Color(0xFF34314C);
 const button = const Color(0xFF47B8E0);
@@ -46,6 +47,13 @@ class WidgetFormLogin extends StatefulWidget {
 }
 
 class _WidgetFormLogin extends State<WidgetFormLogin> {
+  void googleLogin(dynamic url) async {
+    final result = await FlutterWebAuth.authenticate(
+        url: url, callbackUrlScheme: "my-custom-app");
+    final token = Uri.parse(result).queryParameters['token'];
+    print(token);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -60,7 +68,12 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
             Container(
               margin: EdgeInsets.only(bottom: 10),
               child: GoogleSignInButton(
-                onPressed: () {},
+                onPressed: () {
+                  AuthService().getGoogleSignIn().then((val) {
+                    print(val.authUrl);
+                    googleLogin(val.authUrl);
+                  });
+                },
                 borderRadius: 20.0,
                 textStyle: TextStyle(
                   fontSize: 15,

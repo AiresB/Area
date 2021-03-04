@@ -68,6 +68,12 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "flutter_web_auth",
+      "rootUri": "file:///home/r3g4/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "flutter_web_plugins",
       "rootUri": "file:///home/r3g4/snap/flutter/common/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
@@ -188,7 +194,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-03-02T15:56:42.762848Z",
+  "generated": "2021-03-04T20:24:41.862631Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }
