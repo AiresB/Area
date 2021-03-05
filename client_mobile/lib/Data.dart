@@ -14,9 +14,29 @@ class Data extends ChangeNotifier {
   int statut = 0;
   dynamic cardActionChoice;
   dynamic cardReactionChoice;
+  dynamic objGoogle;
+  dynamic auth;
 
   void PrintTest() {
     print("Hello World !");
+  }
+
+  dynamic getObjGoogle() {
+    return objGoogle;
+  }
+
+  void setObjGoogle(dynamic val) {
+    objGoogle = val;
+    notifyListeners();
+  }
+
+  dynamic getAuth() {
+    return auth;
+  }
+
+  void setAuth(dynamic val) {
+    auth = val;
+    notifyListeners();
   }
 
   void resetVar() {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:area/Data.dart';
 import 'package:provider/provider.dart';
 import 'package:area/prefab/TextWidget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 const background = const Color(0xFF34314C);
 const button = const Color(0xFF47B8E0);
@@ -100,6 +102,14 @@ class WidgetFlatButton extends StatefulWidget {
 }
 
 class _WidgetFlatButton extends State<WidgetFlatButton> {
+  Future<void> _signOut() async {
+    if (context.read<Data>().getObjGoogle() != "0") {
+      await FirebaseAuth.instance.signOut();
+      dynamic objGoogle = context.read<Data>().getObjGoogle();
+      await objGoogle.signOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -117,8 +127,10 @@ class _WidgetFlatButton extends State<WidgetFlatButton> {
             if (widget.sentence == "Deconnexion") {
               context.read<Data>().resetCardAction();
               context.read<Data>().resetCardReaction();
+              context.read<Data>().changeGoogle(null);
               context.read<Data>().changeCardActionChoice(null);
               context.read<Data>().changeCardReactionChoice(null);
+              _signOut();
             }
             Navigator.of(context).pushNamed(widget.path);
           },

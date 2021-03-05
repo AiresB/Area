@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "926573912321",
+    "project_id": "credible-art-305916",
+    "storage_bucket": "credible-art-305916.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926573912321:android:909d67afdeb33150b7bb00",
+        "android_client_info": {
+          "package_name": "com.example.area"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926573912321-qqkpi6qgspopt802qifdh3i09th1tusg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.area",
+            "certificate_hash": "cc90064777f3cdfd25b235b4eafb6f3b7db3d160"
+          }
+        },
+        {
+          "client_id": "926573912321-honhlev5pe48jv5sicsaanr1bcrou4p0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4RbEa2K6hGoOMl7XJRivqjfSmHsCiAIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926573912321-honhlev5pe48jv5sicsaanr1bcrou4p0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,7 +15,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(builder: (_) => LoginFirebase());
       case '/register':
         return MaterialPageRoute(builder: (_) => RegistrationView());
       case '/reset_password':

@@ -24,10 +24,47 @@ class AuthService {
       return BufferUser.fromJsonError(jsonDecode(response.body));
   }
 
+  Future<BufferUser> loginGoogle(email, google) async {
+    var url = _localhost() + '/user/login';
+    String jsonGoogle = "token_type: Bearer " +
+        ", access_token:" +
+        google +
+        ", scope: email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send "
+            ", expires_in: 3599";
+    Map<String, dynamic> json = {
+      'email': email,
+      'google': jsonGoogle,
+    };
+    final response = await http.post(url, body: json);
+    if (response.statusCode == 200)
+      return BufferUser.fromJson(jsonDecode(response.body));
+    else
+      return BufferUser.fromJsonError(jsonDecode(response.body));
+  }
+
   Future<BufferUser> register(username, password, email) async {
     Map<String, dynamic> json = {
       'username': username,
       'password': password,
+      'email': email,
+    };
+    var url = _localhost() + '/user/register';
+    final response = await http.post(url, body: json);
+    if (response.statusCode == 201)
+      return BufferUser.fromJson(jsonDecode(response.body));
+    else
+      return BufferUser.fromJsonError(jsonDecode(response.body));
+  }
+
+  Future<BufferUser> registerGoogle(username, google, email) async {
+    String jsonGoogle = "token_type: Bearer " +
+        ", access_token:" +
+        google +
+        ", scope: email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send "
+            ", expires_in: 3599";
+    Map<String, dynamic> json = {
+      'username': username,
+      'google': jsonGoogle,
       'email': email,
     };
     var url = _localhost() + '/user/register';
@@ -59,8 +96,6 @@ class AuthService {
       'reactionId': reactionId,
       'reactionDesc': reactionDesc,
     };
-    print("json :");
-    print(json);
     var url = _localhost() + '/area/create';
     final response = await http.post(url, body: json);
     if (response.statusCode == 200)
@@ -82,7 +117,6 @@ class AuthService {
   Future<BufferAction> getCardAction() async {
     var url = _localhost() + '/area/actionlist';
     final response = await http.get(url);
-    print(response.body);
     if (response.statusCode == 200)
       return BufferAction.fromJson(jsonDecode(response.body));
     else
@@ -92,7 +126,6 @@ class AuthService {
   Future<BufferReaction> getCardReaction() async {
     var url = _localhost() + '/area/reactionlist';
     final response = await http.get(url);
-    print(response.body);
     if (response.statusCode == 200)
       return BufferReaction.fromJson(jsonDecode(response.body));
     else
@@ -102,7 +135,6 @@ class AuthService {
   Future<BufferGoogle> getGoogleSignIn() async {
     var url = _localhost() + '/user/login/google';
     final response = await http.get(url);
-    print(response.body);
     return BufferGoogle.fromJson(jsonDecode(response.body));
   }
 }

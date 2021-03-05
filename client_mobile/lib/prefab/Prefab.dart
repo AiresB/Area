@@ -101,10 +101,10 @@ class _HeaderWidget extends State<HeaderWidget> {
       ]),
       Padding(
           padding: EdgeInsets.only(
-        left: 40,
+        left: 20,
       )),
       WidgetText(
-          'Bonjour ' + context.read<Data>().getUser() + " !", 24, Colors.white),
+          'Bonjour ' + context.read<Data>().getUser() + " !", 19, Colors.white),
       Padding(
           padding: EdgeInsets.only(
         left: 0,
