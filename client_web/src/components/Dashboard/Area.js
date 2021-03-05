@@ -1,20 +1,24 @@
 import React, { Component } from "react";
-import { Delete, Build } from "@material-ui/icons";
+import { Delete } from "@material-ui/icons";
 import { Grid, Paper } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from '@material-ui/core/Typography';
+
+import './Style.css'
 
 const styles = {
   Icon: {
     marginLeft: "auto"
   },
   Paper: {
-    margin: "auto",
+    margin: 15,
     padding: 10,
     display: "flex",
-    alignItems: "left",
-    marginTop: 10,
-    width: 500
+    marginTop: 15,
+    width: 600,
+    height: 300,
+    backgroundColor: '#444064',
+    borderRadius: 15,
   },
   Area: {
     display: 'block'
@@ -23,7 +27,21 @@ const styles = {
     flexGrow: 1,
     overflow: 'hidden',
     padding: 10,
-  }
+  },
+  action: {
+    backgroundColor: '#FF7473',
+    borderRadius: 15,
+    width: 200,
+    height: 250,
+    margin: 20
+  },
+  reaction: {
+    backgroundColor: '#42BB73',
+    borderRadius: 15,
+    width: 200,
+    height: 250,
+    margin: 20
+  },
 };
 
 class Area extends Component {
@@ -37,8 +55,8 @@ class Area extends Component {
     const fade = true;
     this.setState({ fade });
 
-    var promise = new Promise(function(resolve, reject) {
-      setTimeout(function() {
+    var promise = new Promise(function (resolve, reject) {
+      setTimeout(function () {
         resolve(true);
       }, 500);
     });
@@ -46,56 +64,92 @@ class Area extends Component {
     promise.then(() => this.props.deleteArea(this.props.index));
   };
 
-    render() {
-        const gridClass = this.state.fade ? "fade-out" : "";
-        return (
-            <div className={styles.root}>
-                <Grid
-                    xs={12}
-                    className={`${gridClass}`}
-                    item
-                    key={this.props.index}
-                    ref={this.gridRef}
-                >
-                    <Paper elevation={2} style={styles.Paper}>
-                        <Grid container spacing={2}>
-                            <Grid item>
-                                <Typography gutterBottom variant="subtitle1">
-                                    AREA ID : {this.props.area.id}
-                                </Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography gutterBottom >
-                                    Action : {this.props.actionList[this.props.area.action_id]}
-                                </Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography gutterBottom >
-                                    Reaction : {this.props.reactionList[this.props.area.reaction_id]}
-                                </Typography>
-                            </Grid>
-                        </Grid>
+  render() {
+    const gridClass = this.state.fade ? "fade-out" : "";
+    return (
+      <div className={styles.root}>
+        <Grid
+          xs={12}
+          item={true}
+          className={`${gridClass}`}
+          key={this.props.index}
+          ref={this.gridRef}
+        >
+          <Paper elevation={2} style={styles.Paper}>
+              {/* <Grid item>
+                <Typography gutterBottom variant="subtitle1">
+                  AREA ID : {this.props.area.id}
+                </Typography>
+              </Grid> */}
+              <Paper style={styles.action}>
+                <Typography
+                  gutterBottom
+                  variant="h4"
+                  align="center"
+                  style={{
+                    padding: 8,
+                    color: '#FFFFFF',
+                    fontFamily: 'Quicksand'
+                  }}>
+                  Action
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  align="center"
+                  style={{
+                    padding: 40,
+                    color: '#FFFFFF',
+                    fontFamily: 'Quicksand'
+                  }}>
+                  {this.props.actionList[this.props.area.action_id]}
+                </Typography>
+              </Paper>
+              <Paper style={styles.reaction}>
+                <Typography
+                  gutterBottom
+                  variant="h4"
+                  align="center"
+                  style={{
+                    padding: 8,
+                    color: '#FFFFFF',
+                    fontFamily: 'Quicksand',
+                  }}>
+                  Reaction
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  align="center"
+                  style={{
+                    padding: 40,
+                    color: '#FFFFFF',
+                    fontFamily: 'Quicksand',
+                  }}>
+                  {this.props.reactionList[this.props.area.reaction_id]}
+                </Typography>
+              </Paper>
 
-                        <IconButton
-                            color="primary"
-                            aria-label="Edit"
-                            style={styles.Icon}
-                            onClick={() => this.props.updateArea(this.props.index)}
-                        >
-                            <Build fontSize="small" />
-                        </IconButton>
-                        <IconButton
-                            color="secondary"
-                            aria-label="Delete"
-                            onClick={this.deleteArea}
-                        >
-                            <Delete fontSize="small" />
-                        </IconButton>
-                    </Paper>
-                </Grid>
-            </div>
-        );
-    }
+            {/* <IconButton
+              color="primary"
+              aria-label="Edit"
+              style={styles.Icon}
+              onClick={() => this.props.updateArea(this.props.index)}
+            >
+              <Build fontSize="small" />
+            </IconButton> */}
+            <IconButton
+              color="secondary"
+              aria-label="Delete"
+              onClick={this.deleteArea}
+            >
+              <Delete fontSize="large" />
+            </IconButton>
+          </Paper>
+        </Grid>
+      </div>
+    );
+  }
 }
 
 export default Area;

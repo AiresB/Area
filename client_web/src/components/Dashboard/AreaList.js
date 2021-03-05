@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import Area from './Area'
 // import EditArea from './EditArea'
@@ -12,7 +13,10 @@ const classes = {
     display: "flex",
     alignItems: "left",
     marginTop: 10,
-    width: 500
+    width: 600,
+    height: 300,
+    backgroundColor: '#444064',
+    borderRadius: 15,
   }
 }
 class AreaList extends Component {
@@ -36,53 +40,44 @@ class AreaList extends Component {
         //       saveTodo={this.props.saveTodo}
         //     />
         //   );
+      if (this.props.areaList[key]) {
         return (
-            <Area
-              key={key}
-              index={key}
-              actionList={this.props.actionList}
-              reactionList={this.props.reactionList}
-              area={this.props.areaList[key]}
-              deleteArea={this.props.deleteArea}
-              updateArea={this.props.updateArea}
-            />
-          );
+          <Area
+            key={key}
+            index={key}
+            actionList={this.props.actionList}
+            reactionList={this.props.reactionList}
+            area={this.props.areaList[key]}
+            deleteArea={this.props.deleteArea}
+            updateArea={this.props.updateArea}
+          />
+        );
+      }
       };
-    // fetchAreaList() {
-    //     var userId = sessionStorage.getItem('userId');
-    //     fetch('http://127.0.0.1:8080/area/getbyid', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ userId: userId })
-    //     })
-    //         .then(data => data.json())
-    //         .then(data => {
-    //             console.log(data.areas);
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         })
-    // }
-    // componentDidMount() {
-    //     this.fetchAreaList();
-    // }
     render() {
-      console.log(this.props.areaList);
       if (this.props.areaList.length === 0) {
         return (
           <Paper elevation={2} style={classes.Paper}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Paper className={classes.Paper}>No AREAs yet create some!</Paper>
+                <Typography
+                  gutterBottom
+                  variant="h4"
+                  align="center"
+                  style={{
+                    padding: 50,
+                    color: '#FFFFFF',
+                    fontFamily: 'Quicksand'
+                  }}>
+                  No AREAs created!
+                </Typography>
               </Grid>
             </Grid>
           </Paper>
         );
       }
       return (
-        <Grid container alignContent='flex-start'>
+        <Grid container alignContent='flex-start' justify="space-between" spacing={4} style={classes.areaList}>
           {this.props.areaList && Object.keys(this.props.areaList).map(key => this.renderArea(key))}
         </Grid>
       );

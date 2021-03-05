@@ -2,15 +2,19 @@ import React , { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper'
+import Divider from '@material-ui/core/Divider';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 
 import AreaList from './AreaList'
 import AreaForm from './AreaForm'
-
+import './Style.css'
 
 
 const theme = createMuiTheme({
@@ -21,13 +25,48 @@ const theme = createMuiTheme({
   }
 });
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: theme.spacing(0, 3),
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
+  },
+  areaForm: {
+    backgroundColor: 'white',
+    padding: theme.spacing(2),
+    margin: 15,
+    height: 100,
+    borderRadius: 10,
+  },
+  divider: {
+    margin: theme.spacing(2, 0),
+  },
+  paperNav: {
+    margin: 15,
+    padding: 10,
+    display: "flex",
+    justifyContent: 'space-evenly',
+    marginTop: 15,
+    width: 600,
+    height: 70,
+    backgroundColor: '#47B8E0',
+    borderRadius: 80,
+  }
+}));
+
 export default function Dashboard() {
   let history = useHistory();
   var username = sessionStorage.getItem('username').replace("\"", " ").replace("\"", " ");
-  const [areaList, setAreaList] = useState({});
+  const [areaList, setAreaList] = React.useState([]);
   const [actionList, setActionList] = useState({});
   const [reactionList, setReactionList] = useState({});
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  let wrapper = React.createRef();
+  const classes = useStyles();
 
   useEffect(() => {
     async function fetchAreaList() {
@@ -91,26 +130,17 @@ export default function Dashboard() {
     history.push("/");
     history.go(0);
   }
-  function Preferences() {
-    history.push("/preferences");
-    history.go(0);
-  }
-  function Home() {
-    history.push("/dashboard");
-    history.go(0);
-  }
-  function handleClose() {
-    setAnchorEl(null);
-  }
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
 
   function addArea(area) {
-    let tmpList = { ...areaList };
-    var len = Object.keys(tmpList).length + 1;
-    tmpList[len + 1] = area;
-    setAreaList(tmpList);
+    var newArea = {
+      action_desc: area.actionDesc,
+      action_id: area.actionId,
+      id: area.id,
+      reaction_desc: area.actionDesc,
+      reaction_id: area.reactionId,
+      user_id: area.userId
+    }
+    setAreaList(areaList => [...areaList, newArea]);
   };
   async function deleteArea(index) {
     let tmpList = { ...areaList };
@@ -135,34 +165,42 @@ export default function Dashboard() {
 
   return (
     <Grid>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-            Menu
-      </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={Home}>Profile</MenuItem>
-            <MenuItem onClick={Preferences}>Settings</MenuItem>
-            <MenuItem onClick={Logout}>Logout</MenuItem>
-          </Menu>
-          <h2>Dashboard</h2>
-          <h2>Welcome, {username}</h2>
-        </CssBaseline>
-      </MuiThemeProvider>
-      <Grid container wrap="nowrap" spacing={2}>
-        <AreaForm
+      <Grid className={classes.root}>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline>
+            <div className="container">
+              <img src="/Logo.png" alt="Logo" style={{ padding: 15, display: 'flex' }} />
+              <h1 className="item" style={{ fontFamily: "Quicksand", color: "#FFFFFF", alignSelf: "center", marginLeft: 15}}>Welcome, {username}</h1>
+              <Paper className={classes.paperNav}>
+              <IconButton style={{marginLeft: 30}} href="/dashboard">
+                <HomeIcon fontSize="large"/>
+              </IconButton>
+              <IconButton style={{marginLeft: 30}} href="/preferences">
+                <SettingsIcon fontSize="large"/>
+              </IconButton>
+              <IconButton style={{marginLeft: 30}} href="/client.apk">
+                <GetAppIcon fontSize="large"/>
+              </IconButton>
+              <IconButton style={{marginLeft: 30}} onClick={Logout}>
+                <ExitToAppIcon fontSize="large"/>
+              </IconButton>
+              </Paper>
+            </div>
+          </CssBaseline>
+        </MuiThemeProvider>
+      </Grid>
+      <Grid >
+        <Grid className={classes.areaForm}>
+          <AreaForm
           addArea={addArea}
           actionList={actionList}
           reactionList={reactionList}
+          ref={wrapper}
         />
-        </Grid>
-        <Grid container wrap="nowrap" spacing={2}>
+      </Grid>
+      <h2 style={{ fontSize: 30, fontFamily: "Quicksand", color: "#FFFFFF", marginLeft: 15}}>Created AREAs</h2>
+      <Divider className={classes.divider}/>
+      <Grid className={classes.paper}>
         <AreaList
           areaList={areaList}
           actionList={actionList}
@@ -171,6 +209,7 @@ export default function Dashboard() {
           updateArea={updateArea}
           saveArea={saveArea}
         />
+      </Grid>
       </Grid>
     </Grid>
   );
