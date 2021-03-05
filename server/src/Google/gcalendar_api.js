@@ -84,7 +84,7 @@ function calcul_date(date, add_hours)
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-const gcalendar_oneHourToNext = async (auth) => {
+const gcalendar_oneHourToNext = async (auth, area) => {
   const calendar = google.calendar({version: 'v3', auth});
   var events = await calendar.events.list({
     calendarId: 'primary',
