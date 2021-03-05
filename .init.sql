@@ -4,7 +4,7 @@ CREATE TABLE "public"."users" (
     "username" VARCHAR(50) NOT NULL,
     "password" VARCHAR(200),
     "email" VARCHAR(50) UNIQUE,
-    "google" VARCHAR(500)
+    "google" json
 ) WITH (oids = false);
 
 DROP TABLE IF EXISTS "area";

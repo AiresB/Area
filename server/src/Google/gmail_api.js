@@ -4,41 +4,32 @@ const {google} = require('googleapis');
 const { getbyid } = require('../controllers/area');
 const { userFind } = require('../models/user');
 
+
+var save_nbr_mail = 861;
+
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gmail_haveNewMail(auth, area) {
+const gmail_haveNewMail = async function(auth, area) {
     const gmail = google.gmail({version: 'v1', auth});
-    gmail.users.messages.list({
+    var user = await gmail.users.getProfile({
+      auth: auth,
       userId: 'me',
-      maxResults: 2,
-    }, (err, res) => {
-      if (err) {
-        console.log('The API returned an error: ' + err);
-        return false;
-      }
-      const mess = res.data.messages;
-      var saved_id = "";
-      if (mess.length) {
-        mess.forEach((mail) => {
-          saved_id = saved_id + mail.id;
-        });
-        if (area.actionDesc === "") {
-          area.actionDesc = saved_id;
-          return false;
-        }
-        if (area.actionDesc === saved_id)
-          return false;
-        else {
-          area.actionDesc = saved_id;
-          return true;
-        }
-      } else {
-        area.actionDesc = "0";
-        return false;
-      }
     });
-  }
+
+    var nbr_messages = user.data.messagesTotal;
+
+    console.log(nbr_messages);
+
+    if (save_nbr_mail == -1)
+      save_nbr_mail = nbr_messages;
+    if (nbr_messages <= save_nbr_mail) {
+      save_nbr_mail = nbr_messages;
+      return false;
+    }
+    save_nbr_mail = nbr_messages;
+    return true;
+}
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
