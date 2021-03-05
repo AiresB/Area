@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import GoogleBtn from '../Google/Google'
+import { useHistory } from 'react-router-dom';
+
+import '../Dashboard/Style.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +57,9 @@ async function loginUser(credentials) {
         body: JSON.stringify(credentials)
       })
         .then(data => data.json())
-        .then(data => { 
+        .then(data => {
           console.log(data.user.id)
-          return (data.user)
+          return (data)
         })
         .catch((err) => {
           console.error(err);
@@ -76,17 +76,75 @@ export default function Login({ setUserID, setUserName }) {
   const [password, setPassword] = useState();
   let history = useHistory();
 
+  async function registerUser(data) {
+    return fetch('http://127.0.0.1:8080/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(data => data.json())
+    .then(data => {
+      return (data)
+    })
+      .catch((err) => {
+        console.error(err);
+      })
+   }
+  async function loginGoogleUser(credentials) {
+      try {
+        return fetch('http://127.0.0.1:8080/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        })
+          .then(data => data.json())
+          .then(data => {
+            return (data)
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+      } catch(e) {
+        console.error(e)
+      }
+  }
+  async function handleGoogleLogin(data) {
+    var response = await loginGoogleUser({email: data.profileObj.email, google: data.tokenObj});
+    
+    console.log(response);
+    if (response.error === true) {
+      var responseRegister = await registerUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
+      console.log(responseRegister);
+      sessionStorage.setItem('userId', responseRegister.user.id);
+      sessionStorage.setItem('username', responseRegister.user.username);
+    } 
+    if (response.error === false) {
+      sessionStorage.setItem('userId', response.user.id);
+      sessionStorage.setItem('username', response.user.username);
+    }
+    history.push("/dashboard");
+    history.go(0);
+  }
+
   const handleSubmit = async e => {
     e.preventDefault();
-    const user = await loginUser({
+    const data = await loginUser({
       email,
       password
     });
-    setUserID(user.id);
-    setUserName(user.username);
-    console.log(user.username);
-    history.push("/dashboard");
-    history.go(0);
+    if (data.error === false) {
+      setUserID(data.user.id);
+      setUserName(data.user.username);
+      console.log(data.user.username);
+      history.push("/dashboard");
+      history.go(0);
+    }
+    if (data.error === true)
+      alert("Email or password incorrect");
   }
 
   return(
@@ -95,10 +153,8 @@ export default function Login({ setUserID, setUserName }) {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <img src="/Logo.png" alt="logo"></img>
+          <Typography component="h1" variant="h5" style={{fontFamily: "Quicksand", fontSize: 35}}>
             Area Sign In
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
@@ -135,7 +191,8 @@ export default function Login({ setUserID, setUserName }) {
             >
               Sign In
             </Button>
-            <GoogleBtn history={history}/>
+            </form>
+            <GoogleBtn handleGoogleLogin={handleGoogleLogin}/>
             <Grid container>
               <Grid item>
                 <Link href="/register" variant="body2">
@@ -143,7 +200,6 @@ export default function Login({ setUserID, setUserName }) {
                 </Link>
               </Grid>
             </Grid>
-          </form>
         </div>
       </Grid>
     </Grid>

@@ -21,6 +21,7 @@ function setUser(user) {
 
 function App() {
   const token = getUserID();
+
   if(!token) {
     return (
       <BrowserRouter>
@@ -32,14 +33,17 @@ function App() {
     );
   } else {
     return (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path="/preferences">
-              <Preferences />
-            </Route>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/preferences">
+            <Preferences />
+          </Route>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
           </Switch>
         </BrowserRouter>
     );

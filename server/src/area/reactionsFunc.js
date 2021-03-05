@@ -22,6 +22,7 @@ const reactFuncList = {
 
 const reactionAct = (element) => {
     console.log("in reaction Act")
+    // gcalendar_reaction(element)
     reactFuncList[element.reaction_id](element)
 }
 
