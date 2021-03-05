@@ -84,33 +84,27 @@ function calcul_date(date, add_hours)
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gcalendar_oneHourToNext(auth, area) {
+const gcalendar_oneHourToNext = async (auth) => {
   const calendar = google.calendar({version: 'v3', auth});
-  calendar.events.list({
+  var events = await calendar.events.list({
     calendarId: 'primary',
     timeMin: (new Date()).toISOString(),
     maxResults: 3,
     singleEvents: true,
     orderBy: 'startTime',
-  }, (err, res) => {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return false;
-    }
-    const events = res.data.items;
-    if (events.length) {
-      console.log('Upcoming 10 events:');
-      events.map((event, i) => {
-        var start = event.start.dateTime || event.start.date;
-        if (calcul_date(start, -1).substring(0, 16) === calcul_date((new Date()).toISOString(), 0).substring(0, 16))
-          return true;
-        return false;
-      });
-    } else {
-      console.log('No upcoming events found.');
-      return false;
-    }
   });
+  events = events.data.items;
+  if (events.length) {
+    console.log('Upcoming 10 events:');
+    for (var i = 0; i < events.length; i++) {
+      var start = events[i].start.dateTime || events[i].start.date;
+      if (calcul_date(start, -1).substring(0, 16) === calcul_date((new Date()).toISOString(), 0).substring(0, 16))
+        return true;
+    }
+    return false;
+  } else {
+    return false;
+  }
 }
 
 module.exports = {gcalendar_createEvent, gcalendar_oneHourToNext}
