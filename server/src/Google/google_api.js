@@ -1,7 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
-const {userFind, userFindGoogleToken} = require('./../models/user')
+const { userFind } = require('./../models/user')
 
 
 
