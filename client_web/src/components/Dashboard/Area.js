@@ -76,11 +76,6 @@ class Area extends Component {
           ref={this.gridRef}
         >
           <Paper elevation={2} style={styles.Paper}>
-              {/* <Grid item>
-                <Typography gutterBottom variant="subtitle1">
-                  AREA ID : {this.props.area.id}
-                </Typography>
-              </Grid> */}
               <Paper style={styles.action}>
                 <Typography
                   gutterBottom
@@ -129,15 +124,6 @@ class Area extends Component {
                   {this.props.reactionList[this.props.area.reaction_id]}
                 </Typography>
               </Paper>
-
-            {/* <IconButton
-              color="primary"
-              aria-label="Edit"
-              style={styles.Icon}
-              onClick={() => this.props.updateArea(this.props.index)}
-            >
-              <Build fontSize="small" />
-            </IconButton> */}
             <IconButton
               color="secondary"
               aria-label="Delete"

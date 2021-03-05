@@ -21,25 +21,6 @@ const classes = {
 }
 class AreaList extends Component {
     renderArea = key => {
-        // if (this.props.areaList[key]["status"] === "active") {
-        //   return (
-        //     <Area
-        //       key={key}
-        //       index={key}
-        //       todo={this.props.areaList[key]["todo"]}
-        //       deleteTodo={this.props.deleteTodo}
-        //       updateTodo={this.props.updateTodo}
-        //     />
-        //   );
-        // } else if (this.props.list[key]["status"] === "editing") {
-        //   return (
-        //     <EditArea
-        //       key={key}
-        //       index={key}
-        //       todo={this.props.list[key]["todo"]}
-        //       saveTodo={this.props.saveTodo}
-        //     />
-        //   );
       if (this.props.areaList[key]) {
         return (
           <Area
@@ -49,7 +30,6 @@ class AreaList extends Component {
             reactionList={this.props.reactionList}
             area={this.props.areaList[key]}
             deleteArea={this.props.deleteArea}
-            updateArea={this.props.updateArea}
           />
         );
       }
