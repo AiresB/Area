@@ -142,12 +142,19 @@ class Data extends ChangeNotifier {
   }
 
   void changeCardAction(dynamic val) {
-    cardAction.add(val);
+    cardAction.add(val["1"]);
+    cardAction.add(val["2"]);
+    cardAction.add(val["3"]);
+    cardAction.add(val["4"]);
+    cardAction.add(val["5"]);
     notifyListeners();
   }
 
   void changeCardReaction(dynamic val) {
-    cardReaction.add(val);
+    cardReaction.add(val["1"]);
+    cardReaction.add(val["2"]);
+    cardReaction.add(val["3"]);
+    cardReaction.add(val["4"]);
     notifyListeners();
   }
 

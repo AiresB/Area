@@ -83,6 +83,7 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/gmail.readonly',
         'https://www.googleapis.com/auth/calendar',
+        'https://www.googleapis.com/auth/drive',
         'openid',
         'https://www.googleapis.com/auth/gmail.send',
       ],

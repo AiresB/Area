@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 const { stderr } = require('process');
-
+const { areaUpdate } = require('../models/area');
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -103,14 +103,12 @@ const detectNewSub = async function(auth, area) {
     console.log('Nothing found.');
     return false;
   } else {
-    if (save_nbr_sub == "")
-      save_nbr_sub = channel_info[0].statistics.subscriberCount;
-    if (parseInt(channel_info[0].statistics.subscriberCount, 10) <= parseInt(save_nbr_sub, 10)) {
-      save_nbr_sub = channel_info[0].statistics.subscriberCount;
+    if (area.action_desc == "null" || parseInt(channel_info[0].statistics.subscriberCount, 10) <= parseInt(area.action_desc, 10)) {
+      areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: channel_info[0].statistics.subscriberCount, reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
       return false;
     }
     else {
-      save_nbr_sub = channel_info[0].statistics.subscriberCount;
+      areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: channel_info[0].statistics.subscriberCount, reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
       return true;
     }
   }

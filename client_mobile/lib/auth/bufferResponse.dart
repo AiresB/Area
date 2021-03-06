@@ -48,57 +48,36 @@ class BufferArea {
 class BufferAction {
   var error;
   var message;
-  var cardAction_1;
-  var cardAction_2;
-  var cardAction_3;
-  var cardAction_4;
-  var cardAction_5;
+  var cardAction;
 
   BufferAction.fromJsonError(Map<String, dynamic> json)
       : error = json["error"],
         message = json["message"];
   BufferAction.fromJson(Map<String, dynamic> json)
-      : cardAction_1 = json["actions"]["1"],
-        cardAction_2 = json["actions"]["2"],
-        cardAction_3 = json["actions"]["3"],
-        cardAction_4 = json["actions"]["4"],
-        cardAction_5 = json["actions"]["5"];
+      : cardAction = json["actions"];
 
   Map<String, dynamic> toJson() => {
         'error': error,
         'message': message,
-        'cardAction_1': cardAction_1 as String,
-        'cardAction_2': cardAction_2 as String,
-        'cardAction_3': cardAction_3 as String,
-        'cardAction_4': cardAction_4 as String,
-        'cardAction_5': cardAction_5 as String,
+        'cardAction': cardAction as String,
       };
 }
 
 class BufferReaction {
   var error;
   var message;
-  var cardReaction_1;
-  var cardReaction_2;
-  var cardReaction_3;
-  var cardReaction_4;
+  var cardReaction;
 
   BufferReaction.fromJsonError(Map<String, dynamic> json)
       : error = json["error"],
         message = json["message"];
   BufferReaction.fromJson(Map<String, dynamic> json)
-      : cardReaction_1 = json["reactions"]["1"],
-        cardReaction_2 = json["reactions"]["2"],
-        cardReaction_3 = json["reactions"]["3"],
-        cardReaction_4 = json["reactions"]["4"];
+      : cardReaction = json["reactions"];
 
   Map<String, dynamic> toJson() => {
         'error': error,
         'message': message,
-        'cardReaction_1': cardReaction_1 as String,
-        'cardReaction_2': cardReaction_2 as String,
-        'cardReaction_3': cardReaction_3 as String,
-        'cardReaction_4': cardReaction_4 as String,
+        'cardReaction': cardReaction as String,
       };
 }
 

@@ -35,17 +35,10 @@ class _HomeView extends State<HomeView> {
   void initState() {
     super.initState();
     AuthService().getCardAction().then((val) {
-      context.read<Data>().changeCardAction(val.cardAction_1);
-      context.read<Data>().changeCardAction(val.cardAction_2);
-      context.read<Data>().changeCardAction(val.cardAction_3);
-      context.read<Data>().changeCardAction(val.cardAction_4);
-      context.read<Data>().changeCardAction(val.cardAction_5);
+      context.read<Data>().changeCardAction(val.cardAction);
     });
     AuthService().getCardReaction().then((val) {
-      context.read<Data>().changeCardReaction(val.cardReaction_1);
-      context.read<Data>().changeCardReaction(val.cardReaction_2);
-      context.read<Data>().changeCardReaction(val.cardReaction_3);
-      context.read<Data>().changeCardReaction(val.cardReaction_4);
+      context.read<Data>().changeCardReaction(val.cardReaction);
     });
     AuthService().getArea(context.read<Data>().getId()).then((val) {
       context.read<Data>().changeUserArea(val.userArea);
