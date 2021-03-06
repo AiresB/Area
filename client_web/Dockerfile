@@ -12,4 +12,4 @@ RUN npm i -g serve
  
 EXPOSE 3000
  
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD cp /var/client/app-armeabi-v7a-release.apk /app/public/client.apk | cp /app/public/client.apk /app/build/client.apk | serve -s build -l 3000
