@@ -49,7 +49,7 @@ function manageGoogleReaction(rea_id, area)
     authorize_act(gdrive_commentLastFile, area);
 }
 
-function manageGoogleAction(a_id, area)
+const manageGoogleAction = async function(a_id, area)
 {
   var rep = false;
   if (a_id == 1)
