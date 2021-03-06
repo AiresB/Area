@@ -91,14 +91,13 @@ class AuthService {
       return BufferArea.fromJsonError(jsonDecode(response.body));
   }
 
-  Future<BufferArea> createArea(
-      userId, actionId, actionDesc, reactionId, reactionDesc) async {
+  Future<BufferArea> createArea(userId, actionId, reactionId) async {
     Map<String, dynamic> json = {
       'userId': userId,
       'actionId': actionId,
-      'actionDesc': actionDesc,
+      'actionDesc': "null",
       'reactionId': reactionId,
-      'reactionDesc': reactionDesc,
+      'reactionDesc': "null",
     };
     var url = _localhost() + '/area/create';
     final response = await http.post(url, body: json);

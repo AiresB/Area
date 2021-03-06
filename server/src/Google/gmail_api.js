@@ -4,9 +4,6 @@ const {google} = require('googleapis');
 const { getbyid } = require('../controllers/area');
 const { userFind } = require('../models/user');
 
-
-var save_nbr_mail = 861;
-
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
@@ -20,14 +17,14 @@ const gmail_haveNewMail = async function(auth, area) {
     var nbr_messages = user.data.messagesTotal;
 
     console.log(nbr_messages);
-
-    if (save_nbr_mail == -1)
-      save_nbr_mail = nbr_messages;
-    if (nbr_messages <= save_nbr_mail) {
-      save_nbr_mail = nbr_messages;
+    console.log(area.action_desc);
+    if (area.action_desc == "null")
+      area.action_desc = nbr_messages.toString();
+    if (nbr_messages <= parseInt(area.action_desc, 10)) {
+      area.action_desc = nbr_messages.toString();
       return false;
     }
-    save_nbr_mail = nbr_messages;
+    area.action_desc = nbr_messages.toString();
     return true;
 }
 

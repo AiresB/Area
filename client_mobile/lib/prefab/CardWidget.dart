@@ -115,16 +115,16 @@ class ActionCard extends StatefulWidget {
       sentence = "It's 8'";
     }
     if (card["action_id"] == "2") {
-      sentence = "Gmail'";
+      sentence = "Gmail";
     }
     if (card["action_id"] == "3") {
-      sentence = "GCalendar'";
+      sentence = "GCalendar";
     }
     if (card["action_id"] == "4") {
-      sentence = "Youtube'";
+      sentence = "Youtube";
     }
     if (card["action_id"] == "5") {
-      sentence = "GDrive'";
+      sentence = "GDrive";
     }
   }
 
