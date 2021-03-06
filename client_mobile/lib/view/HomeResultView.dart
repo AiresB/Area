@@ -116,36 +116,62 @@ class WidgetRaisedButtonResult extends StatefulWidget {
 
 class _WidgetRaisedButtonResult extends State<WidgetRaisedButtonResult> {
   void setIdAndDescription() {
-    print("card action choice :");
-    print(context.read<Data>().getCardActionChoice());
-    print("card reaction choice :");
-    print(context.read<Data>().getCardReactionChoice());
-    if (context.read<Data>().getCardActionChoice() == "It's 8'") {
+    if (context.read<Data>().getCardActionChoice() == "Hour: It's 8 o'clock") {
       widget.idActReact.add("1");
     }
-    if (context.read<Data>().getCardActionChoice() == "Gmail") {
+    if (context.read<Data>().getCardActionChoice() ==
+        "Gmail: Detect a new email in the box") {
       widget.idActReact.add("2");
     }
-    if (context.read<Data>().getCardActionChoice() == "GCalendar") {
+    if (context.read<Data>().getCardActionChoice() ==
+        "GCalendar: An event in the calendar is detected at this moment") {
       widget.idActReact.add("3");
     }
-    if (context.read<Data>().getCardActionChoice() == "Youtube") {
+    if (context.read<Data>().getCardActionChoice() ==
+        "Youtube: I got a subscriber") {
       widget.idActReact.add("4");
     }
-    if (context.read<Data>().getCardActionChoice() == "GDrive") {
+    if (context.read<Data>().getCardActionChoice() ==
+        "GDrive: Detect a new file into the drive") {
       widget.idActReact.add("5");
     }
-    if (context.read<Data>().getCardReactionChoice() == "Gmail") {
+    if (context.read<Data>().getCardActionChoice() == "Weather: It's raining") {
+      widget.idActReact.add("6");
+    }
+    if (context.read<Data>().getCardActionChoice() ==
+        "Sunrise: We are in the sunrise hour") {
+      widget.idActReact.add("7");
+    }
+    if (context.read<Data>().getCardActionChoice() ==
+        "Sunset: We are in the sunset hour") {
+      widget.idActReact.add("8");
+    }
+    if (context.read<Data>().getCardActionChoice() == "Holidays") {
+      widget.idActReact.add("9");
+    }
+    if (context.read<Data>().getCardReactionChoice() ==
+        "Gmail: Send an email") {
       widget.idActReact.add("1");
     }
-    if (context.read<Data>().getCardReactionChoice() == "GCalendar") {
+    if (context.read<Data>().getCardReactionChoice() ==
+        "GCalendar: Create an event 1 hour later") {
       widget.idActReact.add("2");
     }
-    if (context.read<Data>().getCardReactionChoice() == "Youtube") {
+    if (context.read<Data>().getCardReactionChoice() ==
+        "Youtube: Like the TOP 1 Popular FR video") {
       widget.idActReact.add("3");
     }
-    if (context.read<Data>().getCardReactionChoice() == "GDrive") {
+    if (context.read<Data>().getCardReactionChoice() ==
+        "GDrive: Comment the last file pushed into the drive") {
       widget.idActReact.add("4");
+    }
+    if (context.read<Data>().getCardReactionChoice() ==
+        "Youtube: Put the TOP 1 Popular FR video in a Playlist") {
+      widget.idActReact.add("5");
+    }
+    if (context.read<Data>().getCardReactionChoice() ==
+        "GDrive: Create an empty google doc into the drive") {
+      widget.idActReact.add("6");
     }
   }
 
