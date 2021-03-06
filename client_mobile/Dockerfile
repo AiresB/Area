@@ -29,5 +29,7 @@ ENV PATH "$PATH:/flutter/bin"
 WORKDIR /usr/src/app                                                                                                                                                                                                                    
 COPY . .                                                                                                                                                                                                                                
 ENV ANDROID_HOME /Android/Sdk                                                                                                                                                                                                           
-RUN chown root -R .                                                                                                                                                                                                                     
-RUN flutter build apk --split-per-abi 
+RUN chown root -R .                                                                                                                                                                                                                  
+RUN flutter build apk --split-per-abi
+
+CMD cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk /var/client/
