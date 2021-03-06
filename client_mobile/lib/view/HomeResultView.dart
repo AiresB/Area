@@ -122,16 +122,48 @@ class _WidgetRaisedButtonResult extends State<WidgetRaisedButtonResult> {
     print(context.read<Data>().getCardReactionChoice());
     if (context.read<Data>().getCardActionChoice() == "It's 8'") {
       widget.idActReact.add("1");
-      widget.description.add("Horaire description");
+      widget.description.add("Horaire Reaction description");
+    }
+    if (context.read<Data>().getCardActionChoice() == "Gmail") {
+      widget.idActReact.add("2");
+      widget.description.add("Gmail Action description");
+    }
+    if (context.read<Data>().getCardActionChoice() == "GCalendar") {
+      widget.idActReact.add("3");
+      widget.description.add("GCalendar Action description");
+    }
+    if (context.read<Data>().getCardActionChoice() == "Youtube") {
+      widget.idActReact.add("4");
+      widget.description.add("Youtube Action description");
+    }
+    if (context.read<Data>().getCardActionChoice() == "GDrive") {
+      widget.idActReact.add("5");
+      widget.description.add("GDrive Reaction description");
     }
     if (context.read<Data>().getCardReactionChoice() == "Gmail") {
       widget.idActReact.add("1");
-      widget.description.add("Gmail description");
+      widget.description.add("Gmail Reaction description");
     }
     if (context.read<Data>().getCardReactionChoice() == "GCalendar") {
       widget.idActReact.add("2");
-      widget.description.add("GCalendar description");
+      widget.description.add("GCalendar Reaction description");
     }
+    if (context.read<Data>().getCardReactionChoice() == "Youtube") {
+      widget.idActReact.add("3");
+      widget.description.add("Youtube Reaction description");
+    }
+    if (context.read<Data>().getCardReactionChoice() == "GDrive") {
+      widget.idActReact.add("4");
+      widget.description.add("GDrive Reaction description");
+    }
+    print("id act :");
+    print(widget.idActReact[0]);
+    print("id description :");
+    print(widget.description[0]);
+    print("id react :");
+    print(widget.idActReact[1]);
+    print("id description :");
+    print(widget.description[1]);
   }
 
   @override

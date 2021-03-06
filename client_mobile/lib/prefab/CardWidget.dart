@@ -114,6 +114,18 @@ class ActionCard extends StatefulWidget {
     if (card["action_id"] == "1") {
       sentence = "It's 8'";
     }
+    if (card["action_id"] == "2") {
+      sentence = "Gmail'";
+    }
+    if (card["action_id"] == "3") {
+      sentence = "GCalendar'";
+    }
+    if (card["action_id"] == "4") {
+      sentence = "Youtube'";
+    }
+    if (card["action_id"] == "5") {
+      sentence = "GDrive'";
+    }
   }
 
   @override
@@ -158,6 +170,12 @@ class ReactionCard extends StatefulWidget {
     }
     if (card["reaction_id"] == "2") {
       sentence = "GCalendar";
+    }
+    if (card["reaction_id"] == "3") {
+      sentence = "Youtube";
+    }
+    if (card["reaction_id"] == "4") {
+      sentence = "GDrive";
     }
   }
   @override
