@@ -26,14 +26,16 @@ class AuthService {
 
   Future<BufferUser> loginGoogle(email, google) async {
     var url = _localhost() + '/user/login';
-    String jsonGoogle = "token_type: Bearer " +
-        ", access_token:" +
-        google +
-        ", scope: email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send "
-            ", expires_in: 3599";
+    Map<String, dynamic> jsonGoogle = {
+      'token_type': "Bearer",
+      'access_token': google,
+      'scope':
+          "email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send",
+      'expires_in': "3599",
+    };
     Map<String, dynamic> json = {
       'email': email,
-      'google': jsonGoogle,
+      'google': jsonEncode(jsonGoogle),
     };
     final response = await http.post(url, body: json);
     if (response.statusCode == 200)
@@ -57,21 +59,23 @@ class AuthService {
   }
 
   Future<BufferUser> registerGoogle(username, google, email) async {
-    String jsonGoogle = "token_type: Bearer " +
-        ", access_token:" +
-        google +
-        ", scope: email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send "
-            ", expires_in: 3599";
+    Map<String, dynamic> jsonGoogle = {
+      'token_type': "Bearer",
+      'access_token': google,
+      'scope':
+          "email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send",
+      'expires_in': "3599",
+    };
     Map<String, dynamic> json = {
       'username': username,
-      'google': jsonGoogle,
+      'google': jsonEncode(jsonGoogle),
       'email': email,
     };
     var url = _localhost() + '/user/register';
     final response = await http.post(url, body: json);
-    if (response.statusCode == 201)
-      return BufferUser.fromJson(jsonDecode(response.body));
-    else
+    if (response.statusCode == 201) {
+      return loginGoogle(email, google);
+    } else
       return BufferUser.fromJsonError(jsonDecode(response.body));
   }
 
@@ -136,5 +140,29 @@ class AuthService {
     var url = _localhost() + '/user/login/google';
     final response = await http.get(url);
     return BufferGoogle.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BufferUser> update(id, username, email, google) async {
+    var url = _localhost() + '/user/update';
+    Map<String, dynamic> jsonGoogle = {
+      'token_type': "Bearer",
+      'access_token': google,
+      'scope':
+          "email profile https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/gmail.send",
+      'expires_in': "3599",
+    };
+    Map<String, dynamic> json = {
+      'id': id,
+      'username': username,
+      'email': email,
+      'google': jsonEncode(jsonGoogle),
+    };
+    print(json);
+    final response = await http.put(url, body: json);
+    print(response.body);
+    if (response.statusCode == 200)
+      return loginGoogle(email, google);
+    else
+      return BufferUser.fromJsonError(jsonDecode(response.body));
   }
 }

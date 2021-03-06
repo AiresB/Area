@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:area/prefab/TextWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:area/auth/authService.dart';
 
 const background = const Color(0xFF34314C);
 const button = const Color(0xFF47B8E0);
@@ -103,10 +104,12 @@ class WidgetFlatButton extends StatefulWidget {
 
 class _WidgetFlatButton extends State<WidgetFlatButton> {
   Future<void> _signOut() async {
-    if (context.read<Data>().getObjGoogle() != "0") {
+    if (context.read<Data>().getObjGoogle() != null) {
       await FirebaseAuth.instance.signOut();
       dynamic objGoogle = context.read<Data>().getObjGoogle();
       await objGoogle.signOut();
+      context.read<Data>().setObjGoogle(null);
+      context.read<Data>().setAuth(null);
     }
   }
 
@@ -165,6 +168,44 @@ class ReactionCardButton extends StatefulWidget {
 }
 
 class _ReactionCardButton extends State<ReactionCardButton> {
+  String accesToken;
+  dynamic firebase;
+  dynamic googlesignIn;
+
+  Future<User> signInWithGoogle() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'profile',
+        'https://www.googleapis.com/auth/youtube',
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/gmail.readonly',
+        'https://www.googleapis.com/auth/calendar',
+        'openid',
+        'https://www.googleapis.com/auth/gmail.send',
+      ],
+    );
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    accesToken = googleSignInAuthentication.accessToken;
+    UserCredential authResult = await _auth.signInWithCredential(credential);
+    final _user = authResult.user;
+    assert(!_user.isAnonymous);
+    assert(await _user.getIdToken() != null);
+    User currentUser = _auth.currentUser;
+    assert(_user.uid == currentUser.uid);
+    firebase = _auth;
+    googlesignIn = _googleSignIn;
+    return currentUser;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Card(
@@ -174,6 +215,25 @@ class _ReactionCardButton extends State<ReactionCardButton> {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
+          if (context.read<Data>().getObjGoogle() == null) {
+            signInWithGoogle().then((User user) {
+              AuthService()
+                  .update(context.read<Data>().getId(),
+                      context.read<Data>().getUser(), user.email, accesToken)
+                  .then((val) {
+                if (val.error == false) {
+                  context.read<Data>().changeUser(user.displayName);
+                  context.read<Data>().changeEmail(user.email);
+                  context.read<Data>().changeGoogle(val.google);
+                  context.read<Data>().changeId(val.id);
+                  context.read<Data>().setAuth(firebase);
+                  context.read<Data>().setObjGoogle(googlesignIn);
+                } else {
+                  print("Error");
+                }
+              });
+            }).catchError((e) => print(e));
+          }
           context.read<Data>().changeCardReactionChoice(widget.card);
         },
         child: Column(
@@ -208,6 +268,44 @@ class ActionCardButton extends StatefulWidget {
 }
 
 class _ActionCardButton extends State<ActionCardButton> {
+  String accesToken;
+  dynamic firebase;
+  dynamic googlesignIn;
+
+  Future<User> signInWithGoogle() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'profile',
+        'https://www.googleapis.com/auth/youtube',
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/gmail.readonly',
+        'https://www.googleapis.com/auth/calendar',
+        'openid',
+        'https://www.googleapis.com/auth/gmail.send',
+      ],
+    );
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    accesToken = googleSignInAuthentication.accessToken;
+    UserCredential authResult = await _auth.signInWithCredential(credential);
+    final _user = authResult.user;
+    assert(!_user.isAnonymous);
+    assert(await _user.getIdToken() != null);
+    User currentUser = _auth.currentUser;
+    assert(_user.uid == currentUser.uid);
+    firebase = _auth;
+    googlesignIn = _googleSignIn;
+    return currentUser;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Card(
@@ -217,6 +315,25 @@ class _ActionCardButton extends State<ActionCardButton> {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
+          if (context.read<Data>().getObjGoogle() == null) {
+            signInWithGoogle().then((User user) {
+              AuthService()
+                  .update(context.read<Data>().getId(),
+                      context.read<Data>().getUser(), user.email, accesToken)
+                  .then((val) {
+                if (val.error == false) {
+                  context.read<Data>().changeUser(user.displayName);
+                  context.read<Data>().changeEmail(user.email);
+                  context.read<Data>().changeGoogle(val.google);
+                  context.read<Data>().changeId(val.id);
+                  context.read<Data>().setAuth(firebase);
+                  context.read<Data>().setObjGoogle(googlesignIn);
+                } else {
+                  print("Error");
+                }
+              });
+            }).catchError((e) => print(e));
+          }
           context.read<Data>().changeCardActionChoice(widget.card);
         },
         child: Column(
