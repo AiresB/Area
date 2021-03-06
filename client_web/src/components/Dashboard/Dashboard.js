@@ -1,23 +1,20 @@
-import React , { Component } from 'react';
+import React , { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper'
+import Divider from '@material-ui/core/Divider';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
+
+import AreaList from './AreaList'
+import AreaForm from './AreaForm'
+import './Style.css'
 
 
 const theme = createMuiTheme({
@@ -28,269 +25,104 @@ const theme = createMuiTheme({
   }
 });
 
-class AreaList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: true,
-      areaList: [],
-      selectedIndex: ''
-    }
-    this.classes = makeStyles((theme) => ({
-      root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-      },
-      nested: {
-        paddingLeft: theme.spacing(4),
-      },
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      }
-    }));
-    this.handleClick = this.handleClick.bind(this);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: theme.spacing(0, 3),
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
+  },
+  areaForm: {
+    backgroundColor: 'white',
+    padding: theme.spacing(2),
+    margin: 15,
+    height: 100,
+    borderRadius: 10,
+  },
+  divider: {
+    margin: theme.spacing(2, 0),
+  },
+  paperNav: {
+    margin: 15,
+    padding: 10,
+    display: "flex",
+    justifyContent: 'space-evenly',
+    marginTop: 15,
+    width: 600,
+    height: 70,
+    backgroundColor: '#47B8E0',
+    borderRadius: 80,
   }
-  fetchAreaList() {
-    var userId = sessionStorage.getItem('userId');
-    fetch('http://127.0.0.1:8080/area/getbyid', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({userId: userId})
-    })
-      .then(data => data.json())
-      .then(data => {
-        //this.setState({areaList: data.areas})
-        // this.props.areaList = data.areas;
-        console.log(data.areas);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-  handleClick = (index) => {
-    if (this.state === false)
-      this.setState({open: true});
-    else
-      this.setState({open: false});
-  };
-  componentDidMount() {
-    this.fetchAreaList();
-  }
-  render() {
-    return (
-      // <List
-      //   component="nav"
-      //   aria-labelledby="nested-list-subheader"
-      //   subheader={
-      //     <ListSubheader component="div" id="AREAs">
-      //       AREAs
-      //   </ListSubheader>
-      //   }
-      //   className={this.classes.root}
-      // >
-      //   <ListItem button onClick={this.handleClick}>
-      //     <ListItemText primary={this.props.areaID} />
-      //     {this.state.open ? <ExpandLess /> : <ExpandMore />}
-      //   </ListItem>
-      //   <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-          // <List component="div" disablePadding>
-          //   <ListItem button className={this.classes.nested}>
-          //     <ListItemText primary={this.props.actionID} />
-          //     <ListItemText primary={this.props.actionDesc} />
-          //   </ListItem>
-          //   <ListItem button className={this.classes.nested}>
-          //     <ListItemText primary={this.props.reactionID} />
-          //     <ListItemText primary={this.props.reactionDesc} />
-          //   </ListItem>
-          // </List>
-      //   </Collapse>
-      // </List>
-      <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="AREAs">
-            AREAs
-        </ListSubheader>
-        }
-        className={this.classes.root}
-      >
-        { Object.keys(this.state.areaList).map((index) =>
-          <div key={index} className="areaList">
-            <ListItem button={true} onClick={this.handleClick(index)}>
-              <ListItemText primary={this.state.areaList[index].id} />
-              {index === this.state.selectedIndex ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={index === this.state.selectedIndex} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={this.classes.nested}>
-                  <ListItemText primary={this.state.areaList[index].action_id} />
-                  <ListItemText primary={this.state.areaList[index].action_desc} />
-                </ListItem>
-                <ListItem button className={this.classes.nested}>
-                  <ListItemText primary={this.state.areaList[index].reaction_id} />
-                  <ListItemText primary={this.state.areaList[index].reaction_desc} />
-                </ListItem>
-              </List>
-            </Collapse>
-          </div>
-        )}
-      </List>
-    );
-  }
-}
-
-class AreaForm extends Component  {
-  constructor(props) {
-    super(props);
-    this.classes = makeStyles((theme) => ({
-      root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-      },
-      nested: {
-        paddingLeft: theme.spacing(4),
-      },
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 500,
-      },
-      submit: {
-        margin: theme.spacing(3, 0, 2),
-      },
-    }));
-    this.state = {
-      actionList: [],
-      reactionList: [],
-      actionID: 0,
-      reactionID: 0,
-      actionDesc: '',
-      reactionDesc: ''
-    };
-    this.handleChangeAction = this.handleChangeAction.bind(this);
-    this.handleChangeReaction = this.handleChangeReaction.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  fetchActionList() {
-    fetch('http://127.0.0.1:8080/area/actionlist', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(data => data.json())
-      .then(data => {
-        this.setState({actionList: data.actions})
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-  fetchReactionList() {
-    fetch('http://127.0.0.1:8080/area/reactionlist', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(data => data.json())
-      .then(data => {
-        this.setState({reactionList: data.reactions})
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-  componentDidMount() {
-    this.fetchActionList();
-    this.fetchReactionList();
-  }
-  
-  async handleChangeAction(event) {
-    await this.setState({actionID: event.target.value});
-  }
-  async handleChangeReaction(event) {
-    await this.setState({reactionID: event.target.value});
-  }
-  handleSubmit(event) {
-      try {
-        fetch('http://127.0.0.1:8080/area/create', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            userId: sessionStorage.getItem('userId'),
-            actionId: this.state.actionID,
-            actionDesc: "action description",
-            reactionId: this.state.reactionID,
-            reactionDesc: "reaction description"
-          })
-        })
-          .then(data => data.json())
-          .then(data => {
-            if (data.error === true)
-              alert("AREA creation failed");
-            if (data.error === false)
-              alert("AREA successfully created");
-            console.log(data);
-          })
-          // .then(response => {
-          //   response.json();
-          // })
-          // .then(data => {
-          //   console.log(data);
-          // })
-          // .catch((err) => {
-          //   console.error(err);
-          // });
-      } catch(e) {
-        console.error(e)
-      }
-      event.preventDefault();
-    }
-  render() {
-    return (<div>
-      <form onSubmit={this.handleSubmit}>
-      <FormControl style={{minWidth: 300}}>
-      <InputLabel htmlFor="grouped-select">Action</InputLabel>
-        <Select defaultValue="" id="grouped-select" onChange={this.handleChangeAction}>
-            {Object.keys(this.state.actionList).map((index) => {
-              return <MenuItem key={index} value={index}>{this.state.actionList[index]}</MenuItem>
-            })}
-        </Select>
-      </FormControl>
-      <FormControl style={{minWidth: 300}}>
-        <InputLabel htmlFor="grouped-select">Reaction</InputLabel>
-        <Select defaultValue="" id="grouped-select" onChange={this.handleChangeReaction}>
-            {Object.keys(this.state.reactionList).map((index) => {
-              return <MenuItem key={index} value={index}>{this.state.reactionList[index]}</MenuItem>
-            })}
-        </Select>
-      </FormControl>
-      <Button
-              type="submit"
-              style={{minWidth: 120}}
-              variant="contained"
-              color="primary"
-            >
-              Add
-            </Button>
-      </form>
-    </div>);
-  }
-}
+}));
 
 export default function Dashboard() {
   let history = useHistory();
   var username = sessionStorage.getItem('username').replace("\"", " ").replace("\"", " ");
-  var areaList = [];
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [areaList, setAreaList] = React.useState([]);
+  const [actionList, setActionList] = useState({});
+  const [reactionList, setReactionList] = useState({});
+  let wrapper = React.createRef();
+  const classes = useStyles();
+
+  useEffect(() => {
+    async function fetchAreaList() {
+      var userId = sessionStorage.getItem('userId');
+      fetch('http://127.0.0.1:8080/area/getbyid', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userId: userId })
+      })
+          .then(data => data.json())
+          .then(data => {
+              setAreaList(data.areas);
+          })
+          .catch((err) => {
+              console.error(err);
+          })
+    }
+    
+    async function fetchActionList() {
+      await fetch('http://127.0.0.1:8080/area/actionlist', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(data => data.json())
+        .then(data => {
+          setActionList(data.actions);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }
+    
+    async function fetchReactionList() {
+      await fetch('http://127.0.0.1:8080/area/reactionlist', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(data => data.json())
+        .then(data => {
+          setReactionList(data.reactions);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }
+  
+    fetchAreaList();
+    fetchActionList();
+    fetchReactionList();
+  }, [])
 
   function Logout() {
     sessionStorage.clear("userID");
@@ -298,44 +130,87 @@ export default function Dashboard() {
     history.push("/");
     history.go(0);
   }
-  function Preferences() {
-    history.push("/preferences");
-    history.go(0);
+
+  function addArea(area) {
+    var newArea = {
+      action_desc: area.actionDesc,
+      action_id: area.actionId,
+      id: area.id,
+      reaction_desc: area.actionDesc,
+      reaction_id: area.reactionId,
+      user_id: area.userId
+    }
+    setAreaList(areaList => [...areaList, newArea]);
+  };
+  async function deleteArea(index) {
+    let tmpList = { ...areaList };
+    await fetch('http://127.0.0.1:8080/area/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: areaList[index].id })
+      });
+      tmpList[index] = null;
+      setAreaList(tmpList);
   }
-  function Home() {
-    history.push("/dashboard");
-    history.go(0);
+  function updateArea(area) {
+    console.log("UPDATE: ");
+    console.log(area);
   }
-  function handleClose() {
-    setAnchorEl(null);
+  function saveArea(area) {
+    console.log("SAVE: ");
+    console.log(area);
   }
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
+
   return (
     <Grid>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-            Menu
-      </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={Home}>Profile</MenuItem>
-            <MenuItem onClick={Preferences}>Settings</MenuItem>
-            <MenuItem onClick={Logout}>Logout</MenuItem>
-          </Menu>
-          <h2>Dashboard</h2>
-          <h2>Welcome, {username}</h2>
-        </CssBaseline>
-      </MuiThemeProvider>
-      <AreaForm/>
-      <AreaList areaList={areaList}/>
+      <Grid className={classes.root}>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline>
+            <div className="container">
+              <img src="/Logo.png" alt="Logo" style={{ padding: 15, display: 'flex' }} />
+              <h1 className="item" style={{ fontFamily: "Quicksand", color: "#FFFFFF", alignSelf: "center", marginLeft: 15}}>Welcome, {username}</h1>
+              <Paper className={classes.paperNav}>
+              <IconButton style={{marginLeft: 30}} href="/dashboard">
+                <HomeIcon fontSize="large"/>
+              </IconButton>
+              <IconButton style={{marginLeft: 30}} href="/preferences">
+                <SettingsIcon fontSize="large"/>
+              </IconButton>
+              <IconButton style={{marginLeft: 30}} href="/client.apk">
+                <GetAppIcon fontSize="large"/>
+              </IconButton>
+              <IconButton style={{marginLeft: 30}} onClick={Logout}>
+                <ExitToAppIcon fontSize="large"/>
+              </IconButton>
+              </Paper>
+            </div>
+          </CssBaseline>
+        </MuiThemeProvider>
       </Grid>
+      <Grid >
+        <Grid className={classes.areaForm}>
+          <AreaForm
+          addArea={addArea}
+          actionList={actionList}
+          reactionList={reactionList}
+          ref={wrapper}
+        />
+      </Grid>
+      <h2 style={{ fontSize: 30, fontFamily: "Quicksand", color: "#FFFFFF", marginLeft: 15}}>Created AREAs</h2>
+      <Divider className={classes.divider}/>
+      <Grid className={classes.paper}>
+        <AreaList
+          areaList={areaList}
+          actionList={actionList}
+          reactionList={reactionList}
+          deleteArea={deleteArea}
+          updateArea={updateArea}
+          saveArea={saveArea}
+        />
+      </Grid>
+      </Grid>
+    </Grid>
   );
 }

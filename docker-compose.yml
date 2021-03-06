@@ -39,7 +39,7 @@ services:
       - client:/var/client
 
   client_mobile:
-    build: ./client_mobile/Dockerfile
+    build: ./client_mobile/
     volumes:
       - client:/var/client
 
