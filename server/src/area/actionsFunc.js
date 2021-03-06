@@ -23,11 +23,21 @@ const gcalendar_action = (element) => {
     return manageGoogleAction(2, element);
 }
 
+const youtube_action = (element) => {
+    return manageGoogleAction(3, element);
+}
+
+const gdrive_action = (element) => {
+    return manageGoogleAction(4, element);
+}
+
 /*  list functions */
 const actFuncList = {
     1: its_8_action,
     2: gmail_action,
-    3: gcalendar_action
+    3: gcalendar_action,
+    4: youtube_action,
+    5: gdrive_action
 }
 
 /* action checker */
