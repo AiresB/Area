@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:area/prefab.dart';
-import 'package:area/loginView.dart';
-import 'package:area/PasswordForgetView.dart';
-import 'package:area/RegistrationView.dart';
-import 'package:area/HomeView.dart';
+import 'package:area/prefab/Prefab.dart';
+import 'package:area/prefab/TextWidget.dart';
+import 'package:area/view/loginView.dart';
+import 'package:area/view/PasswordForgetView.dart';
+import 'package:area/view/RegistrationView.dart';
+import 'package:area/view/HomeView.dart';
+
+const background = const Color(0xFF34314C);
+const button = const Color(0xFF47B8E0);
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -11,7 +15,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(builder: (_) => LoginFirebase());
       case '/register':
         return MaterialPageRoute(builder: (_) => RegistrationView());
       case '/reset_password':

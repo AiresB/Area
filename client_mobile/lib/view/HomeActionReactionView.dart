@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:area/prefab.dart';
+import 'package:area/prefab/Prefab.dart';
+import 'package:area/prefab/TextWidget.dart';
+import 'package:area/prefab/CardWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
 
@@ -48,7 +50,7 @@ class _HomeActionReactionView extends State<HomeActionReactionView> {
               padding: EdgeInsets.only(
             top: 20,
           )),
-          WidgetText("Vos widgets personnalisés :", 20, Colors.white),
+          WidgetText("Vos areas personnalisés :", 20, Colors.white),
           Padding(
               padding: EdgeInsets.only(
             bottom: 20,

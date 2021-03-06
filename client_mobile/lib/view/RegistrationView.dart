@@ -1,8 +1,13 @@
-import 'package:area/authService.dart';
+import 'package:area/auth/authService.dart';
 import 'package:flutter/material.dart';
-import 'package:area/prefab.dart';
+import 'package:area/prefab/Prefab.dart';
+import 'package:area/prefab/ButtonWidget.dart';
+import 'package:area/prefab/TextWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:area/Data.dart';
+
+const background = const Color(0xFF34314C);
+const button = const Color(0xFF47B8E0);
 
 class RegistrationView extends StatefulWidget {
   @override

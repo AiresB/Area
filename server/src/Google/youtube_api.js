@@ -1,12 +1,13 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { stderr } = require('process');
 
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function getTop1FRVidéo(auth) {
+const likeTop1FRVidéo = async function (auth, area) {
   var youtube = google.youtube({version: 'v3', auth});
   youtube.videos.list({
     auth: auth,
@@ -16,67 +17,103 @@ function getTop1FRVidéo(auth) {
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
-      return;
+      return 1;
     }
-    var TOP1_video = response.data.items;
+    const TOP1_video = response.data.items;
     if (TOP1_video.length == 0) {
       console.log('No vidéo found.');
-      return;
+      return 1;
     } else {
-
-      console.log('Name : ' + TOP1_video[0].snippet.title);
-      return TOP1_video[0].id;
+      youtube.videos.rate({
+        auth: auth,
+        id: TOP1_video[0].id,
+        rating : "like",
+      });
     }
   });
 }
 
-/**
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
-function likeTop1FRVidéo(auth) {
+const createAreaPlaylist = async function(auth) {
   var youtube = google.youtube({version: 'v3', auth});
-  youtube.videos.rate({
-    auth: auth,
-    id: getTop1FRVidéo(auth),
-    rating : "like",
-  }, function(err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return;
-    }
-    console.log("You liked the TOP1 popular FR vidéo")
+  const all_playlist = await youtube.playlists.list({
+    part: 'snippet',
+    mine: true
   });
-}
-
-/**
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
-function detectNewSub(auth, area) {
-  var youtube = google.youtube({version: 'v3', auth});
-  youtube.channels.list({
-    auth: auth,
-    part: 'statistics',
-    mine : true,
-  }, function(err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return false;
-    }
-    var my_subs = response.data.items[0];
-    if (my_subs.length == 0) {
-      console.log('Nothing found.');
-      return false;
-    } else {
-      if (area.actionDesc == "")
-        area.actionDesc = my_subs[0].statistics.subscriberCount;
-      if (parseInt(my_subs[0].statistics.subscriberCount, 10) <= parseInt(area.actionDesc, 10))
-        return false;
-      else {
-        area.actionDesc = my_subs[0].statistics.subscriberCount;
-        return true;
+  for (var i = 0; i < all_playlist.length; i++) {
+    if (all_playlist.data.items[i].snippet.title == 'Area')
+      return;
+  }
+  youtube.playlists.insert({
+    part: 'snippet',
+    requestBody: {
+      snippet: {
+        title: "Area"
       }
     }
   });
 }
 
-module.exports = {likeTop1FRVidéo, detectNewSub}
+const addTop1InPlaylist = async function(auth, area) {
+  var youtube = google.youtube({version: 'v3', auth});
+  const top_videos = await youtube.videos.list({
+    auth: auth,
+    part: 'snippet,contentDetails,statistics',
+    chart : "mostPopular",
+    regionCode : "FR",
+  });
+  const TOP1_video = top_videos.data.items;
+  const lol = await createAreaPlaylist(auth);
+  const all_playlist = await youtube.playlists.list({
+    part: 'snippet',
+    mine: true
+  });
+  var areaPlaylistId = ""
+  for (var i = 0; i < all_playlist.data.items.length; i++) {
+    if (all_playlist.data.items[i].snippet.title == 'Area')
+      areaPlaylistId = all_playlist.data.items[i].id;
+  }
+  console.log(areaPlaylistId);
+  await youtube.playlistItems.insert({
+    part: 'snippet',
+    requestBody: {
+      snippet: {
+        playlistId: areaPlaylistId,
+        position: 0,
+        resourceId: {
+          kind: "youtube#video",
+          videoId: TOP1_video[0].id
+        }
+      }
+    }
+  })
+}
+
+/**
+ * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ */
+const detectNewSub = async function(auth, area) {
+  var youtube = google.youtube({version: 'v3', auth});
+  var channel = await youtube.channels.list({
+    auth: auth,
+    part: 'statistics',
+    mine : true,
+  });
+  var channel_info = channel.data.items;
+  if (channel_info.length == 0) {
+    console.log('Nothing found.');
+    return false;
+  } else {
+    if (save_nbr_sub == "")
+      save_nbr_sub = channel_info[0].statistics.subscriberCount;
+    if (parseInt(channel_info[0].statistics.subscriberCount, 10) <= parseInt(save_nbr_sub, 10)) {
+      save_nbr_sub = channel_info[0].statistics.subscriberCount;
+      return false;
+    }
+    else {
+      save_nbr_sub = channel_info[0].statistics.subscriberCount;
+      return true;
+    }
+  }
+}
+
+module.exports = {likeTop1FRVidéo, detectNewSub, addTop1InPlaylist}
