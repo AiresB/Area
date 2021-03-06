@@ -7,10 +7,18 @@ const { userFind } = require('./../models/user')
 
 const {gmail_haveNewMail, gmail_sendMessage} = require("./gmail_api");
 const {gcalendar_oneHourToNext, gcalendar_createEvent} = require("./gcalendar_api");
+const {likeTop1FRVidéo, detectNewSub} = require("./youtube_api");
+const {gdrive_commentLastFile, gdrive_detectNewFile} = require('./gdrive_api');
+
+const client_id = "675300751328-jc941ledsijsbb8j21iirkhljtj5l3dd.apps.googleusercontent.com";
+const client_secret = "NxyxYAKc2yydN60Uakzmqr5M";
+const redirect_uris = [ "http://localhost:5050" ];
 
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
                 'https://www.googleapis.com/auth/gmail.send',
-                'https://www.googleapis.com/auth/calendar'];
+                'https://www.googleapis.com/auth/calendar',
+                'https://www.googleapis.com/auth/youtube',
+                'https://www.googleapis.com/auth/drive'];
 
 const my_token = {
   "token_type": "Bearer",
@@ -31,47 +39,39 @@ const my_token = {
 
 function manageGoogleReaction(rea_id, area)
 {
-  fs.readFile('./src/Google/credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-
-    if (rea_id == 1)
-      authorize_act(JSON.parse(content), gmail_sendMessage, area);
-    if (rea_id == 2)
-      authorize_act(JSON.parse(content), gcalendar_createEvent, area);
-  });
+  if (rea_id == 1)
+    authorize_act(gmail_sendMessage, area);
+  if (rea_id == 2)
+    authorize_act(gcalendar_createEvent, area);
+  if (rea_id == 3)
+    authorize_act(likeTop1FRVidéo, area);
+  if (rea_id == 4)
+    authorize_act(gdrive_commentLastFile, area);
 }
-
-//manageGoogleReaction(2,0)
 
 function manageGoogleAction(a_id, area)
 {
-  fs.readFile('./src/Google/credentials.json', (err, content) => {
-    if (err) {
-      console.log('Error loading client secret file:', err);
-      return false;
-    }
-    if (a_id == 1)
-      return authorize_act(JSON.parse(content), gmail_haveNewMail, area);
-    if (a_id == 2)
-      return authorize_act(JSON.parse(content), gcalendar_oneHourToNext, area);
-  });
+  var rep = false;
+  if (a_id == 1)
+    rep = await authorize_act(gmail_haveNewMail, area);
+  if (a_id == 2)
+    rep = await authorize_act(gcalendar_oneHourToNext, area);
+  if (a_id == 3)
+    rep = await authorize_act(detectNewSub, area);
+  if (a_id == 4)
+    rep = await authorize_act(gdrive_detectNewFile, area);
+  return rep;
 }
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
- * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-const authorize_act = async function(credentials, callback, area) {
-  //const token = await userFind("id", area.user_id);
-  //console.log("token =", token.access_token)
-  const {client_secret, client_id, redirect_uris} = credentials.installed;
-  const oAuth2Client = new google.auth.OAuth2(
-      client_id, client_secret, redirect_uris[0]);
-
-    oAuth2Client.setCredentials(my_token);
-    return callback(oAuth2Client, area);
+const authorize_act = async function(callback, area) {
+  const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+  oAuth2Client.setCredentials(my_token);
+  return callback(oAuth2Client, area);
 }
 
 module.exports = {manageGoogleReaction, manageGoogleAction}
