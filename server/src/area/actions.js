@@ -6,5 +6,6 @@ exports.actions = {
     5: "GDrive",
     6: "Weather",
     7: "Sunrise",
-    8: "Sunset"
+    8: "Sunset",
+    9: "Holidays"
 }
