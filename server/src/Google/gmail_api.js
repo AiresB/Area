@@ -3,6 +3,7 @@ const readline = require('readline');
 const {google} = require('googleapis');
 const { getbyid } = require('../controllers/area');
 const { userFind } = require('../models/user');
+const { areaUpdate } = require('../models/area');
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -16,15 +17,13 @@ const gmail_haveNewMail = async function(auth, area) {
 
     var nbr_messages = user.data.messagesTotal;
 
-    console.log(nbr_messages);
-    console.log(area.action_desc);
     if (area.action_desc == "null")
-      area.action_desc = nbr_messages.toString();
+      areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: nbr_messages.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
     if (nbr_messages <= parseInt(area.action_desc, 10)) {
-      area.action_desc = nbr_messages.toString();
+      areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: nbr_messages.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
       return false;
     }
-    area.action_desc = nbr_messages.toString();
+    areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: nbr_messages.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
     return true;
 }
 
