@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
@@ -7,12 +6,12 @@ import Preferences from '../Preferences/Preferences';
 import Register from '../Register/Register'
 
 
-function setToken(userToken) {
-  sessionStorage.setItem('token', JSON.stringify(userToken));
+function setUserID(userID) {
+  sessionStorage.setItem('userId', JSON.stringify(userID));
 }
 
-function getToken() {
-  const tokenString = sessionStorage.getItem('token');
+function getUserID() {
+  const tokenString = sessionStorage.getItem('userId');
   return tokenString
 }
 
@@ -21,26 +20,30 @@ function setUser(user) {
 }
 
 function App() {
-  const token = getToken();
+  const token = getUserID();
+
   if(!token) {
     return (
       <BrowserRouter>
       <Switch>
-        <Route exact path = "/"><Login setToken={setToken} setUser={setUser}/></Route>
+        <Route exact path = "/"><Login setUserID={setUserID} setUserName={setUser}/></Route>
         <Route path = "/register"><Register/></Route>
       </Switch>
       </BrowserRouter>
     );
   } else {
     return (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path="/preferences">
-              <Preferences />
-            </Route>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/preferences">
+            <Preferences />
+          </Route>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
           </Switch>
         </BrowserRouter>
     );

@@ -1,69 +1,182 @@
 import 'package:flutter/material.dart';
 
 class Data extends ChangeNotifier {
+  String id;
   String user;
   String email;
   String password;
   String confirmPassword;
   String google;
+  List<dynamic> userArea;
+  List<Widget> widgetArea;
+  List<dynamic> cardAction = List<dynamic>();
+  List<dynamic> cardReaction = List<dynamic>();
+  int statut = 0;
+  dynamic cardActionChoice;
+  dynamic cardReactionChoice;
+  dynamic objGoogle;
+  dynamic auth;
 
   void PrintTest() {
     print("Hello World !");
   }
 
-  void ResetVar() {
+  dynamic getObjGoogle() {
+    return objGoogle;
+  }
+
+  void setObjGoogle(dynamic val) {
+    objGoogle = val;
+    notifyListeners();
+  }
+
+  dynamic getAuth() {
+    return auth;
+  }
+
+  void setAuth(dynamic val) {
+    auth = val;
+    notifyListeners();
+  }
+
+  void resetVar() {
+    id = null;
     user = null;
     email = null;
     password = null;
     confirmPassword = null;
+    userArea = null;
+    statut = 0;
     notifyListeners();
   }
 
-  String GetGoogle() {
+  void resetCardAction() {
+    cardAction = List<dynamic>();
+    notifyListeners();
+  }
+
+  void resetUserdArea() {
+    userArea = List<dynamic>();
+    notifyListeners();
+  }
+
+  void resetCardReaction() {
+    cardReaction = List<dynamic>();
+    notifyListeners();
+  }
+
+  int getStatut() {
+    return statut;
+  }
+
+  List<dynamic> getCardAction() {
+    return cardAction;
+  }
+
+  dynamic getCardActionChoice() {
+    return cardActionChoice;
+  }
+
+  dynamic getCardReactionChoice() {
+    return cardReactionChoice;
+  }
+
+  List<Widget> getWidgetArea() {
+    return widgetArea;
+  }
+
+  List<dynamic> getCardReaction() {
+    return cardReaction;
+  }
+
+  List<dynamic> getArea() {
+    return userArea;
+  }
+
+  dynamic delCardActionReaction(String val) {
+    userArea.removeWhere((item) => item['id'] == val);
+  }
+
+  String getId() {
+    return id;
+  }
+
+  String getGoogle() {
     return google;
   }
 
-  String GetUser() {
+  String getUser() {
     return user;
   }
 
-  String GetEmail() {
+  String getEmail() {
     return email;
   }
 
-  String GetPassword() {
+  String getPassword() {
     return password;
   }
 
-  String GetConfirmPassword() {
+  String getConfirmPassword() {
     return confirmPassword;
   }
 
-  List <String> GetInformation() {
-    return [user, email, password, confirmPassword];
+  void changeStatut(int val) {
+    statut = val;
+    notifyListeners();
   }
 
-  void ChangeGoogle(String val) {
+  void changeCardActionChoice(dynamic val) {
+    cardActionChoice = val;
+    notifyListeners();
+  }
+
+  void changeCardReactionChoice(dynamic val) {
+    cardReactionChoice = val;
+    notifyListeners();
+  }
+
+  void changeGoogle(String val) {
     google = val;
     notifyListeners();
   }
 
-  void ChangeUser(String val) {
+  void changeCardAction(dynamic val) {
+    cardAction.add(val);
+    notifyListeners();
+  }
+
+  void changeCardReaction(dynamic val) {
+    cardReaction.add(val);
+    notifyListeners();
+  }
+
+  void changeUserArea(List<dynamic> val) {
+    userArea = val;
+    notifyListeners();
+  }
+
+  void changeId(String val) {
+    id = val;
+    notifyListeners();
+  }
+
+  void changeUser(String val) {
     user = val;
     notifyListeners();
   }
 
-  void ChangeEmail(String val) {
+  void changeEmail(String val) {
     email = val;
     notifyListeners();
   }
 
-  void ChangePassword(String val) {
+  void changePassword(String val) {
     password = val;
     notifyListeners();
   }
 
-  void ChangeConfirmPassword(String val) {
+  void changeConfirmPassword(String val) {
     confirmPassword = val;
     notifyListeners();
   }

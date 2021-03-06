@@ -1,28 +1,36 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { getbyid } = require('../controllers/area');
+const { userFind } = require('../models/user');
+
+
+var save_nbr_mail = 861;
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gmail_listMails(auth) {
+const gmail_haveNewMail = async function(auth, area) {
     const gmail = google.gmail({version: 'v1', auth});
-    gmail.users.messages.list({
+    var user = await gmail.users.getProfile({
+      auth: auth,
       userId: 'me',
-    }, (err, res) => {
-      if (err) return console.log('The API returned an error: ' + err);
-      const mess = res.data.messages;
-      if (mess.length) {
-        console.log('Mails:');
-        mess.forEach((mail) => {
-          console.log(`- ${mail}`);
-        });
-      } else {
-        console.log('No mail found.');
-      }
     });
-  }
-  
+
+    var nbr_messages = user.data.messagesTotal;
+
+    console.log(nbr_messages);
+
+    if (save_nbr_mail == -1)
+      save_nbr_mail = nbr_messages;
+    if (nbr_messages <= save_nbr_mail) {
+      save_nbr_mail = nbr_messages;
+      return false;
+    }
+    save_nbr_mail = nbr_messages;
+    return true;
+}
+
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
@@ -37,7 +45,7 @@ function gmail_getNbrOfMails(auth) {
     console.log(mess.length);
   });
 }
-  
+
 
 function makeBody(to, from, subject, message) {
     var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
@@ -48,7 +56,7 @@ function makeBody(to, from, subject, message) {
         "subject: ", subject, "\n\n",
         message
     ].join('');
-  
+
     var encodedMail = new Buffer.from(str).toString("base64").replace(/\+/g, '-').replace(/\//g, '_');
         return encodedMail;
 }
@@ -56,8 +64,10 @@ function makeBody(to, from, subject, message) {
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function gmail_sendMessage(auth) {
-    var raw = makeBody('kheiji95800@gmail.com', 'kheiji95800@gmail.com', 'test subject', 'test message');
+const gmail_sendMessage = async function (auth, area) {
+  var user = await userFind("id", area.user_id);
+    console.log(user.email);
+    var raw = makeBody(user.email, user.email, 'test subject', 'test message');
     gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.send({
         auth: auth,
@@ -68,4 +78,4 @@ function gmail_sendMessage(auth) {
     });
 }
 
-module.exports = {gmail_listMails, gmail_sendMessage}
+module.exports = {gmail_haveNewMail, gmail_sendMessage}

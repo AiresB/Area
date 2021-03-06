@@ -4,7 +4,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 const dotenv = require('dotenv');
 dotenv.config();
 const CLIENT_ID = '926573912321-i5tvvg7pcqo89ejhfko6glt4hicp4kti.apps.googleusercontent.com';
-
+const SCOPE = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/youtube"
 
 class GoogleBtn extends Component {
    constructor(props) {
@@ -14,7 +14,6 @@ class GoogleBtn extends Component {
       isLogined: false,
       accessToken: ''
     };
-
     this.login = this.login.bind(this);
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
     this.logout = this.logout.bind(this);
@@ -27,6 +26,8 @@ class GoogleBtn extends Component {
         isLogined: true,
         accessToken: response.accessToken
       }));
+      // console.log(response.tokenObj);
+      this.props.handleGoogleLogin(response);
     }
   }
 
@@ -57,15 +58,14 @@ class GoogleBtn extends Component {
         >
         </GoogleLogout>: <GoogleLogin
           clientId={ CLIENT_ID }
-          buttonText='Login'
+          buttonText={this.props.message}
           onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
+          scope={SCOPE}
         />
       }
-      { this.state.accessToken ? <h5>Your Access Token: <br/><br/> { this.state.accessToken }</h5> : null }
-
     </div>
     )
   }

@@ -4,9 +4,9 @@ const { stringify } = require('uuid');
 const { userRegister, userFind, userUpdate } = require("../models/user");
 
 exports.login = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password , google} = req.body;
 
-    if (!password || !email) {
+    if ((!password && !google) || !email) {
         res.status(400).json({error: true, message: "arguments missing"});
         return;
     }
@@ -15,52 +15,84 @@ exports.login = async (req, res) => {
     if (!user) {
         return res.status(404).json({ error: true, message: 'User not find' });
     }
-    bcrypt.compare(password, user.password, function(err, match) {
-        if (err) {
-            return res.status(500).json({
-                error: true,
-                message: 'Serveur Error'
-            })
-        } else
-        if (match == false) {
-            return res.status(403).json({
-                error: true,
-                message: 'Wrong Password'
-            })
-        } else {
-            res.status(200).json({
-                error: false,
-                user: user
-            });
-            return
-        }
-    });
+
+    user.google = google
+    if (google) {
+        await userUpdate(user)
+        res.status(200).json({
+            error: false,
+            user: user
+        });
+
+    } else if (password) {
+        bcrypt.compare(password, user.password, function(err, match) {
+            if (err) {
+                return res.status(500).json({
+                    error: true,
+                    message: 'Serveur Error'
+                })
+            } else
+            if (match == false) {
+                return res.status(403).json({
+                    error: true,
+                    message: 'Wrong Password'
+                })
+            } else {
+                res.status(200).json({
+                    error: false,
+                    user: user
+                });
+                return
+            }
+        });
+    }
 }
 
 exports.register = async (req, res) => {
-    const { username, password, email } = req.body;
+    var { username, password, email , google} = req.body;
 
-    console.log("username: ", username, " password: ", password, " email: ", email);
-    if (!username || !password || !email) {
+    if (!username || (!password && !google) || !email) {
+        res.status(400).json({error: true, message: "arguments missing"});
+        return;
+    }
+    if (password) {
+        const hash = await bcrypt.hash(password, 10)
+        const google = {null: true}
+        user = await userFind( "email", email )
+        if (user) {
+            res.status(401).json({
+                error: true,
+                message: "Email already used"
+            });
+            return
+        }
+        console.log("google:", google)
+        const userData = await userRegister({ username, hash, email, google});
+        res.status(201).json({
+            error: false,
+            user: userData
+        });
+    } else if (google) {
+        const hash = null;
+        user = await userFind( "email", email )
+        if (user) {
+            res.status(401).json({
+                error: true,
+                message: "Email already used"
+            });
+            return
+        }
+        const userData = await userRegister({ username, hash, email, google});
+        res.status(201).json({
+            error: false,
+            user: userData
+        });
+
+    } else {
         res.status(400).json({error: true, message: "arguments missing"});
         return;
     }
 
-    const hash = await bcrypt.hash(password, 10)
-    const google = "0"
-    user = await userFind( "email", email )
-    if (user) {
-        res.status(401).json({
-            error: true,
-            message: "Email already used"
-        });
-        return
-    }
-    const userData = await userRegister({ username, hash, email, google});
-    res.status(201).json({
-        error: false,
-        user: userData
-    });
 };
 
 exports.update = async (req, res) => {
