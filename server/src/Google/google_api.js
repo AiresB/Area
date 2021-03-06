@@ -69,8 +69,9 @@ const manageGoogleAction = async function(a_id, area)
  * @param {function} callback The callback to call with the authorized client.
  */
 const authorize_act = async function(callback, area) {
+  const token = await userFind("id", area.user_id);
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
-  oAuth2Client.setCredentials(my_token);
+  oAuth2Client.setCredentials(token.google);
   return callback(oAuth2Client, area);
 }
 
