@@ -32,7 +32,4 @@ const holydays = async () => {
     return false
 }
 
-
-holydays()
-
 module.exports = {holydays}
