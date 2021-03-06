@@ -39,10 +39,10 @@ class AreaForm extends Component {
         body: JSON.stringify({
           userId: sessionStorage.getItem('userId'),
           actionId: this.state.actionID,
-          actionDesc: "",
+          actionDesc: "null",
           // actionDesc: this.props.actionList[this.state.actionID],
           reactionId: this.state.reactionID,
-          reactionDesc: ""
+          reactionDesc: "null"
           // reactionDesc: this.props.reactionList[this.state.reactionID]
         })
       })
