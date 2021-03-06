@@ -48,4 +48,18 @@ function gdrive_commentLastFile(auth, area) {
   });
 }
 
-module.exports = {gdrive_detectNewFile, gdrive_commentLastFile}
+function gdrive_addGoogleDoc(auth, area) {
+  const drive = google.drive({version: 'v3', auth});
+    
+  drive.files.create({
+    auth: auth,
+    requestBody: {
+      name: "Area secret document",
+      mimeType: "application/vnd.google-apps.document"
+    }
+  });
+}
+
+
+
+module.exports = {gdrive_detectNewFile, gdrive_commentLastFile, gdrive_addGoogleDoc}
