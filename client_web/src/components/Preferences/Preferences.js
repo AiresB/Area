@@ -68,12 +68,33 @@ async function updatePassword(credentials) {
   console.log("UPDATE PASSWORD");
 }
 
+async function updateGoogleUser(credentials) {
+  console.log(credentials);
+  try {
+      return fetch('http://127.0.0.1:8080/user/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      })
+        .then(data => data.json())
+        .then(data => {
+          return (data)
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    } catch(e) {
+      console.error(e)
+    }
+}
 
 export default function Preferences() {
   const classes = useStyles();
-  var username = sessionStorage.getItem('username').replace("\"", " ").replace("\"", " ");
+  var username = sessionStorage.getItem('username').replace("\"", "").replace("\"", "");
   let history = useHistory();
-  let userID = sessionStorage.getItem('userID');
+  let userId = sessionStorage.getItem('userId').replace("\"", "").replace("\"", "");
   const [password, setPassword] = React.useState();
 
   function Logout() {
@@ -84,16 +105,14 @@ export default function Preferences() {
   }
 
   async function handleGoogleLogin(data) {
-    // var response = await loginGoogleUser({email: data.profileObj.email, google: data.tokenObj});
-    
-    // console.log(response);
-    // if (response.error === true) {
-    //   alert("Google account has already been linked with an existing AREA account");
-    // } 
-    // if (response.error === false) {
-    //   alert("Google account successfully linked");
-    // }
-    console.log("ADD GOOGLE");
+    var response = await updateGoogleUser({id: userId, username: username, email: data.profileObj.email, google: data.tokenObj });
+    if (response.error === true) {
+     alert("Google account link failed");
+    } 
+    if (response.error === false) {
+      alert("Google account successfully linked");
+      sessionStorage.setItem('google', true);
+    }
   }
 
   const handleSubmit = async e => {
@@ -102,7 +121,7 @@ export default function Preferences() {
       alert("Cannot submit empty password");
     else {
       const data = await updatePassword({
-        userID,
+        userId,
         password
       });
       if (data.error === false)

@@ -74,6 +74,7 @@ export default function Register() {
       username,
       email
     });
+    history.push("/");
     history.push(0);
   }
   return(

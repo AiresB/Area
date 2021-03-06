@@ -30,33 +30,37 @@ class AreaForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
-      await fetch('http://127.0.0.1:8080/area/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userId: sessionStorage.getItem('userId'),
-          actionId: this.state.actionID,
-          actionDesc: "null",
-          // actionDesc: this.props.actionList[this.state.actionID],
-          reactionId: this.state.reactionID,
-          reactionDesc: "null"
-          // reactionDesc: this.props.reactionList[this.state.reactionID]
+    if (sessionStorage.getItem('google') === "false") {
+      alert("Please sign in to Google to create this AREA");
+    } else {
+      try {
+        await fetch('http://127.0.0.1:8080/area/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: sessionStorage.getItem('userId'),
+            actionId: this.state.actionID,
+            actionDesc: "null",
+            // actionDesc: this.props.actionList[this.state.actionID],
+            reactionId: this.state.reactionID,
+            reactionDesc: "null"
+            // reactionDesc: this.props.reactionList[this.state.reactionID]
+          })
         })
-      })
-        .then(data => data.json())
-        .then(data => {
-          if (data.error === true)
-            alert("AREA creation failed");
-          if (data.error === false) {
-            alert("AREA successfully created");
-            this.props.addArea(data.area);
-          }
-        })
-    } catch (e) {
-      console.error(e)
+          .then(data => data.json())
+          .then(data => {
+            if (data.error === true)
+              alert("AREA creation failed");
+            if (data.error === false) {
+              alert("AREA successfully created");
+              this.props.addArea(data.area);
+            }
+          })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
   render() {

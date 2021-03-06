@@ -58,7 +58,7 @@ async function loginUser(credentials) {
       })
         .then(data => data.json())
         .then(data => {
-          console.log(data.user.id)
+          console.log(data)
           return (data)
         })
         .catch((err) => {
@@ -117,15 +117,11 @@ export default function Login({ setUserID, setUserName }) {
     
     console.log(response);
     if (response.error === true) {
-      var responseRegister = await registerUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
-      console.log(responseRegister);
-      sessionStorage.setItem('userId', responseRegister.user.id);
-      sessionStorage.setItem('username', responseRegister.user.username);
-    } 
-    if (response.error === false) {
-      sessionStorage.setItem('userId', response.user.id);
-      sessionStorage.setItem('username', response.user.username);
+      response = await registerUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
     }
+    sessionStorage.setItem('userId', response.user.id);
+    sessionStorage.setItem('username', response.user.username);
+    sessionStorage.setItem('google', true);
     history.push("/dashboard");
     history.go(0);
   }
@@ -136,15 +132,16 @@ export default function Login({ setUserID, setUserName }) {
       email,
       password
     });
+    if (data.error === true)
+      alert("Email or password incorrect");
     if (data.error === false) {
       setUserID(data.user.id);
       setUserName(data.user.username);
+      sessionStorage.setItem('google', false);
       console.log(data.user.username);
       history.push("/dashboard");
       history.go(0);
     }
-    if (data.error === true)
-      alert("Email or password incorrect");
   }
 
   return(
