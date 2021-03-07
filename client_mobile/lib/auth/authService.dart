@@ -156,9 +156,7 @@ class AuthService {
       'email': email,
       'google': jsonEncode(jsonGoogle),
     };
-    print(json);
     final response = await http.put(url, body: json);
-    print(response.body);
     if (response.statusCode == 200)
       return loginGoogle(email, google);
     else

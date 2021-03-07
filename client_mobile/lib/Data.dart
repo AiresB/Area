@@ -17,10 +17,6 @@ class Data extends ChangeNotifier {
   dynamic objGoogle;
   dynamic auth;
 
-  void PrintTest() {
-    print("Hello World !");
-  }
-
   dynamic getObjGoogle() {
     return objGoogle;
   }
@@ -147,6 +143,10 @@ class Data extends ChangeNotifier {
     cardAction.add(val["3"]);
     cardAction.add(val["4"]);
     cardAction.add(val["5"]);
+    cardAction.add(val["6"]);
+    cardAction.add(val["7"]);
+    cardAction.add(val["8"]);
+    cardAction.add(val["9"]);
     notifyListeners();
   }
 
@@ -155,6 +155,8 @@ class Data extends ChangeNotifier {
     cardReaction.add(val["2"]);
     cardReaction.add(val["3"]);
     cardReaction.add(val["4"]);
+    cardReaction.add(val["5"]);
+    cardReaction.add(val["6"]);
     notifyListeners();
   }
 
