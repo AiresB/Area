@@ -2,7 +2,6 @@ const { v4: uuidv4 } = require('uuid');
 const { client } = require("../models/index");
 
 const userRegister = async (user) => {
-    console.log("user = ", user)
     const id = uuidv4();
     const res = await client.query(`INSERT INTO users(id, username, password, email, google) VALUES('${id}', '${user.username}', '${user.hash}', '${user.email}', '${JSON.stringify(user.google)}')`);
     //to do confirmation mail

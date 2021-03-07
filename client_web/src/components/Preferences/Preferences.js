@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 async function updatePassword(credentials) {
-  console.log("UPDATE PASSWORD COMING SOON");
+  //console.log("UPDATE PASSWORD COMING SOON");
 }
 
 async function updateGoogleUser(credentials) {
@@ -89,7 +89,7 @@ export default function Preferences() {
     var response = await updateGoogleUser({id: userId, username: username, email: data.profileObj.email, google: data.tokenObj });
     if (response.error === true) {
      alert("Google account link failed");
-    } 
+    }
     if (response.error === false) {
       alert("Google account successfully linked");
       sessionStorage.setItem('google', true);

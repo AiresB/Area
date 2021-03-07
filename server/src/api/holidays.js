@@ -22,7 +22,6 @@ const holydays = async () => {
     } else {
         nowstr = now.getFullYear().toString().concat(join1, now.getMonth().toString(), join2, now.getDate().toString())
     }
-    console.log(nowstr)
 
     for (var i = 0; i < myJson.length; i++) {
         if (nowstr.localeCompare(myJson[i].date) == 0) {

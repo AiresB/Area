@@ -41,7 +41,6 @@ const reactFuncList = {
 }
 
 const reactionAct = (element) => {
-    console.log("in reaction Act")
     reactFuncList[element.reaction_id](element)
 }
 

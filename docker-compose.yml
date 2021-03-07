@@ -13,13 +13,7 @@ services:
     ports:
       - "5432:5432"
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8082:8080
-
-  serveur:
+  server:
     depends_on:
       - "db"
     build: ./server/
@@ -29,7 +23,7 @@ services:
 
   client_web:
     depends_on:
-      - serveur
+      - server
       - client_mobile
     build: ./client_web/
     ports:

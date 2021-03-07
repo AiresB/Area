@@ -111,7 +111,6 @@ exports.register = async (req, res) => {
             });
             return
         }
-        console.log("google:", google)
         const userData = await userRegister({ username, hash, email, google});
         res.status(201).json({
             error: false,

@@ -14,7 +14,6 @@ const gdrive_detectNewFile = async (auth, area) => {
     fields : "*"
   });
   var storage = info.data.storageQuota.usageInDrive;
-  console.log(storage);
   if (area.action_desc == "null" || storage <= area.action_desc) {
     areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: storage.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
     return false;
@@ -28,7 +27,7 @@ const gdrive_detectNewFile = async (auth, area) => {
  */
 function gdrive_commentLastFile(auth, area) {
   const drive = google.drive({version: 'v3', auth});
-  
+
   drive.files.list({
     auth: auth,
   }, (err, drive_list) => {
@@ -51,7 +50,7 @@ function gdrive_commentLastFile(auth, area) {
 
 function gdrive_addGoogleDoc(auth, area) {
   const drive = google.drive({version: 'v3', auth});
-    
+
   drive.files.create({
     auth: auth,
     requestBody: {

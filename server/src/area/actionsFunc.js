@@ -82,7 +82,6 @@ const actFuncList = {
 
 /* action checker */
 const actionChecker = async (element) => {
-    console.log("in action checker")
     actFuncList[element.action_id](element)
 }
 

@@ -38,7 +38,6 @@ function gmail_getNbrOfMails(auth) {
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const mess = res.data.messages;
-    console.log(mess.length);
   });
 }
 
