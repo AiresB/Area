@@ -15,7 +15,7 @@ You will also see any lint errors in the console.
 
 ### Use server
 
-Checkout [API REST Documentation](../Documentations/Documentation_api_rest_Area1.3.2.pdf) to read the list of the roots and how use them
+Checkout [API REST Documentation](../Documentations/Documentation_api_rest_Area1.3.2.pdf) to read the list of the roots and how to use them
 
 ### Add actions / réactions
 

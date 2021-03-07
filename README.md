@@ -138,7 +138,7 @@ docker-compose up --build
 #### Checkout our [Gitflow](Documentations/Gitflow.pdf)
 
 ### Documentation Api
-#### You can use our serveur with your own client by calling our REST api
+#### You can use our server with your own client by calling our REST api
 #### Go to [Documentation API](Documentations/Documentation_api_rest_Area1.3.2.pdf) to see the roots
 
 ## Tests Policy
