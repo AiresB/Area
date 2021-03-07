@@ -77,7 +77,7 @@ export default function Register() {
     history.push("/");
     history.push(0);
   }
-  async function registerUser(data) {
+  async function registerGoogleUser(data) {
     return fetch('http://127.0.0.1:8080/user/register', {
       method: 'POST',
       headers: {
@@ -118,7 +118,7 @@ export default function Register() {
     
     console.log(response);
     if (response.error === true) {
-      response = await registerUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
+      response = await registerGoogleUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
     }
     sessionStorage.setItem('userId', response.user.id);
     sessionStorage.setItem('username', response.user.username);
