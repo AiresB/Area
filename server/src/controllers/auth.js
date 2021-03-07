@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { stringify } = require('uuid');
 
-const { userRegister, userFind, userUpdate } = require("../models/user");
+const { userRegister, userFind, userUpdate, userUpdateMob } = require("../models/user");
 
 exports.login = async (req, res) => {
     const { email, password , google} = req.body;
@@ -19,6 +19,51 @@ exports.login = async (req, res) => {
     user.google = google
     if (google) {
         await userUpdate(user)
+        res.status(200).json({
+            error: false,
+            user: user
+        });
+
+    } else if (password) {
+        bcrypt.compare(password, user.password, function(err, match) {
+            if (err) {
+                return res.status(500).json({
+                    error: true,
+                    message: 'Serveur Error'
+                })
+            } else
+            if (match == false) {
+                return res.status(403).json({
+                    error: true,
+                    message: 'Wrong Password'
+                })
+            } else {
+                res.status(200).json({
+                    error: false,
+                    user: user
+                });
+                return
+            }
+        });
+    }
+}
+
+exports.login_mob = async (req, res) => {
+    const { email, password , google} = req.body;
+
+    if ((!password && !google) || !email) {
+        res.status(400).json({error: true, message: "arguments missing"});
+        return;
+    }
+
+    user = await userFind( "email", email )
+    if (!user) {
+        return res.status(404).json({ error: true, message: 'User not find' });
+    }
+
+    user.google = google
+    if (google) {
+        await userUpdateMob(user)
         res.status(200).json({
             error: false,
             user: user
@@ -66,7 +111,6 @@ exports.register = async (req, res) => {
             });
             return
         }
-        console.log("google:", google)
         const userData = await userRegister({ username, hash, email, google});
         res.status(201).json({
             error: false,

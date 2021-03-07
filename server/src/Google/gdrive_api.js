@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { areaUpdate } = require('../models/area');
 
 var save_storage_usage = 348023
 
@@ -13,13 +14,11 @@ const gdrive_detectNewFile = async (auth, area) => {
     fields : "*"
   });
   var storage = info.data.storageQuota.usageInDrive;
-  if (save_storage_usage == -1)
-    save_storage_usage = storage;
-  if (storage <= save_storage_usage) {
-    save_storage_usage = storage;
+  if (area.action_desc == "null" || storage <= area.action_desc) {
+    areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: storage.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
     return false;
   }
-  save_storage_usage = storage;
+  areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: storage.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
   return true;
 }
 
@@ -28,8 +27,8 @@ const gdrive_detectNewFile = async (auth, area) => {
  */
 function gdrive_commentLastFile(auth, area) {
   const drive = google.drive({version: 'v3', auth});
-  
-  drive.drives.list({
+
+  drive.files.list({
     auth: auth,
   }, (err, drive_list) => {
     if (err) {
@@ -40,6 +39,7 @@ function gdrive_commentLastFile(auth, area) {
     if (last_drive.length) {
       drive.comments.create({
         fileId : last_drive[0].id,
+        fields : "*",
         requestBody: {
           content: "Ceci est un document de qualité supérieure!"
         }
@@ -50,7 +50,7 @@ function gdrive_commentLastFile(auth, area) {
 
 function gdrive_addGoogleDoc(auth, area) {
   const drive = google.drive({version: 'v3', auth});
-    
+
   drive.files.create({
     auth: auth,
     requestBody: {

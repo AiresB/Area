@@ -20,7 +20,7 @@ class AreaForm extends Component {
     this.handleChangeReaction = this.handleChangeReaction.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   async handleChangeAction(event) {
     this.setState({ actionID: event.target.value });
   }
@@ -30,33 +30,35 @@ class AreaForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
-      await fetch('http://127.0.0.1:8080/area/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userId: sessionStorage.getItem('userId'),
-          actionId: this.state.actionID,
-          actionDesc: "action_desc",
-          // actionDesc: this.props.actionList[this.state.actionID],
-          reactionId: this.state.reactionID,
-          reactionDesc: "reaction_desc"
-          // reactionDesc: this.props.reactionList[this.state.reactionID]
+    if (sessionStorage.getItem('google') === "false") {
+      alert("Please sign in to Google to create this AREA");
+    } else {
+      try {
+        await fetch('http://127.0.0.1:8080/area/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: sessionStorage.getItem('userId').replace("\"", "").replace("\"", ""),
+            actionId: this.state.actionID,
+            actionDesc: "null",
+            reactionId: this.state.reactionID,
+            reactionDesc: "null"
+          })
         })
-      })
-        .then(data => data.json())
-        .then(data => {
-          if (data.error === true)
-            alert("AREA creation failed");
-          if (data.error === false) {
-            alert("AREA successfully created");
-            this.props.addArea(data.area);
-          }
-        })
-    } catch (e) {
-      console.error(e)
+          .then(data => data.json())
+          .then(data => {
+            if (data.error === true)
+              alert("AREA creation failed");
+            if (data.error === false) {
+              alert("AREA successfully created");
+              this.props.addArea(data.area);
+            }
+          })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
   render() {
@@ -93,7 +95,7 @@ class AreaForm extends Component {
             </FormControl>
             <Button
               type="submit"
-              style={{ 
+              style={{
                 minWidth: 120,
                 margin: 20,
                 marginLeft: 25,

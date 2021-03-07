@@ -41,7 +41,6 @@ function gcalendar_createEvent(auth, area) {
       console.log('An error occured with Calendar service: ' + err);
       return;
     }
-    console.log('Event created: %s', event.htmlLink);
   });
 
 }
@@ -95,10 +94,9 @@ const gcalendar_oneHourToNext = async (auth, area) => {
   });
   events = events.data.items;
   if (events.length) {
-    console.log('Upcoming 10 events:');
     for (var i = 0; i < events.length; i++) {
       var start = events[i].start.dateTime || events[i].start.date;
-      if (calcul_date(start, -1).substring(0, 16) === calcul_date((new Date()).toISOString(), 0).substring(0, 16))
+      if (calcul_date(start, 0).substring(0, 16) === calcul_date((new Date()).toISOString(), 0).substring(0, 16))
         return true;
     }
     return false;

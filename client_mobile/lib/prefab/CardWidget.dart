@@ -112,19 +112,32 @@ class ActionCard extends StatefulWidget {
   ActionCard(dynamic _card) {
     this.card = _card;
     if (card["action_id"] == "1") {
-      sentence = "It's 8'";
+      sentence = "Hour: It's 8 o'clock'";
     }
     if (card["action_id"] == "2") {
-      sentence = "Gmail'";
+      sentence = "Gmail: Detect a new email in the box";
     }
     if (card["action_id"] == "3") {
-      sentence = "GCalendar'";
+      sentence =
+          "GCalendar: An event in the calendar is detected at this moment";
     }
     if (card["action_id"] == "4") {
-      sentence = "Youtube'";
+      sentence = "Youtube: I got a subscriber";
     }
     if (card["action_id"] == "5") {
-      sentence = "GDrive'";
+      sentence = "GDrive: Detect a new file into the drive";
+    }
+    if (card["action_id"] == "6") {
+      sentence = "Weather: It's raining";
+    }
+    if (card["action_id"] == "7") {
+      sentence = "Sunrise: We are in the sunrise hour";
+    }
+    if (card["action_id"] == "8") {
+      sentence = "Sunset: We are in the sunset hour";
+    }
+    if (card["action_id"] == "9") {
+      sentence = "Holidays";
     }
   }
 
@@ -166,16 +179,22 @@ class ReactionCard extends StatefulWidget {
   ReactionCard(dynamic _card) {
     this.card = _card;
     if (card["reaction_id"] == "1") {
-      sentence = "Gmail";
+      sentence = "Gmail: Send an email";
     }
     if (card["reaction_id"] == "2") {
-      sentence = "GCalendar";
+      sentence = "GCalendar: Create an event 1 hour later";
     }
     if (card["reaction_id"] == "3") {
-      sentence = "Youtube";
+      sentence = "Youtube: Like the TOP 1 Popular FR video";
     }
     if (card["reaction_id"] == "4") {
-      sentence = "GDrive";
+      sentence = "GDrive: Comment the last file pushed into the drive";
+    }
+    if (card["reaction_id"] == "5") {
+      sentence = "Youtube: Put the TOP 1 Popular FR video in a Playlist";
+    }
+    if (card["reaction_id"] == "6") {
+      sentence = "GDrive: Create an empty google doc into the drive";
     }
   }
   @override

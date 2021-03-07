@@ -5,6 +5,7 @@ const {reactionAct} = require("./reactionsFunc")
 const {actions} = require("./actions")
 const {manageGoogleAction} = require("./../Google/google_api")
 const {sunset, surise, sunrise} = require("../api/sun")
+const {holidays} = require("../api/holidays")
 
 /*  Code    */
 
@@ -59,8 +60,10 @@ const sunset_action = async (element) => {
 }
 
 const holidays_action = async (element) => {
-    if (false) {
-        reactionAct(element)
+    var today = new Date()
+    if (today.getHours() == 7 && today.getMinutes() == 00) {
+        if (holidays())
+            reactionAct(element)
     }
 }
 
@@ -79,7 +82,6 @@ const actFuncList = {
 
 /* action checker */
 const actionChecker = async (element) => {
-    console.log("in action checker")
     actFuncList[element.action_id](element)
 }
 

@@ -3,9 +3,7 @@ const readline = require('readline');
 const {google} = require('googleapis');
 const { getbyid } = require('../controllers/area');
 const { userFind } = require('../models/user');
-
-
-var save_nbr_mail = 861;
+const { areaUpdate } = require('../models/area');
 
 /**
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -19,15 +17,13 @@ const gmail_haveNewMail = async function(auth, area) {
 
     var nbr_messages = user.data.messagesTotal;
 
-    console.log(nbr_messages);
-
-    if (save_nbr_mail == -1)
-      save_nbr_mail = nbr_messages;
-    if (nbr_messages <= save_nbr_mail) {
-      save_nbr_mail = nbr_messages;
+    if (area.action_desc == "null")
+      areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: nbr_messages.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
+    if (nbr_messages <= parseInt(area.action_desc, 10)) {
+      areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: nbr_messages.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
       return false;
     }
-    save_nbr_mail = nbr_messages;
+    areaUpdate({id: area.id, userId: area.user_id, actionId: area.action_id, actionDesc: nbr_messages.toString(), reactionId: area.reaction_id, reactionDesc: area.reaction_desc,});
     return true;
 }
 
@@ -42,7 +38,6 @@ function gmail_getNbrOfMails(auth) {
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const mess = res.data.messages;
-    console.log(mess.length);
   });
 }
 

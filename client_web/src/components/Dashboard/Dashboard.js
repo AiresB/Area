@@ -145,22 +145,17 @@ export default function Dashboard() {
   async function deleteArea(index) {
     let tmpList = { ...areaList };
     await fetch('http://127.0.0.1:8080/area/delete', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id: areaList[index].id })
-      });
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: areaList[index].id })
+    });
+    if (Object.keys(tmpList).length === 1) {
+      tmpList = [];
+    } else
       tmpList[index] = null;
-      setAreaList(tmpList);
-  }
-  function updateArea(area) {
-    console.log("UPDATE: ");
-    console.log(area);
-  }
-  function saveArea(area) {
-    console.log("SAVE: ");
-    console.log(area);
+    setAreaList(tmpList);
   }
 
   return (
@@ -206,8 +201,6 @@ export default function Dashboard() {
           actionList={actionList}
           reactionList={reactionList}
           deleteArea={deleteArea}
-          updateArea={updateArea}
-          saveArea={saveArea}
         />
       </Grid>
       </Grid>

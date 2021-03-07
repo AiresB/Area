@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
-const dotenv = require('dotenv');
-dotenv.config();
-const CLIENT_ID = '926573912321-i5tvvg7pcqo89ejhfko6glt4hicp4kti.apps.googleusercontent.com';
-const SCOPE = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/youtube"
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const SCOPE = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/drive"
 
 class GoogleBtn extends Component {
    constructor(props) {
@@ -26,7 +24,6 @@ class GoogleBtn extends Component {
         isLogined: true,
         accessToken: response.accessToken
       }));
-      // console.log(response.tokenObj);
       this.props.handleGoogleLogin(response);
     }
   }

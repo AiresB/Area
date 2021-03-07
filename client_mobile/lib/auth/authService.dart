@@ -12,7 +12,7 @@ class AuthService {
   }
 
   Future<BufferUser> login(email, password) async {
-    var url = _localhost() + '/user/login';
+    var url = _localhost() + '/user/login/mob/';
     Map<String, dynamic> json = {
       'email': email,
       'password': password,
@@ -25,7 +25,7 @@ class AuthService {
   }
 
   Future<BufferUser> loginGoogle(email, google) async {
-    var url = _localhost() + '/user/login';
+    var url = _localhost() + '/user/login/mob/';
     Map<String, dynamic> jsonGoogle = {
       'token_type': "Bearer",
       'access_token': google,
@@ -91,14 +91,13 @@ class AuthService {
       return BufferArea.fromJsonError(jsonDecode(response.body));
   }
 
-  Future<BufferArea> createArea(
-      userId, actionId, actionDesc, reactionId, reactionDesc) async {
+  Future<BufferArea> createArea(userId, actionId, reactionId) async {
     Map<String, dynamic> json = {
       'userId': userId,
       'actionId': actionId,
-      'actionDesc': actionDesc,
+      'actionDesc': "null",
       'reactionId': reactionId,
-      'reactionDesc': reactionDesc,
+      'reactionDesc': "null",
     };
     var url = _localhost() + '/area/create';
     final response = await http.post(url, body: json);
@@ -137,7 +136,7 @@ class AuthService {
   }
 
   Future<BufferGoogle> getGoogleSignIn() async {
-    var url = _localhost() + '/user/login/google';
+    var url = _localhost() + '/user/login/mob/google';
     final response = await http.get(url);
     return BufferGoogle.fromJson(jsonDecode(response.body));
   }
@@ -157,9 +156,7 @@ class AuthService {
       'email': email,
       'google': jsonEncode(jsonGoogle),
     };
-    print(json);
     final response = await http.put(url, body: json);
-    print(response.body);
     if (response.statusCode == 200)
       return loginGoogle(email, google);
     else
