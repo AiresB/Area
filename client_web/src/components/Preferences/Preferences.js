@@ -47,25 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 async function updatePassword(credentials) {
-  // try {
-  //   return fetch('http://127.0.0.1:8080/user/updatepassword', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(credentials)
-  //   })
-  //     .then(data => data.json())
-  //     .then(data => {
-  //       return (data)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     })
-  // } catch(e) {
-  //   console.error(e)
-  // }
-  console.log("UPDATE PASSWORD");
+  console.log("UPDATE PASSWORD COMING SOON");
 }
 
 async function updateGoogleUser(credentials) {
@@ -171,20 +153,27 @@ export default function Preferences() {
           onChange={setPassword}
         />
         <Button
-              type="submit"
-              style={{ 
-                minWidth: 120,
-                margin: 20,
-                marginLeft: 25,
-              }}
-              variant="contained"
-              color="primary"
-            >
-              Update
+          type="submit"
+          style={{
+            minWidth: 120,
+            margin: 20,
+            marginLeft: 25,
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Update
               </Button>
       </form>
-      <GoogleBtn handleGoogleLogin={handleGoogleLogin}/>
-            <Divider className={classes.divider}/>
+      <div style={{
+        minWidth: 120,
+        margin: 20,
+        marginLeft: 25,
+      }}>
+        <GoogleBtn handleGoogleLogin={handleGoogleLogin} />
+      </div>
+
+      <Divider className={classes.divider} />
     </Grid>
   );
 }

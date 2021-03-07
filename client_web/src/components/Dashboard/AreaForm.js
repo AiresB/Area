@@ -40,7 +40,7 @@ class AreaForm extends Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            userId: sessionStorage.getItem('userId'),
+            userId: sessionStorage.getItem('userId').replace("\"", "").replace("\"", ""),
             actionId: this.state.actionID,
             actionDesc: "null",
             // actionDesc: this.props.actionList[this.state.actionID],

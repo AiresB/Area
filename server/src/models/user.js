@@ -16,7 +16,7 @@ const userRegister = async (user) => {
 
 const userUpdate = async function(user) {
     try {
-        await client.query(`UPDATE users SET username = '${user.username}', email = '${user.email}', google = '${user.google}' WHERE id = '${user.id}'`);
+        await client.query(`UPDATE users SET username = '${user.username}', email = '${user.email}', google = '${JSON.stringify(user.google)}' WHERE id = '${user.id}'`);
         return user;
     } catch (e) {
         console.error(e);
