@@ -20,7 +20,7 @@ class AreaForm extends Component {
     this.handleChangeReaction = this.handleChangeReaction.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   async handleChangeAction(event) {
     this.setState({ actionID: event.target.value });
   }
@@ -43,10 +43,8 @@ class AreaForm extends Component {
             userId: sessionStorage.getItem('userId').replace("\"", "").replace("\"", ""),
             actionId: this.state.actionID,
             actionDesc: "null",
-            // actionDesc: this.props.actionList[this.state.actionID],
             reactionId: this.state.reactionID,
             reactionDesc: "null"
-            // reactionDesc: this.props.reactionList[this.state.reactionID]
           })
         })
           .then(data => data.json())
@@ -97,7 +95,7 @@ class AreaForm extends Component {
             </FormControl>
             <Button
               type="submit"
-              style={{ 
+              style={{
                 minWidth: 120,
                 margin: 20,
                 marginLeft: 25,
