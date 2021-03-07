@@ -143,6 +143,6 @@ docker-compose up --build
 
 ## Tests Policy
 ### API REST: [Postman collection](server/tests/Area.postman_collection.json)
-### tiers API: Postman
-### mobile_client: manual tests
-### web_client: manual tests
+### Tiers API: Postman
+### Mobile_client: manual tests
+### Web_client: manual tests
