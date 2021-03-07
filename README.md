@@ -93,7 +93,7 @@ docker-compose up --build
 #### Description :
 
 ## Web Client
-### Register accoount
+### Register account
 #### Users can register a new account or with a Google account
 ![Register](https://user-images.githubusercontent.com/67512526/110232274-10f1e700-7f1d-11eb-8292-6d392c866983.png)
 
@@ -129,4 +129,8 @@ docker-compose up --build
 ### Log out
 #### Users can log out of AREA on the fourth icon on the top right corner
 ![downloadApk](https://user-images.githubusercontent.com/67512526/110232832-74c9df00-7f20-11eb-8f77-1f1f59d70096.png)
+
+## Mobile Client
+### User guide
+<p>You can access User guide Mobile client <a href="https://www.figma.com/proto/tnY3s24dGqw3CL6JEvfJoT/AREA?node-id=147%3A44&scaling=contain">here</a></p>
 
