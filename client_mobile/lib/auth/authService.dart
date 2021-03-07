@@ -12,7 +12,7 @@ class AuthService {
   }
 
   Future<BufferUser> login(email, password) async {
-    var url = _localhost() + '/user/login';
+    var url = _localhost() + '/user/login/mob/';
     Map<String, dynamic> json = {
       'email': email,
       'password': password,
@@ -25,7 +25,7 @@ class AuthService {
   }
 
   Future<BufferUser> loginGoogle(email, google) async {
-    var url = _localhost() + '/user/login';
+    var url = _localhost() + '/user/login/mob/';
     Map<String, dynamic> jsonGoogle = {
       'token_type': "Bearer",
       'access_token': google,
@@ -136,7 +136,7 @@ class AuthService {
   }
 
   Future<BufferGoogle> getGoogleSignIn() async {
-    var url = _localhost() + '/user/login/google';
+    var url = _localhost() + '/user/login/mob/google';
     final response = await http.get(url);
     return BufferGoogle.fromJson(jsonDecode(response.body));
   }
