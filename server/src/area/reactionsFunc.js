@@ -22,12 +22,22 @@ const gdrive_reaction = (element) => {
     manageGoogleReaction(4, element);
 }
 
+const youtube_reaction2 = (element) => {
+    manageGoogleReaction(5, element);
+}
+
+const gdrive_reaction2 = (element) => {
+    manageGoogleReaction(6, element);
+}
+
 /*  list functions */
 const reactFuncList = {
     1: gmail_reaction,
     2: gcalendar_reaction,
     3: youtube_reaction,
-    4: gdrive_reaction
+    4: gdrive_reaction,
+    5: youtube_reaction2,
+    6: gdrive_reaction2
 }
 
 const reactionAct = (element) => {
