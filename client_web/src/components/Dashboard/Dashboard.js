@@ -157,14 +157,6 @@ export default function Dashboard() {
       tmpList[index] = null;
     setAreaList(tmpList);
   }
-  function updateArea(area) {
-    console.log("UPDATE: ");
-    console.log(area);
-  }
-  function saveArea(area) {
-    console.log("SAVE: ");
-    console.log(area);
-  }
 
   return (
     <Grid>
@@ -209,8 +201,6 @@ export default function Dashboard() {
           actionList={actionList}
           reactionList={reactionList}
           deleteArea={deleteArea}
-          updateArea={updateArea}
-          saveArea={saveArea}
         />
       </Grid>
       </Grid>

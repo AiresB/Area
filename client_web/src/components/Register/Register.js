@@ -116,7 +116,6 @@ export default function Register() {
   async function handleGoogleLogin(data) {
     var response = await loginGoogleUser({email: data.profileObj.email, google: data.tokenObj});
     
-    console.log(response);
     if (response.error === true) {
       response = await registerGoogleUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
     }
@@ -188,7 +187,7 @@ export default function Register() {
           <GoogleBtn message="Sign in" handleGoogleLogin={handleGoogleLogin}/>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="http://localhost:3000/" variant="body2">
+              <Link href="/" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

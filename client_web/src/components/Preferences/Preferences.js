@@ -51,7 +51,6 @@ async function updatePassword(credentials) {
 }
 
 async function updateGoogleUser(credentials) {
-  console.log(credentials);
   try {
       return fetch('http://127.0.0.1:8080/user/update', {
         method: 'PUT',

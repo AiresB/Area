@@ -58,7 +58,6 @@ async function loginUser(credentials) {
       })
         .then(data => data.json())
         .then(data => {
-          console.log(data)
           return (data)
         })
         .catch((err) => {
@@ -115,7 +114,6 @@ export default function Login({ setUserID, setUserName }) {
   async function handleGoogleLogin(data) {
     var response = await loginGoogleUser({email: data.profileObj.email, google: data.tokenObj});
     
-    console.log(response);
     if (response.error === true) {
       response = await registerUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
     }
@@ -138,7 +136,6 @@ export default function Login({ setUserID, setUserName }) {
       setUserID(data.user.id);
       setUserName(data.user.username);
       sessionStorage.setItem('google', false);
-      console.log(data.user.username);
       history.push("/dashboard");
       history.go(0);
     }

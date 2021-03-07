@@ -24,7 +24,6 @@ class GoogleBtn extends Component {
         isLogined: true,
         accessToken: response.accessToken
       }));
-      // console.log(response.tokenObj);
       this.props.handleGoogleLogin(response);
     }
   }

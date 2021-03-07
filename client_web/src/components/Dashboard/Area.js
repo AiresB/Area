@@ -33,7 +33,8 @@ const styles = {
     borderRadius: 15,
     width: 200,
     height: 250,
-    margin: 20
+    margin: 20,
+    textAlign: 'inherit'
   },
   reaction: {
     backgroundColor: '#42BB73',
@@ -76,54 +77,63 @@ class Area extends Component {
           ref={this.gridRef}
         >
           <Paper elevation={2} style={styles.Paper}>
-              <Paper style={styles.action}>
-                <Typography
-                  gutterBottom
-                  variant="h4"
-                  align="center"
-                  style={{
-                    padding: 8,
-                    color: '#FFFFFF',
-                    fontFamily: 'Quicksand'
-                  }}>
-                  Action
+            <Paper style={styles.action}>
+              <Typography
+                gutterBottom
+                variant="h4"
+                align="center"
+                style={{
+                  padding: 8,
+                  color: '#FFFFFF',
+                  fontFamily: 'Quicksand'
+                }}>
+                Action
                 </Typography>
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  align="center"
-                  style={{
-                    padding: 40,
-                    color: '#FFFFFF',
-                    fontFamily: 'Quicksand'
-                  }}>
-                  {this.props.actionList[this.props.area.action_id]}
+              <Typography
+                gutterBottom
+                variant="h7"
+                align="center"
+                style={{
+                  padding: 40,
+                  color: '#FFFFFF',
+                  fontFamily: 'Quicksand',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  textAlign: 'center'
+                }}>
+                {this.props.actionList[this.props.area.action_id]}
+              </Typography>
+            </Paper>
+            <Paper style={styles.reaction}>
+              <Typography
+                gutterBottom
+                variant="h4"
+                align="center"
+                style={{
+                  padding: 8,
+                  color: '#FFFFFF',
+                  fontFamily: 'Quicksand',
+                  alignItems: 'center'
+                }}>
+                Reaction
                 </Typography>
-              </Paper>
-              <Paper style={styles.reaction}>
-                <Typography
-                  gutterBottom
-                  variant="h4"
-                  align="center"
-                  style={{
-                    padding: 8,
-                    color: '#FFFFFF',
-                    fontFamily: 'Quicksand',
-                  }}>
-                  Reaction
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  align="center"
-                  style={{
-                    padding: 40,
-                    color: '#FFFFFF',
-                    fontFamily: 'Quicksand',
-                  }}>
-                  {this.props.reactionList[this.props.area.reaction_id]}
-                </Typography>
-              </Paper>
+              <Typography
+                gutterBottom
+                variant="h7"
+                align="center"
+                style={{
+                  padding: 40,
+                  color: '#FFFFFF',
+                  fontFamily: 'Quicksand',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  textAlign: 'center'
+                }}>
+                {this.props.reactionList[this.props.area.reaction_id]}
+              </Typography>
+            </Paper>
             <IconButton
               color="secondary"
               aria-label="Delete"
