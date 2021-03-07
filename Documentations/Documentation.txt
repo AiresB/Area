@@ -1,3 +1,0 @@
-Documents supplémentaires:
--Gitflow
--Tests_Policy

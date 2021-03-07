@@ -11,7 +11,7 @@ git clone git@github.com:EpitechIT2020/B-YEP-500-PAR-5-1-area-adrien.mollat.git
 
 cat /client_web/.env
 
-GOOGLE_CLIENT_ID= [google client id]
+REACT_APP_GOOGLE_CLIENT_ID= [id]
 
 # .env in server
 
@@ -41,13 +41,10 @@ docker-compose up --build
 
 <p>You can access the server on the address http://localhost:8080/</p>
 
-## Accessing the database
-
-<p>You can access the database on the address http://localhost:8082/</p>
 
 ## Services
 
-<p>We currently have 5 services: </p>
+<p>We currently have 8 services: </p>
 
 <ol>
 <li>GMail</li>
@@ -56,41 +53,43 @@ docker-compose up --build
 <li>Youtube</li>
 <li>Weather</li>
 <li>Time</li>
+<li>Sunrise-sunset</li>
+<li>Holidays</li>
 </ol>
 
 ## Actions/Triggers :
 ### Hour: It's 8 o'clock
-#### Description :
+#### Description : Activate each morning at 8 o'clock
 ### Gmail: Detect a new email in the box
-#### Description :
+#### Description : Activate when user receive an email
 ### GCalendar: An event in the calendar is detected at this moment
-#### Description :
+#### Description : Activate when an event start
 ### Youtube: I got a subscriber
-#### Description :
+#### Description : Activate when the user got a new subscriber
 ### GDrive: Detect a new file into the drive
-#### Description :
+#### Description : Activate when the user create a new file
 ### Weather: It's raining
-#### Description :
+#### Description : Activate when it start to rain
 ### Sunrise: We are in the sunrise hour
-#### Description :
+#### Description : Activate at sunrise
 ### Sunset: We are in the sunset hour
-#### Description :
+#### Description : Activate at sunset
 ### Holidays
-#### Description :
+#### Description : Activate each morning during the french holidays
 
 ## Reactions :
 ### Gmail: Send an email
-#### Description :
+#### Description : Send an email when activate
 ### GCalendar: Create an event 1 hour later
-#### Description :
+#### Description : Create an event 1 hour later the activation
 ### Youtube: Like the TOP 1 Popular FR video
-#### Description :
+#### Description : Like the TOP 1 Popular FR video
 ### GDrive: Comment the last file pushed into the drive
-#### Description :
+#### Description : Comment the last file pushed into the drive
 ### Youtube: Put the TOP 1 Popular FR video in a Playlist
-#### Description :
+#### Description : Put the TOP 1 Popular FR video in a Playlist
 ### GDrive: Create an empty google doc into the drive
-#### Description :
+#### Description : Create an empty google doc file into the drive
 
 ## Web Client
 ### Register accoount
@@ -130,3 +129,20 @@ docker-compose up --build
 #### Users can log out of AREA on the fourth icon on the top right corner
 ![downloadApk](https://user-images.githubusercontent.com/67512526/110232832-74c9df00-7f20-11eb-8f77-1f1f59d70096.png)
 
+## More
+
+### Technologies uses
+#### Technologies explaination at [Technologies](Documentation/Technologies.pdf)
+
+### Gitflow
+#### Checkout our [Gitflow](Documentation/Gitflow.pdf)
+
+### Documentation Api
+#### You can use our serveur with your own client by calling our REST api
+#### Go to [Documentation API](Documentation/Documentation api rest Area1.3.2.pdf) to see the roots
+
+## Tests Policy
+### API REST: [Postman collection](server/tests/Area.postman_collection.json)
+### tiers API: Postman
+### mobile_client: manual tests
+### web_client: manual tests
