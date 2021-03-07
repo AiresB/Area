@@ -13,8 +13,6 @@ router.get("/", (req, res) => {
 
 router.get("/about.json", other.about);
 
-router.get("/client.apk", other.apk);
-
 router.use("/user/", auth);
 
 router.use("/area/", area);
