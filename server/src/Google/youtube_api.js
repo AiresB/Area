@@ -43,7 +43,7 @@ const createAreaPlaylist = async function(auth) {
     if (all_playlist.data.items[i].snippet.title == 'Area')
       return;
   }
-  youtube.playlists.insert({
+  await youtube.playlists.insert({
     part: 'snippet',
     requestBody: {
       snippet: {
@@ -72,7 +72,6 @@ const addTop1InPlaylist = async function(auth, area) {
     if (all_playlist.data.items[i].snippet.title == 'Area')
       areaPlaylistId = all_playlist.data.items[i].id;
   }
-  console.log(areaPlaylistId);
   await youtube.playlistItems.insert({
     part: 'snippet',
     requestBody: {
