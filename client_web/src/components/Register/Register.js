@@ -77,6 +77,55 @@ export default function Register() {
     history.push("/");
     history.push(0);
   }
+  async function registerUser(data) {
+    return fetch('http://127.0.0.1:8080/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(data => data.json())
+    .then(data => {
+      return (data)
+    })
+      .catch((err) => {
+        console.error(err);
+      })
+   }
+  async function loginGoogleUser(credentials) {
+      try {
+        return fetch('http://127.0.0.1:8080/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        })
+          .then(data => data.json())
+          .then(data => {
+            return (data)
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+      } catch(e) {
+        console.error(e)
+      }
+  }
+  async function handleGoogleLogin(data) {
+    var response = await loginGoogleUser({email: data.profileObj.email, google: data.tokenObj});
+    
+    console.log(response);
+    if (response.error === true) {
+      response = await registerUser({email: data.profileObj.email, username: data.profileObj.name, google: data.tokenObj});
+    }
+    sessionStorage.setItem('userId', response.user.id);
+    sessionStorage.setItem('username', response.user.username);
+    sessionStorage.setItem('google', true);
+    history.push("/dashboard");
+    history.go(0);
+  }
   return(
     <Container component="main" maxWidth="xs">
       <MuiThemeProvider theme={theme}>
@@ -136,7 +185,7 @@ export default function Register() {
           >
             Sign Up
           </Button>
-          <GoogleBtn message="Sign in"/>
+          <GoogleBtn message="Sign in" handleGoogleLogin={handleGoogleLogin}/>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="http://localhost:3000/" variant="body2">
