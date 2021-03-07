@@ -132,14 +132,14 @@ docker-compose up --build
 ## More
 
 ### Technologies uses
-#### Technologies explaination at [Technologies](Documentation/Technologies.pdf)
+#### Technologies explaination at [Technologies](Documentations/Technologies.pdf)
 
 ### Gitflow
-#### Checkout our [Gitflow](Documentation/Gitflow.pdf)
+#### Checkout our [Gitflow](Documentations/Gitflow.pdf)
 
 ### Documentation Api
 #### You can use our serveur with your own client by calling our REST api
-#### Go to [Documentation API](Documentation/Documentation api rest Area1.3.2.pdf) to see the roots
+#### Go to [Documentation API](Documentations/Documentation_api_rest_Area1.3.2.pdf) to see the roots
 
 ## Tests Policy
 ### API REST: [Postman collection](server/tests/Area.postman_collection.json)
