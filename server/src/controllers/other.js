@@ -88,7 +88,7 @@ const services_list = [{
             actions: [
                 {
                     name: "Rain",
-                    description: "activate when it start to rain"
+                    description: "Activate when it start to rain"
                 }
             ],
             reactions: []
@@ -98,11 +98,11 @@ const services_list = [{
             actions: [
                 {
                     name: "Sunrise",
-                    description: "activate at sunrise"
+                    description: "Activate at sunrise"
                 },
                 {
                     name: "Sunset",
-                    description: "activate at sunset"
+                    description: "Activate at sunset"
                 }
             ],
             reactions: []
@@ -112,7 +112,7 @@ const services_list = [{
             actions: [
                 {
                     name: "Holidays",
-                    description: "activate each morning during the french holidays"
+                    description: "Activate each morning during the french holidays"
                 }
             ],
             reactions: []

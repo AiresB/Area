@@ -11,6 +11,8 @@ router.use(bodyParser.urlencoded({ extended: true }))
 /*  Routes  */
 router.post("/login", auth.login);
 
+router.post("/login/mob", auth.login_mob);
+
 router.post("/register", auth.register);
 
 router.put("/update", auth.update);

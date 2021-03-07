@@ -24,6 +24,16 @@ const userUpdate = async function(user) {
     }
 };
 
+const userUpdateMob = async function(user) {
+    try {
+        await client.query(`UPDATE users SET username = '${user.username}', email = '${user.email}', google = '${user.google}' WHERE id = '${user.id}'`);
+        return user;
+    } catch (e) {
+        console.error(e);
+        return e;
+    }
+};
+
 const userFind = async function(type, search) {
     try {
         res = await client.query(`SELECT * FROM "users" WHERE "${type}" = '${search}'`);
@@ -37,4 +47,4 @@ const userFind = async function(type, search) {
     }
 }
 
-module.exports =  { userRegister, userFind, userUpdate}
+module.exports =  { userRegister, userFind, userUpdate, userUpdateMob}
